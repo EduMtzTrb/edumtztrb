@@ -1,0 +1,40 @@
+@import "../styles/tokens/index.css";
+
+/* Minimal base reset — DESIGN_SYSTEM.md §9 (rectilinear, low-decoration baseline) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  /* Default theme direction — DESIGN_SYSTEM.md §8.3 (DS-004, Proposal, pending Universe
+     Design approval): dark spatial field with warm-white content. */
+  background: var(--void-1000);
+  color: var(--paper-50);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

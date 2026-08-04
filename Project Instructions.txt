@@ -1,0 +1,295 @@
+# Personal Platform — Project Instructions
+
+## Project Overview
+
+This project is dedicated to the complete design, development, and long-term evolution of my personal digital platform.
+
+This is **not** simply a portfolio website.
+
+The platform represents my complete professional and creative ecosystem, bringing together every discipline, project, product, and idea under a single coherent identity.
+
+It should be designed as a long-term platform that can continuously grow for many years without requiring fundamental structural redesign.
+
+---
+
+# Primary Goal
+
+Create a timeless, highly curated, immersive digital platform that serves simultaneously as:
+
+- personal website
+- architecture portfolio
+- professional portfolio
+- computational design portfolio
+- AI portfolio
+- research platform
+- laboratory for experiments
+- art gallery
+- product showcase
+- digital storefront
+- future company platform
+
+Every future activity should naturally integrate into the platform.
+
+---
+
+# Core Philosophy
+
+The platform should not communicate:
+
+> "I work in many unrelated fields."
+
+Instead it should communicate:
+
+> "Architecture, computational design, software, AI, research, and art are different expressions of the same design practice."
+
+The platform should present a coherent personal universe rather than a collection of webpages.
+
+---
+
+# Design Vision
+
+The website is conceived as an explorable architectural metaverse.
+
+The visitor should feel like they are entering a carefully designed architectural world rather than browsing a conventional website.
+
+The Home section is not merely a homepage.
+
+It is the entrance to the universe.
+
+Every major category becomes its own architectural district inside this shared world.
+
+---
+
+# Design Principles
+
+The entire platform should follow these principles.
+
+## Timeless
+
+Avoid trendy visual styles.
+
+The platform should remain visually relevant for many years.
+
+---
+
+## Minimal
+
+Every element should have purpose.
+
+Remove unnecessary decoration.
+
+Prioritize clarity and composition.
+
+---
+
+## Architectural
+
+The visual language should originate from architecture.
+
+Examples include:
+
+- line drawings
+- construction geometry
+- grids
+- plans
+- sections
+- axonometric thinking
+- spatial hierarchy
+- proportion
+- rhythm
+
+---
+
+## Atmospheric
+
+The experience should feel calm.
+
+Use space, light, shadow and scale instead of visual noise.
+
+---
+
+## Exploratory
+
+Visitors should feel they are discovering spaces rather than navigating pages.
+
+---
+
+## Cohesive
+
+Every section belongs to the same universe.
+
+Each category develops its own identity without breaking the overall visual language.
+
+---
+
+# The Universe
+
+The platform is organized as an architectural world.
+
+The Home establishes the rules of this world.
+
+Every major category becomes an independent district with its own atmosphere while remaining part of the same universe.
+
+Future districts may be added without redesigning the platform.
+
+---
+
+# Current Major Districts
+
+- Home
+- Work
+- Research
+- Lab
+- Art
+- Products
+- About
+
+Additional districts may be introduced in future versions.
+
+---
+
+# Information Architecture Philosophy
+
+The project should prioritize:
+
+1. Structure before visuals.
+2. Visual language before implementation.
+3. Systems before individual pages.
+4. Reusable components before custom solutions.
+5. Scalability over short-term convenience.
+
+---
+
+# Development Philosophy
+
+Development should proceed in clearly separated phases.
+
+## Phase 1
+
+Platform vision.
+
+## Phase 2
+
+Information architecture.
+
+## Phase 3
+
+Design system.
+
+## Phase 4
+
+Universe design.
+
+## Phase 5
+
+Category homepages.
+
+## Phase 6
+
+Shared components.
+
+## Phase 7
+
+Project content.
+
+## Phase 8
+
+Optimization and deployment.
+
+No later phase should begin until the previous phase has been approved.
+
+---
+
+# Conversation Structure
+
+This ChatGPT Project will be divided into multiple specialized conversations.
+
+Each conversation owns a specific domain.
+
+Everything approved inside that conversation becomes the source of truth for that domain.
+
+Conversations should never silently redefine decisions made elsewhere.
+
+Cross-domain changes must be explicitly identified and communicated.
+
+---
+
+# Decision Status
+
+Every important decision should be classified as one of the following:
+
+- Idea
+- Proposal
+- Approved
+- Implemented
+- Verified
+- Deprecated
+
+Never present assumptions as approved decisions.
+
+---
+
+# Source of Truth
+
+Whenever appropriate, conversations should propose updates to the relevant project documentation.
+
+Examples include:
+
+- PROJECT_STATE.md
+- ROADMAP.md
+- BACKLOG.md
+- DECISIONS.md
+- CHANGELOG.md
+
+and the documentation specific to each project area.
+
+---
+
+# Claude Code Integration
+
+Claude Code is responsible for implementation.
+
+It should not independently redefine project vision or design decisions.
+
+Implementation should always follow the approved project documentation.
+
+Claude Code tasks should be:
+
+- small
+- sequential
+- testable
+- independently verifiable
+
+Large implementation requests should always be decomposed into smaller milestones.
+
+---
+
+# AI Collaboration
+
+ChatGPT serves as:
+
+- Creative Director
+- UX Strategist
+- Information Architect
+- Design Critic
+- Product Strategist
+- System Designer
+- Documentation Author
+
+Claude Code serves as:
+
+- Software Engineer
+- Frontend Developer
+- Refactoring Assistant
+- Testing Assistant
+- Implementation Partner
+
+Both systems should complement each other rather than duplicate responsibilities.
+
+---
+
+# Long-Term Objective
+
+The final platform should become the permanent digital home for my professional and creative work.
+
+It should continue evolving over many years while maintaining a coherent identity, consistent design language, and scalable architecture.

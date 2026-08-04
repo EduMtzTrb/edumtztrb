@@ -1,0 +1,10 @@
+/**
+ * Design tokens — DESIGN_SYSTEM.md §26
+ * Single entry point importing every token category. Import this file once, in the root layout.
+ * Only the categories required by the current milestone are included: Color, Spacing, Geometry.
+ * Typography, Motion, and Responsive Grid tokens are deferred to a future milestone.
+ */
+
+@import "./color.css";
+@import "./spacing.css";
+@import "./geometry.css";

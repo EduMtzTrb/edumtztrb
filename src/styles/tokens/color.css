@@ -1,0 +1,30 @@
+/**
+ * Color tokens — DESIGN_SYSTEM.md §8
+ * Neutral palette values are the document's proposed values (unvalidated for contrast).
+ * Functional and district-accent values are placeholders pending Design System /
+ * Universe Design approval — do not treat as final.
+ */
+
+:root {
+  /* Neutral palette — DESIGN_SYSTEM.md §8.2 */
+  --void-1000: #0b0c0d;
+  --void-900: #111315;
+  --graphite-800: #1b1e21;
+  --graphite-700: #2b2f33;
+  --graphite-500: #666c72;
+  --fog-300: #bfc3c5;
+  --fog-200: #d9dcde;
+  --fog-100: #ecedeb;
+  --paper-50: #f5f4ef;
+  --white-0: #ffffff;
+
+  /* District accent — DESIGN_SYSTEM.md §8.4 (exact accents not yet defined) */
+  --district-accent: var(--graphite-500);
+
+  /* Functional state colors — DESIGN_SYSTEM.md §8.5 (placeholder values) */
+  --state-info: #4c7ea8;
+  --state-success: #4c8b6b;
+  --state-warning: #b8863d;
+  --state-error: #b8483f;
+  --state-focus: #4c8fd1;
+}

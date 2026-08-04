@@ -1,0 +1,18 @@
+/**
+ * Geometry tokens — DESIGN_SYSTEM.md §9
+ * Linework hierarchy and corner radius scale.
+ */
+
+:root {
+  /* Line weights — DESIGN_SYSTEM.md §9.1 */
+  --line-hairline: 1px;
+  --line-standard: 1.5px;
+  --line-emphasis: 2px;
+  --line-structural: 3px;
+
+  /* Corner radius — DESIGN_SYSTEM.md §9.3 */
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-2: 6px;
+  --radius-round: 9999px;
+}
