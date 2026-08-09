@@ -4,44 +4,164 @@
  * held exact approved values (§6.1: Inter, IBM Plex Mono). That is historically
  * accurate for M2.1 at the time — see docs/implementation/M2.1_TOKEN_FOUNDATION.md.
  *
- * Implementation-Readiness Reconciliation (see
- * docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md): the
- * current authority is `DESIGN_SYSTEM.md v1.1`, which retires the universal
- * `font-primary = Inter` model. §7 (Identity Principle 03 — Typographic
- * Voice) and §91 (Typography token model) approve three semantic voice
- * roles instead — `font-display`, `font-reading`, `font-mono-functional`
- * (decision register DS-108/DS-109) — with actual typeface families left
- * implementation-calibrated within each voice (§7.4), not fixed by the
- * Design System. `font-primary` and `font-technical` are therefore retired;
- * the three replacement names are declared below with an intentionally
- * **empty** value, exactly like the M2.1-era unresolved tokens — nothing in
- * this repository currently consumes any of them (typography application is
- * M2.2's job), so nothing depends on the absence of a value.
+ * Implementation-Readiness Reconciliation retired that model and declared
+ * `font-display`/`font-reading`/`font-mono-functional` deliberately empty,
+ * per `DESIGN_SYSTEM.md v1.1` §7/§91 (actual families left implementation-
+ * calibrated) — see docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md.
  *
- * The 11 `type-*` size tokens are unaffected by v1.1 — §91 lists the same
- * 11 role names, still only as an approved range with no fixed point (§7 of
- * v1.0 originally, unchanged in effect), so they remain declared empty
- * exactly as M2.1 left them, for M2.2 to resolve.
+ * M2.2 (this file, current state) resolves that calibration. Full rationale,
+ * candidates considered, and why each family satisfies its approved voice:
+ * docs/implementation/M2.2_TYPOGRAPHY.md.
+ *
+ *   Display Voice  → Space Grotesk (geometric/architectural, moderately
+ *                     distinctive — §7.1)
+ *   Reading Voice  → Source Serif 4 (editorial, measured, highly legible —
+ *                     §7.2)
+ *   Functional Mono → IBM Plex Mono (fixed-width notation only, not a brand
+ *                     voice — §7.3, DS-110)
+ *
+ * Each `--font-*-loaded` variable below is injected by `next/font/google` in
+ * src/app/layout.tsx (build-time self-hosted, no runtime request to Google).
+ * The semantic token composes it with a generic system fallback chain, so
+ * text stays readable even in the (currently theoretical) case the injected
+ * variable is unavailable.
  */
 
 :root {
-  /* Approved type-voice roles — DESIGN_SYSTEM.md v1.1 §7/§91. Semantic roles
-     approved; actual families remain implementation-calibrated (§7.4) — declared,
-     deliberately empty, for M2.2 to resolve. */
-  --font-display: ; /* Display Voice — architectural, authored, moderately distinctive (§7.1) */
-  --font-reading: ; /* Reading Voice — editorial, measured, highly legible (§7.2) */
-  --font-mono-functional: ; /* Functional Mono Voice — fixed-width notation only, not a brand voice (§7.3) */
+  /* Approved type-voice roles — DESIGN_SYSTEM.md v1.1 §7/§91. */
+  --font-display:
+    var(--font-display-loaded), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-reading: var(--font-reading-loaded), Georgia, "Times New Roman", serif;
+  --font-mono-functional:
+    var(--font-mono-loaded), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
-  /* Type roles — DESIGN_SYSTEM_v1.0.md §7 (unaffected by v1.1). Approved ranges, deliberately unresolved to a point. */
-  --type-display: ; /* approved range 72–120px */
-  --type-h1: ; /* approved range 44–72px */
-  --type-h2: ; /* approved range 32–48px */
-  --type-h3: ; /* approved range 22–32px */
-  --type-body-large: ; /* approved range 20–24px */
-  --type-body: ; /* approved range 16–18px */
-  --type-body-small: ; /* approved range 14–16px */
-  --type-caption: ; /* approved range 13–14px */
-  --type-metadata: ; /* approved range 12–13px */
-  --type-annotation: ; /* approved range 12–14px */
-  --type-label: ; /* approved range 13–15px */
+  /* Type roles — DESIGN_SYSTEM_v1.0.md §7 (unaffected by v1.1; ranges carried
+     forward unchanged). Each resolved to a fluid clamp() that hits the
+     approved minimum at a 400px viewport and the approved maximum at a
+     1600px viewport (the platform's own approved `--composition-max`,
+     src/styles/tokens/grid.css) — every role therefore sits at the same
+     relative position in its own range at any given viewport width,
+     preserving hierarchy proportionally instead of jumping at breakpoints.
+     See docs/implementation/M2.2_TYPOGRAPHY.md for the full derivation. */
+  --type-display: clamp(4.5rem, 3.5rem + 4vw, 7.5rem); /* approved range 72–120px */
+  --type-h1: clamp(2.75rem, 2.17rem + 2.33vw, 4.5rem); /* approved range 44–72px */
+  --type-h2: clamp(2rem, 1.67rem + 1.33vw, 3rem); /* approved range 32–48px */
+  --type-h3: clamp(1.375rem, 1.17rem + 0.83vw, 2rem); /* approved range 22–32px */
+  --type-body-large: clamp(1.25rem, 1.17rem + 0.33vw, 1.5rem); /* approved range 20–24px */
+  --type-body: clamp(1rem, 0.96rem + 0.17vw, 1.125rem); /* approved range 16–18px */
+  --type-body-small: clamp(0.875rem, 0.83rem + 0.17vw, 1rem); /* approved range 14–16px */
+  --type-caption: clamp(0.8125rem, 0.79rem + 0.08vw, 0.875rem); /* approved range 13–14px */
+  --type-metadata: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem); /* approved range 12–13px */
+  --type-annotation: clamp(0.75rem, 0.71rem + 0.17vw, 0.875rem); /* approved range 12–14px */
+  --type-label: clamp(0.8125rem, 0.77rem + 0.17vw, 0.9375rem); /* approved range 13–15px */
+}
+
+/**
+ * Type-role classes — apply typography independently of HTML heading level
+ * (DESIGN_SYSTEM.md v1.1 §7; semantic headings remain independent of visual
+ * size, per IMPLEMENTATION_PLAN.md §7). Weight stays within the approved
+ * 400/500/600 model (700 is "exceptional," not assigned to any base role,
+ * and is not loaded — see M2.2_TYPOGRAPHY.md "Font loading"). Case is left
+ * at the browser default (sentence/mixed case) for every role — none of
+ * these eleven roles is "restricted functional/system notation," so none is
+ * forced to uppercase.
+ */
+
+.type-display {
+  font-family: var(--font-display);
+  font-size: var(--type-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.type-h1 {
+  font-family: var(--font-display);
+  font-size: var(--type-h1);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.type-h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-h2);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.type-h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.type-body-large {
+  font-family: var(--font-reading);
+  font-size: var(--type-body-large);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.type-body {
+  font-family: var(--font-reading);
+  font-size: var(--type-body);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.type-body-small {
+  font-family: var(--font-reading);
+  font-size: var(--type-body-small);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.type-caption {
+  font-family: var(--font-reading);
+  font-size: var(--type-caption);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.type-metadata {
+  font-family: var(--font-reading);
+  font-size: var(--type-metadata);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.type-annotation {
+  font-family: var(--font-reading);
+  font-size: var(--type-annotation);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+.type-label {
+  font-family: var(--font-reading);
+  font-size: var(--type-label);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+/**
+ * Functional Mono utility — DESIGN_SYSTEM.md v1.1 §7.3/§91: not tied to one
+ * semantic size role. Apply narrowly, at content level, only where
+ * fixed-width notation materially improves comprehension (IDs, versions,
+ * coordinates, code, measurements) — never as a default metadata aesthetic
+ * (§117 point 2; DS-110: "notation, not a technical-aesthetic identity
+ * device"). Sized via `em` so it inherits whatever role's size it's nested
+ * inside, rather than imposing its own scale.
+ */
+.type-mono {
+  font-family: var(--font-mono-functional);
+  font-size: 1em;
+  font-weight: 400;
 }

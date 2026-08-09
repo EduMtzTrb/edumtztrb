@@ -28,11 +28,33 @@ import { join } from "node:path";
  * replacement names (`font-display`, `font-reading`, `font-mono-functional`).
  * The other 62 v1.0-approved names are unaffected by v1.1 and remain as
  * M2.1 originally classified them.
+ *
+ * Updated again by M2.2 — Typography (see
+ * docs/implementation/M2.2_TYPOGRAPHY.md): `font-display`, `font-reading`,
+ * `font-mono-functional`, and all eleven `type-*` role tokens move from
+ * UNRESOLVED to RESOLVED — M2.2 calibrated real families and fluid clamp()
+ * sizes for each, within the ranges `DESIGN_SYSTEM.md` approves. Nothing
+ * else changes: margin/gutter, `color-disabled`, and `surface-overlay`
+ * remain unresolved, owned by later work packages.
  */
 
 // RESOLVED: DESIGN_SYSTEM_v1.0.md gives an exact single value (or a
 // technical default alias pointing at one), so a real value is required.
 const RESOLVED_TOKENS = [
+  "font-display",
+  "font-reading",
+  "font-mono-functional",
+  "type-display",
+  "type-h1",
+  "type-h2",
+  "type-h3",
+  "type-body-large",
+  "type-body",
+  "type-body-small",
+  "type-caption",
+  "type-metadata",
+  "type-annotation",
+  "type-label",
   "space-0",
   "space-1",
   "space-2",
@@ -82,20 +104,6 @@ const RESOLVED_TOKENS = [
 // with no value at all — must stay declared-but-empty (see file header and
 // each token file's own comments for the per-token reasoning).
 const UNRESOLVED_TOKENS = [
-  "font-display",
-  "font-reading",
-  "font-mono-functional",
-  "type-display",
-  "type-h1",
-  "type-h2",
-  "type-h3",
-  "type-body-large",
-  "type-body",
-  "type-body-small",
-  "type-caption",
-  "type-metadata",
-  "type-annotation",
-  "type-label",
   "margin-compact",
   "margin-medium",
   "margin-wide",

@@ -21,19 +21,12 @@ body {
      surface.css) instead of the Milestone 1 starter's misnamed/misused values. */
   background: var(--surface-field);
   color: var(--color-light-text);
-  /* Still the system stack, not the font-reading token: no typeface is loaded
-     yet (no next/font call exists), and the M2.1-era font-primary token this
-     comment used to name has been retired — DESIGN_SYSTEM.md v1.1 §7/§91 now
-     defines font-display/font-reading/font-mono-functional instead, each
-     still deliberately empty (see src/styles/tokens/typography.css). Loading a
-     real typeface and applying the resolved token is M2.2's job, not M2.1's or
-     this reconciliation's. */
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  /* Reading Voice is the base body text — DESIGN_SYSTEM.md v1.1 §7.2/§91,
+     resolved by M2.2 (see src/styles/tokens/typography.css and
+     docs/implementation/M2.2_TYPOGRAPHY.md). Individual elements set a more
+     specific .type-* class where their role differs from plain body text;
+     this is only the page-wide default. */
+  font-family: var(--font-reading);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
