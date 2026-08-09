@@ -1,0 +1,37 @@
+/**
+ * Surface tokens. M2.1 originally implemented this file against
+ * `DESIGN_SYSTEM_v1.0.md` §11/§60, which named four surface levels (Field,
+ * Surface 1, Surface 2, Overlay) — historically accurate for M2.1 at the
+ * time, see docs/implementation/M2.1_TOKEN_FOUNDATION.md. Only
+ * `surface-field` had strong, near-verbatim textual support (Void 1000 =
+ * "Deep environmental field" / Paper 50 = "Primary light field," directly
+ * matching §11's definition of Field) — kept, and is load-bearing for the
+ * page's actual background (globals.css). `surface-1`, `surface-2`, and
+ * `surface-overlay` rested on weaker, inferred correspondences and were
+ * **not consumed anywhere**, so were left deliberately unresolved rather
+ * than presented as approved.
+ *
+ * Implementation-Readiness Reconciliation (see
+ * docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md): the
+ * current authority, `DESIGN_SYSTEM.md v1.1` §95 (Field and surface token
+ * model), states "generic public `surface-1`/`surface-2` terminology is
+ * superseded... by field/content/overlay/focus terminology" (decision
+ * register DS-146). `surface-1`/`surface-2` are therefore retired outright —
+ * they were never consumed anywhere in this repository. `surface-field` and
+ * `surface-overlay` are both still explicitly named in §95's preferred list
+ * and are unaffected. The suggested replacement names (`surface-content`,
+ * `field-focused-media`) are not added here — v1.1 gives names but not
+ * values, and introducing them is Core visual primitives work (Milestone 2,
+ * later package), not a prerequisite for M2.2 Typography.
+ */
+
+:root {
+  --surface-field-on-dark: var(--color-void-1000);
+  --surface-overlay-on-dark: ;
+
+  --surface-field-on-light: var(--color-paper-50);
+  --surface-overlay-on-light: ;
+
+  --surface-field: var(--surface-field-on-dark);
+  --surface-overlay: ;
+}

@@ -1,6 +1,9 @@
 /**
- * Spacing tokens — DESIGN_SYSTEM.md §6
- * 4px micro-unit / 8px primary rhythm.
+ * Spacing tokens — DESIGN_SYSTEM_v1.0.md §8 (Spacing system) and §60
+ * (Approved token families → Spacing).
+ * 4 px micro-unit / 8 px primary rhythm. Values already matched the
+ * Approved v1.0 scale exactly (§8.1) — only this citation was stale
+ * (M1.1A had flagged it as citing the archived v0.1 proposal's numbering).
  */
 
 :root {

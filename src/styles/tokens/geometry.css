@@ -1,18 +1,53 @@
 /**
- * Geometry tokens — DESIGN_SYSTEM.md §9
- * Linework hierarchy and corner radius scale.
+ * Geometry tokens. M2.1 originally implemented this file against
+ * `DESIGN_SYSTEM_v1.0.md` §12/§60 — historically accurate for M2.1 at the
+ * time, see docs/implementation/M2.1_TOKEN_FOUNDATION.md.
+ *
+ * §12.1's line-weight table gave three exact single values (Hairline 1px,
+ * Emphasis 2px, Structural "3px max") and one genuine two-sided range
+ * (Standard: 1–1.5px). `line-hairline`/`line-emphasis`/`line-structural`
+ * remain valid physical-weight primitives — the current authority,
+ * `DESIGN_SYSTEM.md v1.1` §94 (Line token model), still treats
+ * `line-structural` as one of five approved semantic line roles, and
+ * "implementation may alias physical values where testing shows two roles
+ * can share weight/color."
+ *
+ * `line-standard` is explicitly superseded by v1.1: §94 states "a single
+ * generic `line-standard` semantic role is superseded," replaced by five
+ * named semantic roles (`line-structural`, `line-hierarchy`,
+ * `line-focus-state`, `line-annotation`, `line-relationship-trace` — decision
+ * register DS-114/DS-145). `line-standard` was never consumed anywhere in
+ * this repository, so it is retired outright rather than left declared (see
+ * docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md). The four
+ * new semantic roles beyond `line-structural` are not added here — v1.1
+ * gives their names but not their weights/colors, and introducing them is
+ * Core visual primitives work (Milestone 2, later package), not a
+ * prerequisite for M2.2 Typography.
+ *
+ * Radius values (§12.3) are four exact numbers with no ranges: 0px, 2px,
+ * 6px, and "circular." Naming them required matching §60's four names to
+ * §12.3's four use-cases by description (`radius-control` ↔ "default
+ * **controls**" is a direct textual match; `radius-small` gets the
+ * remaining "selected compact UI" case) — the numbers themselves are exact
+ * and approved, only the name-to-number pairing required interpretation, so
+ * these are recorded as a derived (not blind) mapping, not left unresolved.
+ * `radius-circle` uses 9999px as the standard CSS technique for "circular"
+ * (alongside 50%) — an implementation technique for an unambiguous word,
+ * not a competing design alternative.
+ *
+ * See docs/implementation/M2.1_TOKEN_FOUNDATION.md for the full provenance
+ * table.
  */
 
 :root {
-  /* Line weights — DESIGN_SYSTEM.md §9.1 */
+  /* Line weights — DESIGN_SYSTEM_v1.0.md §12.1. `line-standard` retired — see file header. */
   --line-hairline: 1px;
-  --line-standard: 1.5px;
   --line-emphasis: 2px;
   --line-structural: 3px;
 
-  /* Corner radius — DESIGN_SYSTEM.md §9.3 */
-  --radius-0: 0px;
-  --radius-1: 2px;
-  --radius-2: 6px;
-  --radius-round: 9999px;
+  /* Radius — DESIGN_SYSTEM_v1.0.md §12.3 */
+  --radius-none: 0px;
+  --radius-control: 2px;
+  --radius-small: 6px;
+  --radius-circle: 9999px;
 }

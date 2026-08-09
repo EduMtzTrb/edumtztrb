@@ -1,6 +1,7 @@
 @import "../styles/tokens/index.css";
+@import "../styles/shell.css";
 
-/* Minimal base reset — DESIGN_SYSTEM.md §9 (rectilinear, low-decoration baseline) */
+/* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,
 *::before,
 *::after {
@@ -14,10 +15,19 @@ html {
 }
 
 body {
-  /* Default theme direction — DESIGN_SYSTEM.md §8.3 (DS-004, Proposal, pending Universe
-     Design approval): dark spatial field with warm-white content. */
-  background: var(--void-1000);
-  color: var(--paper-50);
+  /* Default field direction — DESIGN_SYSTEM_v1.0.md §10.5 (Dark Field): deep neutral
+     background with warm-light content. M2.1 correction: now uses the corrected
+     `surface-field`/`color-light-text` tokens (see src/styles/tokens/color.css,
+     surface.css) instead of the Milestone 1 starter's misnamed/misused values. */
+  background: var(--surface-field);
+  color: var(--color-light-text);
+  /* Still the system stack, not the font-reading token: no typeface is loaded
+     yet (no next/font call exists), and the M2.1-era font-primary token this
+     comment used to name has been retired — DESIGN_SYSTEM.md v1.1 §7/§91 now
+     defines font-display/font-reading/font-mono-functional instead, each
+     still deliberately empty (see src/styles/tokens/typography.css). Loading a
+     real typeface and applying the resolved token is M2.2's job, not M2.1's or
+     this reconciliation's. */
   font-family:
     system-ui,
     -apple-system,

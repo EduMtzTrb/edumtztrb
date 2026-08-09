@@ -1,0 +1,41 @@
+/**
+ * Grid tokens — DESIGN_SYSTEM_v1.0.md §9 (Grid system) and §60 (Approved
+ * token families → Grid).
+ *
+ * Column counts (§9.1: 4/8/12, "structural logic remains fixed") and
+ * maximum composition width (§9.2: "approximately 1600 px," a single
+ * approved number) are exact — kept resolved.
+ *
+ * Margin and gutter (§9.1) are each given as a per-breakpoint range (e.g.
+ * compact margin: 16–24 px), with no stated preference within the range.
+ * An earlier pass of this file fixed each at the range's midpoint and
+ * presented that as the token's value — that was this implementation
+ * choosing a point the Design System never specified. Reviewed and
+ * reverted: every margin/gutter token below is declared with an
+ * intentionally **empty** value. Nothing in this repository consumes them
+ * yet (the responsive grid system that would is M2.3's job); the approved
+ * range is preserved in each comment for M2.3 to resolve.
+ *
+ * See docs/implementation/M2.1_TOKEN_FOUNDATION.md for the full provenance
+ * table.
+ */
+
+:root {
+  /* Column counts — DESIGN_SYSTEM_v1.0.md §9.1. Exact approved values (structural logic is fixed). */
+  --grid-compact-4: 4;
+  --grid-medium-8: 8;
+  --grid-wide-12: 12;
+
+  /* Outer margin — §9.1. Approved ranges, deliberately unresolved to a point. */
+  --margin-compact: ; /* approved range 16–24px */
+  --margin-medium: ; /* approved range 32–48px */
+  --margin-wide: ; /* approved range 48–80px */
+
+  /* Gutter — §9.1. Approved ranges, deliberately unresolved to a point. */
+  --gutter-compact: ; /* approved range 12–16px */
+  --gutter-medium: ; /* approved range 20–24px */
+  --gutter-wide: ; /* approved range 24–32px */
+
+  /* Maximum composition width — §9.2. Single approved value, not a range. */
+  --composition-max: 1600px;
+}

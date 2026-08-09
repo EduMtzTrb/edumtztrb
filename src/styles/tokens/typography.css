@@ -1,0 +1,47 @@
+/**
+ * Typography tokens. M2.1 originally implemented this file against
+ * `DESIGN_SYSTEM_v1.0.md` §6/§7/§60, where `font-primary`/`font-technical`
+ * held exact approved values (§6.1: Inter, IBM Plex Mono). That is historically
+ * accurate for M2.1 at the time — see docs/implementation/M2.1_TOKEN_FOUNDATION.md.
+ *
+ * Implementation-Readiness Reconciliation (see
+ * docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md): the
+ * current authority is `DESIGN_SYSTEM.md v1.1`, which retires the universal
+ * `font-primary = Inter` model. §7 (Identity Principle 03 — Typographic
+ * Voice) and §91 (Typography token model) approve three semantic voice
+ * roles instead — `font-display`, `font-reading`, `font-mono-functional`
+ * (decision register DS-108/DS-109) — with actual typeface families left
+ * implementation-calibrated within each voice (§7.4), not fixed by the
+ * Design System. `font-primary` and `font-technical` are therefore retired;
+ * the three replacement names are declared below with an intentionally
+ * **empty** value, exactly like the M2.1-era unresolved tokens — nothing in
+ * this repository currently consumes any of them (typography application is
+ * M2.2's job), so nothing depends on the absence of a value.
+ *
+ * The 11 `type-*` size tokens are unaffected by v1.1 — §91 lists the same
+ * 11 role names, still only as an approved range with no fixed point (§7 of
+ * v1.0 originally, unchanged in effect), so they remain declared empty
+ * exactly as M2.1 left them, for M2.2 to resolve.
+ */
+
+:root {
+  /* Approved type-voice roles — DESIGN_SYSTEM.md v1.1 §7/§91. Semantic roles
+     approved; actual families remain implementation-calibrated (§7.4) — declared,
+     deliberately empty, for M2.2 to resolve. */
+  --font-display: ; /* Display Voice — architectural, authored, moderately distinctive (§7.1) */
+  --font-reading: ; /* Reading Voice — editorial, measured, highly legible (§7.2) */
+  --font-mono-functional: ; /* Functional Mono Voice — fixed-width notation only, not a brand voice (§7.3) */
+
+  /* Type roles — DESIGN_SYSTEM_v1.0.md §7 (unaffected by v1.1). Approved ranges, deliberately unresolved to a point. */
+  --type-display: ; /* approved range 72–120px */
+  --type-h1: ; /* approved range 44–72px */
+  --type-h2: ; /* approved range 32–48px */
+  --type-h3: ; /* approved range 22–32px */
+  --type-body-large: ; /* approved range 20–24px */
+  --type-body: ; /* approved range 16–18px */
+  --type-body-small: ; /* approved range 14–16px */
+  --type-caption: ; /* approved range 13–14px */
+  --type-metadata: ; /* approved range 12–13px */
+  --type-annotation: ; /* approved range 12–14px */
+  --type-label: ; /* approved range 13–15px */
+}

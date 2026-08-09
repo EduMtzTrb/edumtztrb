@@ -1,10 +1,14 @@
 /**
- * Design tokens — DESIGN_SYSTEM.md §26
+ * Design tokens — DESIGN_SYSTEM_v1.0.md §60 (Approved token families)
  * Single entry point importing every token category. Import this file once, in the root layout.
- * Only the categories required by the current milestone are included: Color, Spacing, Geometry.
- * Typography, Motion, and Responsive Grid tokens are deferred to a future milestone.
+ * Added by M2.1 (Token foundation): Typography, Grid, and Surface. Color and Geometry (radius)
+ * were corrected against the Approved v1.0 palette/registry in the same task — see
+ * docs/implementation/M2.1_TOKEN_FOUNDATION.md. Motion tokens remain deferred to Milestone 4.
  */
 
 @import "./color.css";
+@import "./surface.css";
+@import "./typography.css";
 @import "./spacing.css";
+@import "./grid.css";
 @import "./geometry.css";

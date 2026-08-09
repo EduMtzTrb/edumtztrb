@@ -1,30 +1,84 @@
 /**
- * Color tokens — DESIGN_SYSTEM.md §8
- * Neutral palette values are the document's proposed values (unvalidated for contrast).
- * Functional and district-accent values are placeholders pending Design System /
- * Universe Design approval — do not treat as final.
+ * Color tokens — DESIGN_SYSTEM_v1.0.md §10 (Color architecture) and §60
+ * (Approved token families → Neutral color / Semantic color).
+ *
+ * M2.1 correction (see docs/implementation/M2.1_TOKEN_FOUNDATION.md for the
+ * full provenance table): every value below that IS populated is either an
+ * exact hex given by §10.2–§10.4, or a technical default alias pointing at
+ * one of those exact hexes — never a guessed/interpreted color.
+ *
+ * `color-disabled` and `color-district-accent` were approved token *names*
+ * under `DESIGN_SYSTEM_v1.0.md` §60 with **no color value approved anywhere
+ * in v1.0**. An earlier pass of this file aliased them to existing neutral
+ * tones (Graphite 500 / Ink Secondary) — that was this implementation
+ * choosing a value the Design System never actually specified, not a
+ * correction of the Milestone 1 starter. Reviewed and reverted: both were
+ * declared with an intentionally **empty** value. That remains accurate for
+ * `color-disabled` — still an approved name with no value, per v1.1's §96
+ * color token model, which lists "disabled" among its semantic color roles.
+ *
+ * `color-district-accent` is different: the current authority,
+ * `DESIGN_SYSTEM.md v1.1` §96.1, explicitly states "`color-district-accent`
+ * is removed. District-specific branding palettes contradict the approved
+ * identity system" (decision register DS-144; see also §117 point 4 —
+ * "district accent palettes are removed... districts differentiate through
+ * resolution, density, latency, layering, evidence, atmosphere, and spatial
+ * authority — not branding colors"). Unlike `color-disabled`, this is not a
+ * still-unresolved name — it is retired outright (see
+ * docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md). It was
+ * never consumed anywhere in this repository. v1.1 does not redirect it to
+ * Signal — Signal is deliberately a separate, narrow, rare semantic role
+ * (§96.2; decision register DS-111–DS-113) and no Signal token exists in
+ * this repository yet.
  */
 
 :root {
-  /* Neutral palette — DESIGN_SYSTEM.md §8.2 */
-  --void-1000: #0b0c0d;
-  --void-900: #111315;
-  --graphite-800: #1b1e21;
-  --graphite-700: #2b2f33;
-  --graphite-500: #666c72;
-  --fog-300: #bfc3c5;
-  --fog-200: #d9dcde;
-  --fog-100: #ecedeb;
-  --paper-50: #f5f4ef;
-  --white-0: #ffffff;
+  /* Neutral palette — DESIGN_SYSTEM_v1.0.md §10.2. Exact approved values. */
+  --color-void-1000: #0b0d0e;
+  --color-void-900: #121516;
+  --color-graphite-800: #1d2123;
+  --color-graphite-700: #303638;
+  --color-graphite-500: #6b7275;
+  --color-mist-300: #b9bebd;
+  --color-mist-200: #d7dad7;
+  --color-paper-100: #ecebe6;
+  --color-paper-50: #f5f3ed;
+  --color-white: #ffffff;
+  --color-ink: #151719;
+  --color-ink-secondary: #5c6265;
+  --color-light-text: #f4f2ec;
 
-  /* District accent — DESIGN_SYSTEM.md §8.4 (exact accents not yet defined) */
-  --district-accent: var(--graphite-500);
+  /* Focus — DESIGN_SYSTEM_v1.0.md §10.3. Exact approved values (both fields);
+     the unsuffixed default aliases the dark-field value because that is this
+     repository's actual current rendering (`html { color-scheme: dark }`,
+     established at Milestone 1) — a technical continuity fact, not a Design
+     System preference for dark over light. Load-bearing for the shared
+     shell's already-tested focus-visible outline (M1.4/M1.6). */
+  --color-focus-on-light: #005fcc;
+  --color-focus-on-dark: #75a7ff;
+  --color-focus: var(--color-focus-on-dark);
 
-  /* Functional state colors — DESIGN_SYSTEM.md §8.5 (placeholder values) */
-  --state-info: #4c7ea8;
-  --state-success: #4c8b6b;
-  --state-warning: #b8863d;
-  --state-error: #b8483f;
-  --state-focus: #4c8fd1;
+  /* Semantic state colors — DESIGN_SYSTEM_v1.0.md §10.4. Exact approved
+     values (both fields); unsuffixed defaults follow the same dark-field
+     continuity rationale as `color-focus` above. */
+  --color-info-on-light: #005fcc;
+  --color-success-on-light: #2e7d32;
+  --color-warning-on-light: #8a5a00;
+  --color-error-on-light: #b3261e;
+  --color-info-on-dark: #75a7ff;
+  --color-success-on-dark: #6fcf82;
+  --color-warning-on-dark: #f2c14e;
+  --color-error-on-dark: #ff8a80;
+  --color-info: var(--color-info-on-dark);
+  --color-success: var(--color-success-on-dark);
+  --color-warning: var(--color-warning-on-dark);
+  --color-error: var(--color-error-on-dark);
+
+  /* Disabled — DESIGN_SYSTEM_v1.0.md §60 approves the name; no value is
+     given anywhere in v1.0 or v1.1. Deliberately unresolved — see file header. */
+  --color-disabled-on-light: ;
+  --color-disabled-on-dark: ;
+  --color-disabled: ;
+
+  /* color-district-accent retired — DESIGN_SYSTEM.md v1.1 §96.1 removes it. See file header. */
 }
