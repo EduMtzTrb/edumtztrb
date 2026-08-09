@@ -1,777 +1,887 @@
 # Personal Platform — Animation System
 
 **Document:** `ANIMATION_SYSTEM.md`  
+**Version:** 1.0  
+**Status:** Approved  
 **Domain owner:** Motion & Animation  
-**Status:** Proposal  
-**Depends on:** `PLATFORM_VISION.md`, `INFORMATION_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, and the individual universe documents  
-**Implementation owner:** Claude Code after approval
+**Implementation owner:** Claude Code after Platform Specification and implementation planning  
+**Sequence position:** Universe Specifications → Cross-Universe Requirements → Design System → **Animation System** → Platform Specification → implementation planning  
 
 ---
 
 # 1. Purpose
 
-The animation system defines how the Personal Platform moves.
+The Animation System defines how the Personal Platform changes over time.
 
-Motion is not applied as decoration, spectacle, or interface polish added after the design. It is part of the platform’s architectural language. It communicates spatial relationships, hierarchy, orientation, material behavior, and transitions between districts.
+The Design System defines form. The Animation System defines change.
 
-The visitor should not feel that pages are being replaced. They should feel that they are moving through one continuous designed environment.
+Motion is not an effects layer added after visual design. It is the temporal expression of the same architectural system that governs proportion, hierarchy, grids, surfaces, frames, lines, planes, voids, and district identity.
 
-The system must remain:
+The platform is conceived as one architectural world. Motion must therefore help the visitor understand how places, records, views, states, and layers relate to one another.
 
-- calm
-- legible
-- restrained
-- spatially coherent
-- responsive to user intent
-- accessible
-- scalable across future districts
+The governing question is:
 
-Every animation must answer at least one functional or narrative question:
+> **How does this architectural world move without becoming theatrical, distracting, or inconsistent?**
 
-1. Where did the visitor come from?
-2. Where are they going?
-3. What changed?
-4. What can be interacted with?
-5. What is foreground and what is background?
-6. How are two spaces related?
+The answer is a restrained motion grammar in which movement communicates structure, consequence, direction, focus, continuity, and state.
 
-If an animation answers none of these questions, it should not exist.
+Motion must remain:
 
----
+- architectural rather than cinematic
+- quiet rather than spectacular
+- legible rather than ornamental
+- continuous rather than disorienting
+- responsive rather than scripted
+- purposeful rather than ubiquitous
+- accessible rather than compulsory
+- scalable rather than page-specific
 
-# 2. Core Motion Concept
+Every motion must communicate at least one of the following:
 
-## 2.1 The platform as a continuous spatial model
+1. a threshold has been crossed
+2. a relationship exists between two places or states
+3. attention should move toward or away from something
+4. information has changed
+5. something has been assembled, compared, traced, or confirmed
+6. the visitor is returning to a known context
+7. a process is continuing or has completed
 
-The platform is treated as a single architectural world rather than a collection of disconnected screens.
-
-Navigation is therefore expressed through spatial transformations such as:
-
-- entering
-- approaching
-- crossing
-- revealing
-- opening
-- withdrawing
-- ascending
-- descending
-- shifting viewpoint
-- moving between foreground and depth
-
-The interface should avoid transitions that feel like generic app behavior, including arbitrary bouncing, spinning, card flipping, elastic overshoot, or exaggerated zooming.
-
-## 2.2 Motion as architectural narration
-
-Motion should behave like an architectural sequence:
-
-**threshold → passage → arrival → orientation → inhabitation**
-
-A visitor first recognizes that a transition has begun, moves through a controlled intermediate state, arrives in the new environment, and receives enough visual stability to understand it.
-
-## 2.3 Controlled continuity
-
-Continuity does not require every page to animate heavily. In many situations, the strongest architectural choice is a nearly static transition with one precise spatial cue.
-
-The platform should alternate between:
-
-- **movement**, which communicates change
-- **stillness**, which establishes presence
-
-Stillness is a deliberate component of the motion language.
+If movement communicates none of these things, it should not exist.
 
 ---
 
-# 3. Motion Principles
+# 2. Core Principle
 
-## 3.1 Spatial before decorative
+The Design System establishes:
 
-Prefer movement that explains spatial structure over movement that merely attracts attention.
+> **Same system. Different emphasis.**
 
-**Use:** a navigation line extending toward a selected district.  
-**Avoid:** an icon shaking to appear interactive.
+The Animation System follows the same principle.
 
-## 3.2 One dominant movement at a time
+Every district uses one shared motion grammar, but each district emphasizes different roles, tempos, densities, and degrees of spatial consequence.
 
-Each interaction should have one clear motion hierarchy.
+The districts do not receive unrelated animation identities.
 
-A transition may include several coordinated properties, but the visitor should perceive one primary action: a reveal, translation, focus shift, or change of depth.
+They remain parts of one world.
 
-## 3.3 Motion follows hierarchy
+Home carries the strongest sense of passage and orientation. Work emphasizes alignment, evidence, and structural resolution. Research moves more slowly and editorially. Lab emphasizes comparison, trace, assembly, and changing states. Art relies primarily on recession, focus, and stillness. Products moves directly and efficiently toward evaluation and confirmation. About uses gentle sequence, continuity, and return.
 
-More important structural changes receive greater duration and spatial consequence.
-
-- micro-feedback is immediate
-- component changes are brief
-- page changes are measured
-- district transitions are the most spatially developed
-
-## 3.4 Motion preserves orientation
-
-Elements should move from plausible origins toward plausible destinations.
-
-Persistent interface elements should remain stable whenever possible. Shared objects may transform between states rather than disappear and reappear without explanation.
-
-## 3.5 Restraint over performance
-
-The platform should never force the visitor to wait for animation to finish before accessing content.
-
-Animation should support navigation speed, not reduce it.
-
-## 3.6 User input has priority
-
-Scrolling, pointer movement, keyboard input, route changes, and cancellation must override nonessential animation.
-
-The system should not fight the visitor’s momentum or trap them inside a scripted sequence.
-
-## 3.7 Repetition creates identity
-
-A small vocabulary of repeated motion patterns should establish recognition across the platform.
-
-The system should not invent a new transition for every page.
-
-## 3.8 Variation occurs within shared rules
-
-Each district may develop its own tempo, environmental behavior, and spatial emphasis, but all districts must use the same foundational motion grammar.
+District difference comes from emphasis, not from inventing new physics.
 
 ---
 
-# 4. Motion Vocabulary
+# 3. The Platform as a Temporal Architecture
 
-The platform should use a limited set of architectural motion verbs.
+The visitor should not experience the platform as a series of unrelated screens replacing one another.
 
-## 4.1 Reveal
+Navigation should imply movement through one continuous environment.
 
-Content becomes visible through masking, clipping, opacity, line extension, or controlled exposure.
+This does not require literal 3D simulation.
 
-Use for:
+The architectural world may be expressed through:
 
-- section introductions
-- headings
-- images entering the viewport
-- diagrams
-- navigation labels
+- alignment
+- translation
+- masking
+- cropping
+- scale
+- depth
+- focus
+- contrast
+- recession
+- persistent geometry
+- shared origins and destinations
+- continuity of position
+- controlled changes in environmental tone
 
-Reveals should feel like uncovering a drawing, opening a view, or passing a threshold.
+The platform should alternate deliberately between movement and stillness.
 
-## 4.2 Translate
+Movement explains change.
 
-An object moves along a clear horizontal, vertical, or depth axis.
+Stillness establishes presence.
 
-Use for:
+A page that never moves feels disconnected from the spatial premise. A page that never stops moving destroys architectural calm.
 
-- page transitions
-- panels
-- navigation layers
-- spatial sequences
-- related content
-
-Translation must imply a relationship. Avoid movement in arbitrary directions.
-
-## 4.3 Focus
-
-The visual field reorganizes around an element through scale, contrast, blur, depth, or surrounding reduction.
-
-Use for:
-
-- selected projects
-- active districts
-- image inspection
-- modal states
-- search or command interfaces
-
-Focus should not rely solely on zoom. It can also be achieved by quieting the surrounding environment.
-
-## 4.4 Extend
-
-Lines, grids, paths, and boundaries grow from an origin.
-
-Use for:
-
-- navigation paths
-- diagram construction
-- active states
-- section boundaries
-- progress indication
-
-Line animation should resemble drafting or spatial measurement, not handwriting unless a specific district explicitly requires it.
-
-## 4.5 Assemble
-
-Related fragments enter in a controlled sequence and form a coherent composition.
-
-Use for:
-
-- first arrival in a district
-- complex diagrams
-- project index layouts
-- layered research structures
-
-Assembly should be rare and reserved for meaningful structural introductions.
-
-## 4.6 Dissolve
-
-An element loses presence through opacity, contrast, or atmospheric diffusion.
-
-Use for:
-
-- background transitions
-- retiring secondary information
-- environmental layers
-- shifts between distant spatial states
-
-Avoid using simple crossfades as the default for all navigation.
-
-## 4.7 Settle
-
-Movement concludes through controlled deceleration without bounce.
-
-Use for nearly all transitions. The final state should feel positioned, aligned, and stable.
+The system therefore treats stillness as an active motion state.
 
 ---
 
-# 5. Spatial Axes
+# 4. Motion Hierarchy
 
-Movement should follow a consistent spatial logic.
+Motion consequence must correspond to architectural consequence.
 
-## 5.1 Horizontal axis — lateral movement through the universe
+The hierarchy is:
 
-Horizontal motion represents movement between parallel areas or neighboring spaces.
+1. **Feedback** — confirms local input
+2. **State Change** — communicates a component or data change
+3. **Focus** — reorganizes attention within the current context
+4. **Sequence** — progresses through related material
+5. **Record Passage** — moves between overview and a record, or between related records
+6. **District Passage** — moves between major areas of the platform
+7. **World Threshold** — establishes entry into or return from the platform’s primary spatial system
 
-Typical uses:
+Higher levels may use more duration, larger spatial displacement, and more coordinated elements.
 
-- moving between sibling pages
-- browsing projects within a district
-- moving between adjacent districts in an index
-- revealing secondary navigation
+Lower levels must remain faster and more localized.
 
-## 5.2 Vertical axis — progression through a document or section
+A button press must never carry the same spatial weight as entering Research from Home.
 
-Vertical motion represents sequence, descent into detail, or return toward overview.
+A modal must never feel like entering a new district.
 
-Typical uses:
-
-- scrolling through a page
-- entering project detail from an index
-- opening deeper information
-- returning to a parent level
-
-Vertical direction must remain consistent within each navigation relationship.
-
-## 5.3 Depth axis — hierarchy and spatial entry
-
-Depth is represented through restrained scale, parallax, focus, contrast, and layer separation.
-
-Typical uses:
-
-- entering a district from Home
-- opening a project
-- focusing on media
-- moving between overview and detail
-
-Depth effects should remain subtle enough to avoid simulation sickness and visual instability.
-
-## 5.4 Fixed plane — orientation layer
-
-Persistent navigation, wayfinding, accessibility controls, and system status belong to a stable reference plane.
-
-These elements should move minimally so that the visitor always retains an orientation anchor.
+A district passage must never be reduced to the same visual event as changing a tab.
 
 ---
 
-# 6. Timing System
+# 5. Approved Motion-Role Vocabulary
 
-## 6.1 Timing categories
+The following vocabulary is the semantic foundation of the Animation System.
 
-| Category | Suggested duration | Purpose |
-|---|---:|---|
-| Immediate feedback | 80–140 ms | Confirm input, press, toggle, selection |
-| Micro transition | 140–220 ms | Hover, focus, small component change |
-| Component transition | 220–360 ms | Panel, card, filter, local layout change |
-| Page transition | 360–600 ms | Movement within a district |
-| District transition | 600–900 ms | Movement between major architectural environments |
-| Environmental cycle | 6–30 s | Ambient motion that should not demand attention |
+Implementation should use these roles conceptually and, where useful, in naming motion tokens, variants, component contracts, and tests.
 
-These ranges are system constraints, not fixed values. Exact timing should be tuned after prototype testing.
+## 5.1 Threshold
 
-## 6.2 Duration principles
+**Meaning:** crossing from one architectural condition into another.
 
-- Travel distance and visual consequence should influence duration.
-- Incoming content may settle slightly after outgoing content begins to withdraw.
-- Repeated actions should become faster than first-entry sequences.
-- No standard interaction should require more than 900 ms before content becomes usable.
-- Ambient loops must not create obvious repetitive beats.
+**Allowed to communicate:**
 
-## 6.3 Easing language
+- Home → district entry
+- district → Home exit
+- transition into a strongly different mode or environment
+- crossing a boundary between overview and immersive state when the spatial consequence is substantial
 
-The primary easing character should be controlled deceleration.
+**May use:** masking, boundary crossing, alignment, environmental change, restrained depth, recession of the origin.
 
-### Standard entry
+**Must not communicate:** minor UI changes, hover, local filtering, or decorative entrance effects.
 
-Fast initial response followed by a smooth, precise arrival.
+Threshold is rare and carries high spatial weight.
 
-Use for:
+## 5.2 Passage
 
-- content reveals
-- page arrival
-- hover emphasis
-- navigation indicators
+**Meaning:** movement between related architectural locations.
 
-### Standard exit
+**Allowed to communicate:**
 
-A slightly faster curve than entry so that the interface remains responsive.
+- page-to-page movement
+- sibling records
+- district-to-district movement after orientation has been established
+- travel between index and detail where the relation is spatially legible
 
-Use for:
+**May use:** translation, shared geometry, controlled depth, directional cropping, persistent anchors.
 
-- closing panels
-- leaving pages
-- dismissing information
+Passage expresses distance without becoming cinematic travel.
 
-### Continuous spatial movement
+## 5.3 Approach
 
-A balanced curve with no sudden acceleration.
+**Meaning:** movement toward something before full commitment or entry.
 
-Use for:
+**Allowed to communicate:**
 
-- camera translations
-- shared-element transformations
-- long line movement
+- hover or focus preview
+- selected destination before activation
+- route emphasis
+- preparatory enlargement or framing
 
-### Prohibited default behaviors
+**May use:** small translation, shallow scale, contrast change, line extension, surrounding recession.
 
-- bounce
-- spring overshoot
-- rubber-band effects
-- playful wobble
-- abrupt linear movement
-- exaggerated acceleration
+Approach must never delay activation.
 
-Spring physics may only be considered for a specific functional simulation inside the Lab district and should not become part of global navigation.
+## 5.4 Focus
+
+**Meaning:** concentrating attention within the current context.
+
+**Allowed to communicate:**
+
+- enlarged artwork
+- Work evidence inspection
+- Research artifact reading
+- Lab result inspection
+- Product evaluation
+- About long-form reading or archival detail
+
+**May use:** surrounding recession, frame expansion, stable shared origin, controlled scale, contrast, depth, masking.
+
+Focus should usually make the environment quieter rather than make the selected item more theatrical.
+
+## 5.5 Sequence
+
+**Meaning:** ordered progression through related information.
+
+**Allowed to communicate:**
+
+- chapter progression
+- timeline movement
+- gallery order
+- stepped explanation
+- process stages
+
+**May use:** directional translation, measured reveal, persistent progress markers, sticky anchors.
+
+Sequence must preserve user control and must not become forced storytelling.
+
+## 5.6 Comparison
+
+**Meaning:** placing two or more states, versions, artifacts, or options into explicit relation.
+
+**Allowed to communicate:**
+
+- before/after
+- version comparison
+- Lab branches
+- product variants
+- research evidence comparison
+- Work option or phase comparison where relevant
+
+**May use:** synchronized alignment, split views, matched transitions, shared scale, selective highlighting.
+
+Comparison must stabilize common reference points. It must not use movement that makes visual comparison harder.
+
+## 5.7 Assembly
+
+**Meaning:** parts becoming legible as a system or composition.
+
+**Allowed to communicate:**
+
+- first district orientation
+- drawing or diagram construction
+- layered evidence
+- grouped datasets or components
+- Lab systems and prototypes
+
+**May use:** short stagger, line extension, progressive layer appearance, aligned insertion.
+
+Assembly is not a generic page-load animation and should be used sparingly.
+
+## 5.8 Trace
+
+**Meaning:** revealing a relationship, history, route, dependency, or lineage.
+
+**Allowed to communicate:**
+
+- Research references and conceptual paths
+- Lab iteration lineage
+- transition from Research question to Lab experiment
+- progression from Lab to Work or Products
+- provenance between canonical records and commercial objects
+
+**May use:** line progression, node emphasis, path illumination, sequential highlighting, persistent relational geometry.
+
+Trace must clarify evidence. It must not mimic decorative network animation.
+
+## 5.9 Recession
+
+**Meaning:** deliberately reducing the presence of non-primary material.
+
+**Allowed to communicate:**
+
+- focus
+- overlay entry
+- artwork concentration
+- foreground/background hierarchy
+- departure from a context
+
+**May use:** opacity reduction, contrast reduction, blur only when safe and performant, scale reduction, masking, tonal quieting.
+
+Recession is one of the system’s primary alternatives to zoom.
+
+## 5.10 Return
+
+**Meaning:** restoring a known previous context.
+
+**Allowed to communicate:**
+
+- closing focus
+- returning from record to index
+- browser Back behavior
+- district → Home
+- closing overlays
+
+**May use:** shared origin reversal, contextual restoration, scroll or index restoration, faster reciprocal movement.
+
+Return must preserve spatial memory whenever technically possible.
+
+## 5.11 Confirmation
+
+**Meaning:** making a completed action conclusive.
+
+**Allowed to communicate:**
+
+- purchase action accepted
+- form submitted
+- preference saved
+- copy/download state completed
+- operation succeeded
+
+**May use:** alignment, line closure, stable state resolution, concise contrast or boundary change.
+
+Confirmation must be quiet and immediate.
+
+## 5.12 State Change
+
+**Meaning:** showing that a local interface or data state has changed without implying travel.
+
+**Allowed to communicate:**
+
+- filters
+- tabs
+- toggles
+- sorting
+- loading completion
+- selected/unselected states
+- error and warning resolution
+
+**May use:** localized reveal, replacement, boundary change, opacity, concise translation.
+
+State Change must never masquerade as Passage or Threshold.
 
 ---
 
-# 7. Page Transitions
+# 6. Supporting Motion Operations
 
-## 7.1 Transition hierarchy
+The motion roles describe **why** something moves. The following operations describe **how** it may move.
 
-The system distinguishes four navigation scales:
+Approved operations are:
 
-1. state change within a component
-2. movement within a page
-3. movement between pages in one district
-4. movement between districts
+- **Reveal** — controlled exposure of content
+- **Translate** — movement along a meaningful axis
+- **Extend** — growth of a line, path, frame, or boundary
+- **Scale** — restrained hierarchy change
+- **Crop** — change of visible frame or aperture
+- **Dissolve** — controlled loss of visual presence
+- **Align** — reorganization around a common geometric reference
+- **Settle** — precise deceleration into a stable final state
 
-Each scale should have a different spatial consequence.
+Operations must never replace semantic roles.
 
-## 7.2 Same-page transitions
+For example, a scale animation is not inherently Focus. It becomes Focus only when it reorganizes attention toward selected content.
 
-Examples include filters, tabs, expandable information, and media changes.
+---
 
-Behavior:
+# 7. Spatial Axes and Directional Logic
 
-- preserve the surrounding composition
-- animate only the changed region
-- use short durations
-- avoid resetting scroll position
-- maintain keyboard focus
+Movement must follow consistent spatial reasoning.
 
-## 7.3 Page-to-page transitions within a district
+## 7.1 Horizontal axis
 
-Pages inside the same district should feel architecturally related.
+Horizontal motion usually represents lateral relation.
 
-Recommended structure:
+Use for:
 
-1. the selected origin remains visible briefly
-2. the surrounding layout withdraws or shifts
-3. shared district geometry persists
-4. new content enters from the corresponding spatial direction
-5. navigation settles into the new state
+- sibling records
+- parallel views
+- gallery sequence
+- side-by-side comparison
+- adjacent sections or categories where the information architecture establishes equivalence
 
-The transition should retain district identity through persistent background, grid, line, tonal, or navigational elements.
+## 7.2 Vertical axis
 
-## 7.4 District transitions
+Vertical motion usually represents progression, document depth, or hierarchy.
 
-Moving between Home, Work, Research, Lab, Art, Products, and About is a major spatial event.
+Use for:
 
-Recommended structure:
+- long-form reading
+- chapter progression
+- index → deeper detail when represented as descent
+- returning toward overview
+- chronological progression when vertically composed
 
-1. **Selection:** the chosen district receives focus.
-2. **Alignment:** surrounding elements reorganize around the route.
-3. **Threshold:** the current environment reduces in contrast or passes behind a boundary.
-4. **Passage:** a short spatial translation communicates distance or change of atmosphere.
-5. **Arrival:** the new district’s defining geometry or environmental behavior appears first.
-6. **Orientation:** title, district navigation, and first actionable content become stable.
+## 7.3 Depth axis
 
-The passage must remain concise. It should imply a larger world without becoming a cinematic loading sequence.
+Depth represents hierarchy, entry, concentration, and withdrawal.
 
-## 7.5 Back navigation
+Use for:
 
-Back navigation should reverse spatial logic rather than replay every animation literally.
+- Home → district
+- index → record
+- focus states
+- environmental foreground/background separation
 
-The visitor should perceive a return toward the previous level:
+Depth must remain shallow and restrained.
 
-- detail returns to index
-- district returns to Home
-- focused media returns to composition
+Large zooms, rapid perspective changes, and camera rotation are not part of the global language.
 
-Back transitions should generally be faster than first entry.
+## 7.4 Fixed orientation plane
 
-## 7.6 Direct entry and deep links
+Persistent navigation, accessibility controls, system status, and selected-location indicators form an orientation plane.
 
-Visitors may arrive directly on any page.
+They should move minimally.
 
-Every page must therefore support a reduced arrival sequence that establishes:
+Their relative stability gives the visitor a reference against which spatial movement can be understood.
+
+---
+
+# 8. Spatial Memory
+
+Spatial memory is an approved core requirement.
+
+The platform should remember enough of the visitor’s previous context that navigation feels like movement through a persistent world rather than replacement of one page by another.
+
+Where technically possible, navigation state should preserve:
+
+- previous route
+- parent district
+- selected record
+- position within an index
+- scroll position when returning
+- active filter or lens
+- active comparison state
+- gallery position
+- relevant expanded/collapsed state
+- originating geometry for shared transitions
+
+## 8.1 Return-state principle
+
+Returning should restore the visitor to the context they left rather than placing them at an arbitrary default state.
+
+Examples:
+
+- closing a Work project returns to its previous position in the Work index
+- closing Art focus restores the gallery composition and previous scroll position
+- leaving a Research artifact returns to the relevant argument, cluster, or index position
+- leaving a Lab comparison restores the active branch or experiment context
+- returning from Products restores filters or evaluation context when appropriate
+
+## 8.2 Directional continuity
+
+The direction of entry establishes an expectation for return.
+
+Return should normally use reciprocal spatial logic, but it should be shorter and more efficient than first entry.
+
+## 8.3 Deep links
+
+Spatial memory must not become a dependency.
+
+Any route may be entered directly.
+
+A direct entry must create an abbreviated orientation state containing:
 
 - district identity
-- current location
-- available navigation
-- initial content hierarchy
+- current record or section
+- parent navigation
+- primary next actions
 
-The system must not assume that every visitor entered through Home.
-
-## 7.7 Loading and transition failure
-
-Content must not remain hidden while waiting for a nonessential animation or heavy asset.
-
-When assets load slowly:
-
-- structural layout appears first
-- placeholders preserve dimensions
-- animation degrades to a simple reveal
-- navigation remains usable
+The platform must not pretend the visitor came from a context that did not exist in the current session.
 
 ---
 
-# 8. Camera Movement
+# 9. Transition Categories
 
-## 8.1 Meaning of the camera
+The following transition categories are approved.
 
-The “camera” is the visitor’s implied viewpoint within the architectural world. It does not require literal three-dimensional rendering.
+## 9.1 Home → district
 
-Camera movement may be constructed through:
+**Primary roles:** Threshold + Passage + Assembly.
+
+This is the strongest recurring architectural transition.
+
+Sequence:
+
+1. selected district receives Approach
+2. Home geometry aligns toward the destination
+3. surrounding routes recede
+4. a concise Threshold is crossed
+5. district-defining geometry/environment arrives before secondary content
+6. title, navigation, and first actionable content settle
+
+The transition must imply that Home and the district occupy the same world.
+
+It must not become a cinematic fly-through or loading film.
+
+## 9.2 District → Home
+
+**Primary roles:** Return + Threshold.
+
+The district withdraws and Home restores orientation.
+
+The return should be faster than first entry and should preserve the visitor’s prior Home state where appropriate.
+
+## 9.3 District → district
+
+**Primary roles:** Passage + Threshold only when environmental difference requires it.
+
+A visitor should not always be forced through Home.
+
+Cross-district movement should acknowledge the relationship between districts while retaining global orientation.
+
+## 9.4 Section → section
+
+**Primary role:** Sequence or Passage.
+
+Use native scrolling, anchors, or concise transitions according to information hierarchy.
+
+Sections inside a document should not feel like separate worlds.
+
+## 9.5 Index → record
+
+**Primary roles:** Approach + Focus or Passage.
+
+Where possible, the selected record acts as the spatial origin of the detail view.
+
+The transition preserves:
+
+- record identity
+- district identity
+- origin position
+- path for Return
+
+## 9.6 Record → record
+
+**Primary roles:** Sequence or Passage.
+
+Sibling records use clear directional logic. The user must remain aware that they are still inside the same district and record type.
+
+## 9.7 Overlay/modal entry
+
+**Primary roles:** Focus + Recession.
+
+The underlying context remains spatially present but becomes secondary.
+
+The overlay must never imply a new district.
+
+## 9.8 Focus state
+
+**Primary roles:** Focus + Recession.
+
+The selected material becomes easier to inspect while surrounding interface retreats.
+
+## 9.9 Return state
+
+**Primary role:** Return.
+
+Context is restored with minimal delay and, where possible, with reciprocal geometry.
+
+---
+
+# 10. District Entry and Exit Behavior
+
+All districts share the same entry structure but vary emphasis.
+
+## 10.1 First entry
+
+The first entry during a session may carry the complete district introduction:
+
+- environmental cue
+- primary geometry
+- district title
+- navigation orientation
+- initial content composition
+
+## 10.2 Repeated entry
+
+Repeated navigation must become more efficient.
+
+Once the visitor understands a route, the platform should reduce ceremony.
+
+Repeated entries should:
+
+- shorten duration
+- reduce assembly
+- preserve more persistent geometry
+- prioritize immediate content access
+- avoid replaying environmental introductions
+
+The world should become easier to navigate as familiarity increases.
+
+## 10.3 Exit
+
+Exit should communicate where the visitor is returning or moving next.
+
+It should not simply fade the entire screen to neutral unless there is no meaningful spatial relationship to preserve.
+
+---
+
+# 11. Focus System
+
+Focus is a shared behavior with district-specific emphasis.
+
+The general sequence is:
+
+1. selected content declares itself
+2. surrounding context recedes
+3. primary content reaches a stable inspection state
+4. controls and metadata become available without competing with content
+5. Return restores the prior composition
+
+Focus should preserve the sense that the selected item belongs to its origin.
+
+## 11.1 Work focus
+
+Work focus supports professional evidence.
+
+It may concentrate:
+
+- drawings
+- models
+- images
+- technical documentation
+- project evidence
+- captions and provenance
+
+Motion should feel aligned, exact, and structural.
+
+Evidence should expand or reorganize without losing its relation to the project narrative.
+
+## 11.2 Research focus
+
+Research focus supports sustained reading and artifact inspection.
+
+It should become slower and quieter after entry.
+
+Once reading begins, motion should largely stop.
+
+References, figures, notes, and related artifacts may reveal contextually, but text should not remain animated during reading.
+
+## 11.3 Lab focus
+
+Lab focus may expose dynamic states, versions, tests, failures, or parameters.
+
+Motion may remain more active than in Work or Research when the motion itself explains transformation.
+
+The visitor must always be able to distinguish interface motion from experimental output.
+
+## 11.4 Art focus
+
+Art focus uses the strongest recession and the least interface movement.
+
+The architecture should withdraw around the work.
+
+The artwork determines whether visual motion exists inside the focus state.
+
+Interface chrome should not animate continuously around artwork.
+
+## 11.5 Products focus
+
+Products focus supports evaluation and decision-making.
+
+Motion should quickly expose:
+
+- object or offer
+- variation
+- price/availability context
+- material or dimensional detail
+- purchase or inquiry action
+
+It should be direct and efficient rather than immersive for its own sake.
+
+## 11.6 About focus
+
+About focus supports biography, continuity, values, experience, credentials, and long-form reading.
+
+Motion should be gentle and sequential.
+
+It should help reveal chronology or layers of authorship without dramatizing the person.
+
+---
+
+# 12. Reveal and Recession Rules
+
+Reveal and recession are paired operations.
+
+## 12.1 Reveal
+
+Reveal should expose existing structure rather than make content appear from nowhere.
+
+Preferred reveal methods:
+
+- clipping from an architectural edge
+- masking
+- short positional movement
+- line or frame extension
+- opacity used with another structural cue
+- tonal resolution
+
+Reveal must not be applied independently to every paragraph, label, image, or card.
+
+Related content should reveal as a composition.
+
+## 12.2 Recession
+
+Recession reduces hierarchy without erasing context.
+
+Preferred methods:
+
+- lower contrast
+- lower opacity
+- reduced environmental activity
+- slight scale reduction
+- tonal convergence
+- selective masking
+- blur only when readable, accessible, and performant
+
+Recession is preferred over aggressive zoom for many Focus states.
+
+## 12.3 Stillness after reveal
+
+Once content has been revealed, it should settle.
+
+Reading, inspection, and contemplation require stable surfaces.
+
+---
+
+# 13. Comparison and Lineage Motion
+
+Comparison and lineage are system-level behaviors, not Lab-only special effects.
+
+## 13.1 Comparison
+
+When comparing states, the system should preserve common reference points.
+
+Preferred behavior:
+
+- common geometry remains fixed
+- changed regions move or highlight
+- synchronized transitions use identical duration and easing
+- labels remain stable
+- the visitor may pause comparison at any state
+
+Avoid:
+
+- independent drifting panels
+- mismatched zoom levels
+- automatic oscillation between states
+- transitions too fast to inspect differences
+
+## 13.2 Version change
+
+Versions should transition by showing what persists and what changes.
+
+Unchanged structure should remain stable where possible.
+
+Changed structure may reveal, replace, translate, or trace.
+
+## 13.3 Lineage
+
+Lineage explains how one record leads to another.
+
+Examples include:
+
+- Research question → Lab experiment
+- Lab experiment → resolved Work
+- Art record → Product edition
+- Work/Research canonical record → related Product
+
+Trace motion may reveal the relationship, but canonical ownership must remain informationally clear through labels and structure, not motion alone.
+
+---
+
+# 14. Scrolling
+
+Native browser scrolling is the default.
+
+The platform must not use global scroll hijacking or artificial inertia as a foundational interaction.
+
+Scrolling is treated as architectural progression through composed fields rather than as a feed.
+
+## 14.1 Scroll-linked motion
+
+Scroll may control:
+
+- section reveal
+- progress measurement
+- restrained depth cues
+- line tracing
+- environmental change
+- contextual alignment
+
+Scroll-linked motion must:
+
+- remain directly coupled to user input
+- stop when scrolling stops
+- remain understandable when removed
+- respect reduced-motion preferences
+- avoid large scale or rotation changes
+
+## 14.2 Sticky anchors
+
+Sticky elements may preserve orientation during long sequences.
+
+Use for:
+
+- chapter labels
+- district identifiers
+- project metadata
+- Research references
+- comparison legends
+- progress/index anchors
+
+Sticky layers must release clearly and must not accumulate into visual congestion.
+
+## 14.3 Long-form reading
+
+Research and About long-form content should become progressively more static as reading begins.
+
+No continual parallax, drifting text, or animated backgrounds should compete with sustained reading.
+
+## 14.4 Horizontal scrolling
+
+Horizontal scrolling is permitted only when the content is inherently lateral, such as:
+
+- gallery sequences
+- timelines
+- plan-like fields
+- version strips
+
+It must be clearly indicated and must not trap vertical page navigation.
+
+---
+
+# 15. Camera and Viewpoint
+
+The “camera” is an implied viewpoint, not a requirement for literal 3D rendering.
+
+Camera-like movement may be constructed through:
 
 - coordinated translation
-- subtle scale shifts
-- cropping changes
-- parallax between layers
-- focus transitions
-- controlled perspective
+- shallow scaling
+- cropping
+- layer parallax
+- depth ordering
+- focus and recession
 
-## 8.2 Camera rules
+Approved constraints:
 
-- Movement must be slow enough to read but fast enough to remain navigational.
-- Camera rotation should be avoided in the global interface.
-- Perspective shifts should remain shallow.
-- Scale changes should be limited and tied to hierarchy.
-- The horizon or primary composition should remain stable.
-- Pointer movement should not directly control large camera movements.
+- global camera rotation is prohibited
+- perspective swings are prohibited
+- large full-screen zoom is prohibited
+- pointer-driven camera movement must remain extremely limited or absent
+- viewpoint movement must not delay access to content
+- text must remain stable while being read
 
-## 8.3 Entry movement
-
-Entering a deeper level may use a restrained forward movement:
-
-- selected content expands slightly
-- surrounding content moves outward or loses contrast
-- the destination resolves into detail
-
-Recommended perceived scale change: approximately 1.00 to 1.04–1.08, subject to testing.
-
-## 8.4 Exit movement
-
-Returning to an overview may use a restrained withdrawal:
-
-- detail contracts toward its position in the parent layout
-- contextual elements return
-- overview geometry regains emphasis
-
-## 8.5 Parallax
-
-Parallax may establish depth between environmental, structural, and content layers.
-
-Rules:
-
-- use only a few layers
-- maintain very small displacement differences
-- disable or reduce on touch devices
-- disable under reduced-motion preferences
-- never allow text to drift independently enough to harm reading
-
-## 8.6 Scroll-linked camera movement
-
-Scroll may guide viewpoint progression through long spatial narratives, especially in Home and selected district introductions.
-
-It must not:
-
-- hijack native scrolling
-- lock the visitor into long sequences
-- force exact scroll positions
-- produce large scale or rotation changes
-- make content inaccessible without animation
+A selected item may appear to approach the viewer, but the perceived movement should remain restrained.
 
 ---
 
-# 9. Hover Behavior
+# 16. Hover and Pre-Activation Behavior
 
-## 9.1 Purpose
+Hover uses the **Approach** role.
 
-Hover communicates possibility, relationship, and depth. It should not create a separate visual spectacle.
+Its purpose is to communicate possibility and relation.
 
-## 9.2 Standard hover response
-
-A hover response may combine no more than two principal changes:
+Hover may combine a maximum of two primary visual changes, such as:
 
 - line extension
 - contrast increase
 - small translation
-- slight scale change
-- background or boundary reveal
-- image crop adjustment
-- label appearance
+- shallow scale
+- boundary reveal
+- crop adjustment
+- metadata reveal
 
-## 9.3 Recommended limits
+Essential information may never exist only on hover.
 
-- translation: approximately 2–8 px
-- scale: approximately 1.00–1.02
-- duration: 140–220 ms
-- no bounce or overshoot
+Keyboard focus must provide an equivalent conceptual state with stronger accessibility clarity.
 
-These values are proposals pending prototype validation.
-
-## 9.4 Navigation hover
-
-District and page navigation should reveal spatial direction.
-
-Possible behavior:
-
-- a route line extends from the current position
-- the target label gains contrast
-- a minimal preview of its environment appears
-- neighboring options recede slightly
-
-The selected destination must remain clear without causing the rest of the interface to become unreadable.
-
-## 9.5 Project and content hover
-
-Project hover may reveal:
-
-- project metadata
-- an alternate crop
-- a boundary or frame
-- relationship to a category
-- a directional affordance
-
-Essential information must not exist only on hover.
-
-## 9.6 Touch and keyboard equivalence
-
-Hover behavior must have equivalent focus and touch states.
-
-Keyboard focus should use the same conceptual emphasis while remaining visually unmistakable. Touch devices should receive a stable selected state or direct navigation, not hover simulation that requires an extra unexplained tap.
+Touch interfaces must not simulate hover in ways that require unexplained extra taps.
 
 ---
 
-# 10. Scrolling
+# 17. Interaction Feedback
 
-## 10.1 Native behavior first
-
-The platform should preserve predictable browser scrolling.
-
-Smooth scrolling may be used for internal anchors when it does not conflict with user preferences, but custom inertial scroll engines should not be part of the default system.
-
-## 10.2 Scrolling as spatial progression
-
-Long pages should be composed as sequences of architectural rooms, frames, or fields rather than undifferentiated vertical feeds.
-
-Motion may mark:
-
-- entry into a new section
-- transition between scales
-- appearance of structural lines
-- change in environmental tone
-- relationship between text and visual material
-
-## 10.3 Scroll reveals
-
-Scroll-triggered content should:
-
-- appear only once unless repetition has meaning
-- begin before the content reaches the center of the viewport
-- remain readable if JavaScript fails
-- avoid animating every paragraph independently
-- group related elements into one composition
-
-## 10.4 Sticky elements
-
-Sticky positioning may act as an architectural anchor.
-
-Use for:
-
-- district title or index
-- project metadata
-- diagram legend
-- chapter navigation
-- persistent visual reference
-
-Sticky behavior should release clearly at the end of its section. Excessive simultaneous sticky layers are prohibited.
-
-## 10.5 Scroll progress
-
-Progress indicators should resemble spatial measurement, path tracing, or section indexing rather than generic percentage bars.
-
-They should remain secondary and should not create pressure to complete the page.
-
-## 10.6 Horizontal scrolling
-
-Horizontal scrolling should be used only when the content conceptually forms a lateral sequence, gallery, timeline, or plan-like field.
-
-It must:
-
-- be clearly signaled
-- support wheel, trackpad, touch, and keyboard input
-- avoid trapping vertical page movement
-- provide an alternative on small screens when necessary
-
----
-
-# 11. Environmental Animation
-
-## 11.1 Purpose
-
-Environmental animation gives each district a sense of atmosphere and latent life without competing with content.
-
-It may suggest:
-
-- changing light
-- distant spatial activity
-- slow line construction
-- data flow
-- material diffusion
-- suspended particles
-- shifting fields
-- subtle changes of depth
-
-## 11.2 Environmental hierarchy
-
-Environmental motion remains behind content and interaction.
-
-It should use:
-
-- low contrast
-- slow speed
-- irregular cycles
-- limited area
-- minimal amplitude
-
-## 11.3 Loop design
-
-Ambient animation should not reveal an obvious restart.
-
-Recommended cycle lengths: 6–30 seconds, with variation between parallel elements.
-
-Avoid constant movement across the entire viewport. Some areas should remain still.
-
-## 11.4 District variation
-
-The following are initial proposals and must be reconciled with each universe document.
-
-### Home
-
-Motion represents orientation, distant districts, thresholds, and the latent geometry of the complete world.
-
-Possible behaviors:
-
-- slow line emergence
-- faint depth drift
-- changing spatial emphasis around available routes
-- distant environmental signals from districts
-
-### Work
-
-Motion is measured, constructive, and precise.
-
-Possible behaviors:
-
-- alignment
-- framing
-- drawing assembly
-- technical layer reveals
-
-### Research
-
-Motion expresses relationships, inquiry, branching, and evolving systems.
-
-Possible behaviors:
-
-- connected nodes
-- shifting annotations
-- layered arguments
-- paths appearing between ideas
-
-### Lab
-
-Motion may be more reactive and provisional while remaining controlled.
-
-Possible behaviors:
-
-- live parameters
-- responsive fields
-- experimental simulations
-- incomplete assemblies
-
-### Art
-
-Motion should protect contemplation and visual autonomy.
-
-Possible behaviors:
-
-- slow atmospheric changes
-- subtle framing transitions
-- quiet image reveals
-- minimal environmental movement
-
-### Products
-
-Motion should communicate material, function, configuration, and transaction clarity.
-
-Possible behaviors:
-
-- object focus
-- dimensional transitions
-- configuration changes
-- restrained product inspection
-
-### About
-
-Motion should express memory, chronology, presence, and personal continuity.
-
-Possible behaviors:
-
-- timeline progression
-- archival layer reveals
-- transitions between periods
-- gentle spatial accumulation
-
-## 11.5 Performance fallback
-
-Environmental animation is the first motion layer to be reduced or removed when:
-
-- device performance is limited
-- battery-saving mode is active
-- browser tab is not visible
-- reduced motion is requested
-- network or asset loading is constrained
-
----
-
-# 12. Interaction Feedback
-
-## 12.1 Feedback states
-
-Every interactive element should define:
+Every interactive component should define these states where relevant:
 
 - default
 - hover
 - focus-visible
-- active or pressed
+- active/pressed
 - selected
 - loading
 - success
@@ -779,578 +889,842 @@ Every interactive element should define:
 - error
 - disabled
 
-Motion should clarify the transition between these states.
+Feedback must begin immediately after input.
 
-## 12.2 Press and activation
+## 17.1 Press
 
-Buttons and controls should respond immediately on press through a small change in position, scale, contrast, or fill.
+Press states may use concise translation, scale, fill, boundary, or contrast change.
 
-The response must begin before the resulting page or state transition.
+No bounce.
 
-## 12.3 Loading
+## 17.2 Confirmation
 
-Loading states should express ongoing construction or transfer without suggesting indefinite waiting.
+Successful actions settle into a stable final state.
 
-Preferred forms:
-
-- line progression
-- grid cell activation
-- measured reveal
-- changing structural placeholder
-
-Avoid decorative spinners as the primary loading language unless required by a conventional system context.
-
-## 12.4 Success
-
-Success feedback should be quiet and conclusive.
-
-Possible behavior:
+Examples:
 
 - a line closes
-- a field settles into alignment
-- a status label resolves
-- the completed object gains stable contrast
+- a boundary completes
+- a label resolves
+- an object aligns into its final position
 
-## 12.5 Error
+## 17.3 Error
 
-Error feedback should identify location and required action.
+Errors must be localized and explanatory.
 
-Avoid shaking entire forms or flashing large areas. Use localized contrast, a precise boundary change, and direct explanatory text.
+The interface must not shake entire forms or flash large areas.
 
-## 12.6 Dragging and direct manipulation
-
-Where objects can be dragged:
-
-- the object should separate clearly from its resting plane
-- the destination or constraint should become visible
-- motion should follow input without lag
-- release should settle without bounce
-- invalid destinations should be communicated before release
+Motion is secondary to clear text and visible state.
 
 ---
 
-# 13. Choreography
+# 18. Loading and State-Change Motion
 
-## 13.1 Sequence rules
+Loading is a State Change, not a spectacle.
 
-Related elements may enter in short sequences to clarify hierarchy.
+Content structure should appear before nonessential animation or media.
 
-Recommended ordering:
+Preferred loading language:
 
-1. structural geometry
-2. primary title or identity
-3. main content
-4. secondary metadata
-5. optional environmental detail
+- structural placeholder
+- measured line progression
+- progressive reveal of already-known geometry
+- local status change
 
-## 13.2 Staggering
+The interface must remain usable whenever possible.
 
-Stagger should be subtle and grouped.
+Long preloaders, looping branded films, and mandatory waiting animations are prohibited.
 
-Suggested interval: 20–60 ms between related elements.
+If content or media loads slowly:
 
-Avoid long cascades where the visitor waits for each item. Lists should generally animate as a group or in small clusters rather than item by item.
-
-## 13.3 Simultaneous movement
-
-Elements moving together must share a reason:
-
-- same layer
-- same direction
-- same hierarchy
-- same transformation
-
-Unrelated motion should not occur simultaneously.
-
-## 13.4 Interruption
-
-All route and interface transitions must support interruption.
-
-When the visitor changes direction:
-
-- current animations should resolve or reverse cleanly
-- duplicate route transitions should not stack
-- the final state should reflect the latest input
-- essential controls must remain responsive
+1. layout dimensions remain stable
+2. primary navigation remains available
+3. animation simplifies
+4. loading state remains local to the affected content
 
 ---
 
-# 14. Typography and Motion
+# 19. Overlay and Modal Behavior
 
-Typography should remain stable and readable.
+Overlays and modals are layers within the current architectural context.
 
-Permitted behaviors:
+They use **Focus + Recession**, not Threshold.
+
+## 19.1 Entry
+
+- originating control or object remains conceptually connected
+- background recedes
+- overlay enters from a meaningful origin where possible
+- focus transfers correctly to the overlay
+
+## 19.2 Active state
+
+- the background remains visually present but inactive
+- environmental motion behind the overlay should pause or reduce
+- no competing animation should continue unnecessarily
+
+## 19.3 Exit
+
+- Return restores the prior context
+- keyboard focus returns to the originating control when appropriate
+- prior scroll and selection state are preserved
+
+Full-screen media inspection may visually dominate the viewport while still behaving as an overlay if the information architecture has not changed.
+
+---
+
+# 20. Artwork Motion vs Interface Motion
+
+The platform distinguishes **authored motion** from **interface motion**.
+
+This distinction is essential in Art and may also apply to Lab, Research, Work, and Products when the content itself is animated.
+
+## 20.1 Interface motion
+
+Interface motion belongs to the platform system.
+
+It must follow this document.
+
+Examples:
+
+- navigation transitions
+- focus entry
+- gallery controls
+- captions
+- overlays
+- loading
+- state changes
+
+## 20.2 Authored motion
+
+Authored motion belongs to the work being presented.
+
+Examples:
+
+- moving artwork
+- generative piece
+- simulation
+- prototype animation
+- motion study
+- video
+
+The interface must recede around authored motion.
+
+It must not visually imitate, synchronize with, or compete with the work unless that relationship is explicitly part of the work itself.
+
+Autoplay must respect accessibility, user preference, data/performance constraints, and the communicative requirements of the artifact.
+
+---
+
+# 21. Environmental Animation
+
+Environmental animation gives the architectural world latent life.
+
+It is subordinate to content and navigation.
+
+It may suggest:
+
+- light change
+- distant spatial activity
+- line emergence
+- data flow
+- material diffusion
+- depth
+- incomplete construction
+
+Environmental motion should use:
+
+- low amplitude
+- low contrast
+- long or irregular cycles
+- limited affected area
+- substantial periods of stillness
+
+The entire viewport should not move continuously.
+
+Environmental animation is the first layer removed under performance, reduced-motion, battery, or attention constraints.
+
+---
+
+# 22. District Motion Emphasis
+
+All districts use the same roles. Their difference is emphasis.
+
+## 22.1 Home
+
+**Primary roles:** Threshold, Passage, Approach, Assembly, Return.
+
+Home carries the strongest sense of spatial orientation and the largest motion consequence.
+
+It may use:
+
+- route alignment
+- distant district cues
+- restrained depth
+- latent geometry
+- environmental shifts
+
+Home should feel like entering and navigating a world, not operating a menu.
+
+## 22.2 Work
+
+**Primary roles:** Passage, Focus, Assembly, Comparison, Return.
+
+Character:
+
+- precise
+- aligned
+- evidential
+- constructive
+
+Movement should reinforce grids, frames, phases, and relationships between professional evidence.
+
+## 22.3 Research
+
+**Primary roles:** Sequence, Focus, Trace, Comparison, Recession.
+
+Character:
+
+- slower
+- editorial
+- cumulative
+- relational
+
+Motion helps expose arguments and references, then recedes during reading.
+
+## 22.4 Lab
+
+**Primary roles:** Comparison, Trace, Assembly, State Change, Focus.
+
+Character:
+
+- provisional
+- reactive
+- transformable
+- calibrated
+
+Lab may contain more visible state change than other districts, but it must remain readable and must never become generically chaotic.
+
+## 22.5 Art
+
+**Primary roles:** Focus, Recession, Sequence, Return.
+
+Character:
+
+- quiet
+- spacious
+- subordinate to the work
+- contemplative
+
+Architecture moves out of the way.
+
+Stillness is especially important.
+
+## 22.6 Products
+
+**Primary roles:** Focus, Comparison, State Change, Confirmation, Return.
+
+Character:
+
+- direct
+- clear
+- efficient
+- material
+
+Motion supports evaluation, configuration, availability, and transaction clarity without becoming a generic e-commerce animation language.
+
+## 22.7 About
+
+**Primary roles:** Sequence, Trace, Focus, Recession, Return.
+
+Character:
+
+- gentle
+- sequential
+- human
+- continuous
+
+Motion may help connect biography, experience, education, values, methods, and chronology without becoming self-promotional or sentimental.
+
+---
+
+# 23. Timing System
+
+Timing corresponds to consequence.
+
+The approved v1.0 ranges are:
+
+| Level | Range | Typical use |
+|---|---:|---|
+| Immediate | 80–140 ms | press, selection confirmation, local feedback |
+| Fast | 140–220 ms | hover, focus-visible, concise state change |
+| Standard | 220–360 ms | component change, overlay, local comparison |
+| Deliberate | 360–600 ms | record passage, substantial focus transition |
+| Spatial | 600–900 ms | first district threshold or major world passage |
+| Ambient | 6–30 s | low-attention environmental cycle |
+
+These ranges are approved system boundaries. Exact token values inside the ranges may be tuned during implementation testing without reopening the conceptual system, provided behavior remains within the intended hierarchy.
+
+## 23.1 Repeated-navigation efficiency
+
+Repeated transitions should progressively favor the faster end of the allowed range.
+
+A familiar route should never replay a lengthy first-entry sequence merely because it can.
+
+## 23.2 Easing
+
+The global motion character is controlled deceleration.
+
+Approved easing families:
+
+- enter — responsive start, precise arrival
+- exit — slightly faster withdrawal
+- move — balanced spatial translation
+- progress — linear only where the value itself represents continuous progress
+
+Prohibited global easing behavior:
+
+- bounce
+- elastic overshoot
+- wobble
+- rubber-band physics
+- exaggerated acceleration
+
+Spring behavior may exist inside a bounded Lab experiment if it belongs to the experiment, not to platform navigation.
+
+---
+
+# 24. Motion Density
+
+Motion density describes how many independent movements can occur at once.
+
+The global rule is:
+
+> **One dominant movement at a time.**
+
+Secondary movements may support the dominant one, but unrelated animation should not compete for attention.
+
+Approved density principles:
+
+- group related reveals
+- limit stagger
+- avoid simultaneous ambient and navigational emphasis
+- reduce environmental activity during reading or focus
+- avoid animating every viewport entry
+- prefer static persistence over repeated re-entry animation
+
+---
+
+# 25. Typography and Motion
+
+Typography exists to be read.
+
+Permitted text motion:
 
 - masked reveal
-- opacity transition
 - short positional entry
-- controlled tracking change for labels
-- line-by-line reveal for short statements
+- opacity/contrast transition
+- limited tracking change for labels
+- grouped line reveal for short statements
 
-Avoid:
+Prohibited as global language:
 
-- rapidly changing type
-- character scrambling as a default effect
-- excessive kinetic typography
-- large scale pulses
+- character scrambling
 - long typewriter sequences
-- text movement while the visitor is reading
+- kinetic paragraphs
+- continuous text drift
+- scale pulsing
+- moving long-form text while reading
 
-Long-form reading pages should use minimal text animation after initial entry.
+Once a reading surface is active, typography should be still.
 
 ---
 
-# 15. Image and Media Motion
+# 26. Image, Object, and Media Motion
 
-## 15.1 Image reveal
+## 26.1 Images
 
-Images may appear through:
+Images may reveal through:
 
-- clipping boundary expansion
+- clipping
+- aperture/crop change
 - tonal resolution
-- controlled crop movement
-- subtle depth transition
+- shallow depth transition
 
-The image itself should remain the focus.
+The motion should reveal the image, not become more memorable than it.
 
-## 15.2 Galleries
+## 26.2 Galleries
 
-Gallery navigation should communicate sequence and preserve context.
+Gallery sequence should preserve position and direction.
 
-Possible behavior:
+Captions, index, and navigation should remain stable enough to maintain orientation.
 
-- outgoing image shifts along the sequence axis
-- incoming image enters from the corresponding side
-- captions update in coordination
-- thumbnails or index remain stable
+## 26.3 Object inspection
 
-## 15.3 Video
+Objects and products may use controlled rotation or manipulation only when the visitor intentionally initiates it and when it materially helps inspection.
 
-Autoplay video should be muted, optional, and subordinate to page performance.
+This is direct manipulation, not global camera behavior.
 
-Video should not autoplay when:
+## 26.4 Video and time-based work
 
-- reduced motion is enabled
-- it is outside the viewport
-- data saving is requested
-- the video is primarily informational and requires sound
+Time-based content should not autoplay merely to make a page feel alive.
 
-## 15.4 Media inspection
-
-Opening an image or object into a larger view should use a shared spatial origin where possible.
-
-The expanded state must provide clear close, previous, next, caption, and keyboard behavior.
+Interface playback state must remain clear.
 
 ---
 
-# 16. Responsive Motion
+# 27. Responsive Motion
 
-Motion should adapt to input type, viewport, performance, and attention context.
+Motion adapts to viewport, input type, device capability, and attention context.
 
-## 16.1 Desktop
+## 27.1 Desktop
 
-May use:
+May support:
 
-- subtle hover
+- hover Approach
 - shallow parallax
-- spatial previews
-- layered page transitions
+- layered transitions
+- richer environmental cues
 
-## 16.2 Touch devices
+## 27.2 Touch
 
-Should prioritize:
+Prioritize:
 
-- direct input
-- shorter transitions
-- minimal parallax
-- stable content
-- larger spatial cues rather than hover-dependent nuance
+- direct activation
+- shorter travel
+- less parallax
+- stable layouts
+- no hover dependency
 
-## 16.3 Small screens
+## 27.3 Small screens
 
-On small screens:
+Prefer:
 
-- reduce travel distances
-- reduce simultaneous layers
-- favor vertical spatial logic
-- avoid large zoom transitions
-- preserve immediate content access
+- vertical spatial logic
+- reduced travel distance
+- fewer simultaneous layers
+- faster access to content
+- smaller environmental motion budgets
 
-## 16.4 Low-performance devices
-
-The system should detect or infer constrained conditions conservatively and reduce:
-
-- blur
-- large fixed layers
-- continuous canvas effects
-- complex masks
-- multiple parallax layers
-- high-resolution animated media
+The mobile experience is not a miniature desktop camera system.
 
 ---
 
-# 17. Accessibility and Reduced Motion
+# 28. Reduced-Motion System
 
-## 17.1 Reduced-motion principle
+Reduced motion must preserve meaning, hierarchy, and feedback.
 
-Reduced motion does not mean removing all feedback. It means replacing spatial movement with stable state changes.
+It is not an incomplete version of the platform.
 
 When `prefers-reduced-motion: reduce` is active:
 
 - remove parallax
-- remove large translations and scale changes
-- remove scroll-linked camera movement
-- remove ambient loops
-- shorten transitions substantially
-- replace movement with opacity, contrast, boundary, or immediate state changes
-- preserve loading, focus, success, and error communication
+- remove large translation
+- remove large scale/depth changes
+- remove scroll-linked camera effects
+- stop ambient loops
+- shorten nonessential transitions
+- replace spatial travel with opacity, contrast, boundary, or immediate state changes
+- preserve focus-visible, loading, error, success, selection, progress, and confirmation states
 
-## 17.2 Functional parity
+Role equivalents:
 
-All content and functionality must remain available without animation.
+- Threshold → immediate environmental/context change with stable orientation cue
+- Passage → concise replacement preserving shared anchors
+- Approach → contrast/boundary emphasis
+- Focus → surrounding recession without large movement
+- Sequence → native scroll or direct step change
+- Comparison → stable side-by-side or direct swap
+- Assembly → immediate grouped appearance
+- Trace → static path/relationship highlight
+- Recession → contrast/opacity reduction
+- Return → immediate context restoration
+- Confirmation → concise stable state resolution
+- State Change → direct localized change
 
-Animation must never be the sole carrier of:
-
-- meaning
-- navigation direction
-- selection
-- error status
-- hierarchy
-- progress
-
-## 17.3 Vestibular safety
-
-Avoid:
-
-- large zooms
-- rapid full-screen movement
-- rotation
-- perspective swings
-- background motion behind fixed text
-- scroll acceleration disconnected from user input
-
-## 17.4 Focus continuity
-
-Focus must move logically after route changes, dialogs, and dynamic updates. Visual animation must not cause keyboard focus to become lost or hidden.
+No information may depend on motion alone.
 
 ---
 
-# 18. Performance Standards
+# 29. Accessibility Constraints
+
+Animation must satisfy the following requirements:
+
+- all functionality works without animation
+- keyboard focus is never lost during transitions
+- focus restoration is defined for overlays and Return
+- essential state is not hover-only
+- motion is not the sole signal of error, success, selection, hierarchy, progress, or navigation direction
+- rapid full-screen movement is avoided
+- large zoom and rotation are prohibited globally
+- background movement must not undermine foreground reading
+- reduced-motion behavior exists for every reusable motion pattern
+
+Motion must support comprehension, not demand tolerance.
+
+---
+
+# 30. Performance Constraints
 
 Motion quality depends on responsiveness.
 
-## 18.1 Preferred properties
+Approved implementation principles:
 
-Prefer animation of:
+- static composition is complete before animation enhancement
+- prefer transform and opacity for frequent animation
+- use masks/clipping only when performance is verified
+- avoid animation that forces repeated layout calculation
+- reserve blur and large fixed layers for carefully tested cases
+- prevent layout shift during reveal and loading
+- pause off-screen environmental animation
+- suspend nonessential motion when the document is hidden
+- progressively reduce environmental complexity on constrained devices
+- interaction feedback begins immediately
 
-- transform
-- opacity
-- clipping or masking when performant
+The implementation target is smooth response on representative desktop and mobile devices, with progressive reduction rather than degraded usability on weaker hardware.
 
-Use layout-changing properties only when necessary and tested.
-
-## 18.2 Performance objectives
-
-Proposed implementation targets:
-
-- maintain smooth interaction near 60 frames per second on representative devices
-- avoid long main-thread tasks during navigation
-- begin interaction feedback immediately
-- pause off-screen and background animation
-- lazy-load nonessential animated assets
-- prevent cumulative layout shift during reveals
-
-## 18.3 Progressive enhancement
-
-The static composition must remain complete and coherent before animation is applied.
-
-Motion is an enhancement layer, not a dependency.
+Environmental motion is always expendable. Navigation clarity is not.
 
 ---
 
-# 19. Motion Tokens
+# 31. Motion Tokens
 
-The final design system should expose semantic motion tokens rather than isolated durations in components.
+Implementation should expose semantic tokens rather than isolated component-specific values.
 
-## 19.1 Duration tokens
+Recommended token families:
 
-```text
-motion-duration-instant
-motion-duration-fast
-motion-duration-standard
-motion-duration-deliberate
-motion-duration-spatial
-motion-duration-ambient
-```
+## Duration
 
-## 19.2 Easing tokens
+- `motion-duration-immediate`
+- `motion-duration-fast`
+- `motion-duration-standard`
+- `motion-duration-deliberate`
+- `motion-duration-spatial`
+- `motion-duration-ambient`
 
-```text
-motion-ease-enter
-motion-ease-exit
-motion-ease-move
-motion-ease-linear-progress
-```
+## Easing
 
-## 19.3 Distance tokens
+- `motion-ease-enter`
+- `motion-ease-exit`
+- `motion-ease-move`
+- `motion-ease-progress`
 
-```text
-motion-distance-micro
-motion-distance-component
-motion-distance-page
-motion-depth-near
-motion-depth-far
-```
+## Distance
 
-## 19.4 Stagger tokens
+- `motion-distance-micro`
+- `motion-distance-component`
+- `motion-distance-record`
+- `motion-depth-near`
+- `motion-depth-district`
 
-```text
-motion-stagger-tight
-motion-stagger-standard
-motion-stagger-group
-```
+## Recession
 
-## 19.5 Environment tokens
+- `motion-recession-subtle`
+- `motion-recession-focus`
+- `motion-recession-overlay`
 
-```text
-motion-environment-amplitude-low
-motion-environment-speed-slow
-motion-environment-opacity-low
-```
+## Stagger
 
-Exact numerical values should be finalized during prototype testing and recorded in the shared design system.
+- `motion-stagger-tight`
+- `motion-stagger-standard`
+- `motion-stagger-group`
+
+## Environment
+
+- `motion-environment-amplitude-low`
+- `motion-environment-speed-slow`
+- `motion-environment-presence-low`
+
+Exact implementation values should be centralized and verified against the approved timing hierarchy.
 
 ---
 
-# 20. Component Motion Contracts
+# 32. Motion Contracts
 
-Every reusable component should document a motion contract containing:
+Every reusable animated component or transition must define a motion contract containing:
 
+- semantic role
 - trigger
+- origin
+- destination
+- dominant movement
+- persistent anchors
 - initial state
 - active state
-- exit state
+- exit/Return state
 - duration token
 - easing token
 - interruption behavior
-- reduced-motion behavior
-- keyboard and touch equivalent
+- repeated-navigation behavior where relevant
+- reduced-motion equivalent
+- keyboard behavior
+- touch behavior
 - performance fallback
 
-Components should not define unrelated custom animation values when an existing semantic token applies.
+Components may not invent unrelated animation values when a shared token or role already applies.
 
 ---
 
-# 21. Prohibited Patterns
+# 33. Interruption and User Priority
 
-The following should not be part of the global platform language:
+User input always has priority over nonessential animation.
+
+The system must support:
+
+- rapid route changes
+- browser Back/Forward
+- scroll interruption
+- keyboard navigation
+- touch interruption
+- closing overlays during entry
+- changing selection before an earlier motion completes
+
+Animations must not stack indefinitely.
+
+The final state must always resolve to the visitor’s latest valid action.
+
+No standard interaction may require the visitor to wait for animation to finish before content or navigation becomes usable.
+
+---
+
+# 34. Prohibited Motion Patterns
+
+The following are prohibited as global platform language:
 
 - decorative cursor trails
 - constant pointer-reactive backgrounds
 - full-screen scroll hijacking
 - mandatory intro films
-- long preloader sequences
-- frequent page flips
-- excessive glass-like floating layers
-- bouncing buttons
+- cinematic fly-through navigation
+- long branded preloaders
+- repeated page-flip effects
+- bouncing controls
 - elastic menus
+- spring overshoot in navigation
 - rotating page transitions
 - arbitrary card flips
-- text scrambling used throughout the interface
-- animation on every viewport entry
-- multiple competing ambient loops
-- motion that obscures or delays content
-- sound triggered without explicit consent
+- text scrambling as a recurring motif
+- typewriter effects as general presentation
+- movement on every viewport entry
+- auto-playing comparison oscillations
+- excessive parallax
+- perspective swings
+- large global zooms
+- constant ambient movement across the full viewport
+- multiple competing environmental loops
+- shake-based error feedback
+- motion that delays content access
+- motion whose only purpose is to signal sophistication
+- sound triggered without explicit visitor action or consent
 
-A prohibited pattern may only appear inside a clearly bounded artwork or Lab experiment where it is the subject of the work rather than the platform interface.
+A prohibited platform pattern may appear inside a bounded artwork or Lab experiment when it is part of the authored content itself.
 
 ---
 
-# 22. Validation Criteria
+# 35. Validation Criteria
 
-Before a motion pattern is approved, it should pass the following review.
+A motion pattern is valid only if it passes all five tests.
 
-## 22.1 Narrative
+## 35.1 Meaning
 
-- Does it reinforce the architectural world?
-- Does it express threshold, direction, hierarchy, or relationship?
-- Does it belong to this district and the larger universe?
+- What role does it serve?
+- What relationship or change does it communicate?
+- Would the visitor understand the state without it?
 
-## 22.2 Usability
+## 35.2 Spatial coherence
 
-- Is the result understandable without animation?
-- Can the visitor interrupt it?
-- Does it preserve orientation?
-- Does it make the interface feel faster or slower?
+- Does it preserve origin and destination?
+- Does it maintain spatial memory where appropriate?
+- Does Return make sense?
+- Does it respect the platform’s directional logic?
 
-## 22.3 Restraint
+## 35.3 Restraint
 
-- Is this the minimum movement required?
-- Is there already another motion competing with it?
-- Would stillness communicate the state more effectively?
+- Is this the minimum necessary movement?
+- Is one motion clearly dominant?
+- Would stillness work better?
+- Does repeated navigation become more efficient?
 
-## 22.4 Accessibility
+## 35.4 Accessibility
 
-- Is reduced-motion behavior defined?
-- Is keyboard focus preserved?
-- Is essential information conveyed through another channel?
-- Could the movement create vestibular discomfort?
+- Is reduced-motion parity defined?
+- Is focus preserved?
+- Is meaning available through non-motion cues?
+- Is vestibular risk minimized?
 
-## 22.5 Performance
+## 35.5 Performance
 
-- Does it remain smooth on representative devices?
+- Does it remain responsive on representative devices?
 - Does it avoid layout instability?
-- Does it pause when not visible?
-- Is there a simpler fallback?
+- Can it be interrupted?
+- Can nonessential layers degrade cleanly?
 
 ---
 
-# 23. Prototype and Approval Process
+# 36. Implementation Sequence
 
-Motion should be approved through small, testable prototypes rather than implemented across the platform at once.
+Implementation begins only after the Platform Specification and implementation planning confirm component architecture and route behavior.
 
-## Stage 1 — Motion primitives
+Claude Code should implement motion in small, testable milestones.
 
-Prototype and compare:
+## MOT-01 — Tokens and primitives
 
-- standard reveal
-- standard hover
-- standard focus change
-- standard line extension
-- standard settle behavior
+Implement duration, easing, distance, recession, and reduced-motion foundations.
 
-## Stage 2 — Navigation scales
+Verify consistency and reuse.
 
-Prototype:
+## MOT-02 — Local interaction states
 
-- component transition
-- page transition within one district
-- district transition from Home
-- back navigation
-- direct deep-link arrival
+Implement hover, focus-visible, press, selected, loading, success, error, and disabled behavior.
 
-## Stage 3 — Scroll behavior
+Verify keyboard, touch, and reduced-motion parity.
 
-Prototype:
+## MOT-03 — Focus and overlay system
 
-- section reveal
-- sticky anchor
-- scroll progress
-- restrained scroll-linked depth
+Implement reusable Focus + Recession + Return behavior.
 
-## Stage 4 — Environmental behavior
+Verify focus management, scroll preservation, and modal accessibility.
 
-Test one environmental pattern in Home and one district-specific variation.
+## MOT-04 — Record passage
 
-## Stage 5 — Accessibility and performance
+Implement index → record → Return within one district.
 
-Verify:
+Verify spatial memory, browser Back, deep links, and rapid navigation.
 
-- reduced motion
-- keyboard navigation
-- touch behavior
-- lower-performance device fallback
-- interruption and rapid route changes
+## MOT-05 — Home threshold prototype
 
-Only approved primitives should be converted into shared implementation components and tokens.
+Implement one Home → district → Home transition.
 
----
+Verify orientation, timing, cancellation, repeated-entry efficiency, reduced motion, and performance before reuse.
 
-# 24. Proposed First Implementation Milestones
+## MOT-06 — Sequence, comparison, and trace
 
-These are planning proposals for Claude Code after the motion system and dependencies are approved.
+Implement one representative pattern for each role.
 
-## MOT-01 — Global motion tokens
+Verify that motion clarifies rather than obscures relationships.
 
-Create the semantic duration, easing, distance, and reduced-motion foundation.
+## MOT-07 — Scroll-linked behavior
 
-**Verification:** tokens are documented, reused, and testable.
+Implement section reveals, sticky anchors, and any approved restrained scroll-linked depth behavior.
 
-## MOT-02 — Interaction feedback primitives
+Verify native scroll integrity.
 
-Implement hover, focus, press, disabled, loading, success, and error motion for shared controls.
+## MOT-08 — District variation
 
-**Verification:** keyboard, touch, and reduced-motion equivalents pass.
+Apply shared primitives using district emphasis rules.
 
-## MOT-03 — Basic route transition shell
+Verify that districts feel distinct without introducing new motion grammar.
 
-Implement a restrained page transition within one district without environmental animation.
+## MOT-09 — Environmental motion
 
-**Verification:** deep links, browser back, rapid navigation, and focus management work correctly.
+Add environmental animation last.
 
-## MOT-04 — Home-to-district transition prototype
-
-Develop one representative district entry sequence.
-
-**Verification:** orientation, timing, performance, cancellation, and fallback are reviewed before reuse.
-
-## MOT-05 — Scroll and reveal primitives
-
-Implement grouped section reveal, sticky anchors, and optional progress measurement.
-
-**Verification:** content is complete without JavaScript and reduced motion is respected.
-
-## MOT-06 — Environmental motion prototype
-
-Implement one low-cost Home environment animation with automatic suspension and fallback.
-
-**Verification:** performance and distraction are tested on desktop and mobile.
+Verify that it can be disabled entirely without damaging navigation, hierarchy, or identity.
 
 ---
 
-# 25. Cross-Domain Dependencies
+# 37. Cross-Domain Contract
 
-This document does not independently determine the final visual form of motion. It requires coordination with:
+This document is now the approved source of truth for platform motion behavior.
 
-- **Platform Vision:** confirms the emotional and experiential goals.
-- **Information Architecture:** defines parent, child, sibling, and cross-district relationships that motion must represent.
-- **Design System:** defines typography, color, grids, components, accessibility, and final token values.
-- **Home Universe:** defines the primary entrance, district map, thresholds, and first spatial sequence.
-- **District Universe Documents:** define permitted local variation in atmosphere and behavior.
-- **Project Management:** records approvals, dependencies, implementation status, and verification.
+It does not redefine:
 
-Any future decision that changes navigation hierarchy, page relationships, or district identity may require an update to this motion system.
+- district purpose
+- information architecture
+- static visual hierarchy
+- typography
+- color
+- spacing
+- grid
+- content ownership
+- canonical record rules
 
----
+Those remain governed by their respective approved documents.
 
-# 26. Decision Register
+This document translates those systems into temporal behavior.
 
-## Proposal — Architectural motion grammar
-
-The platform uses a limited vocabulary of reveal, translate, focus, extend, assemble, dissolve, and settle.
-
-## Proposal — Spatial navigation model
-
-Horizontal motion represents neighboring spaces, vertical motion represents progression and hierarchy, and restrained depth represents entry and focus.
-
-## Proposal — Motion hierarchy
-
-Component, page, and district transitions use progressively greater duration and spatial consequence.
-
-## Proposal — No generic spectacle
-
-Bounce, overshoot, large rotation, long preloaders, and decorative continuous effects are excluded from the global interface.
-
-## Proposal — Native input priority
-
-Native scrolling, interruption, browser navigation, keyboard focus, and touch behavior take priority over animation.
-
-## Proposal — Reduced-motion parity
-
-Reduced-motion mode preserves all meaning and feedback while replacing major movement with stable visual state changes.
-
-## Proposal — District variation within shared rules
-
-Each district may vary its tempo and environmental behavior but cannot redefine the platform’s core motion grammar independently.
-
-No decision in this document should be considered Approved until it has been reviewed against the Platform Vision, Information Architecture, Design System, and universe documents.
+If future design work requires a motion pattern that contradicts this document, the conflict must be explicitly reviewed and recorded rather than implemented silently.
 
 ---
 
-# 27. Final Motion Statement
+# 38. Approved Decisions
 
-The Personal Platform should move like architecture is experienced: through approach, threshold, passage, orientation, focus, and pause.
+The following decisions are Approved for `ANIMATION_SYSTEM.md v1.0`.
 
-Its animation should make the digital world feel continuous without pretending to be a game or a literal building simulation. The strongest motion will often be nearly invisible: a line that establishes direction, a frame that opens, a field that settles, or a viewpoint that shifts just enough to reveal the relationship between spaces.
+## Approved — Form and change distinction
 
-Motion should leave the visitor with a sense of coherence, not with a memory of effects.
+> **The Design System defines form. The Animation System defines change.**
+
+## Approved — Shared system, different emphasis
+
+All districts use one motion grammar with district-specific emphasis rather than independent animation identities.
+
+## Approved — Motion-role vocabulary
+
+The shared semantic roles are:
+
+**Threshold, Passage, Approach, Focus, Sequence, Comparison, Assembly, Trace, Recession, Return, Confirmation, State Change.**
+
+## Approved — Motion hierarchy
+
+Structural transitions carry more spatial and temporal consequence than local feedback.
+
+## Approved — Spatial memory
+
+Return behavior preserves relevant route, position, selection, lens, comparison, and origin context where technically possible.
+
+## Approved — Repeated-navigation efficiency
+
+First entry may be richer; repeated routes become faster and less ceremonial.
+
+## Approved — Focus through recession
+
+Focus is achieved primarily by reorganizing hierarchy and quieting surrounding context, not by dramatic zoom.
+
+## Approved — Native scrolling
+
+Native browser scrolling is the baseline. Global scroll hijacking is prohibited.
+
+## Approved — Comparison and lineage
+
+Comparison preserves common references; Trace communicates lineage without becoming decorative network animation.
+
+## Approved — Overlay logic
+
+Overlays and modals use Focus + Recession + Return and do not imply a new architectural destination.
+
+## Approved — Artwork/interface distinction
+
+Authored motion belongs to the presented work; interface motion remains subordinate and follows the platform system.
+
+## Approved — Reduced-motion parity
+
+Reduced-motion mode preserves all meaning and interaction while replacing spatial travel with stable state changes.
+
+## Approved — User priority
+
+Navigation, scroll, keyboard, touch, cancellation, and browser history override nonessential animation.
+
+## Approved — Performance hierarchy
+
+Environmental motion is removed before navigational clarity or interaction feedback is compromised.
+
+## Approved — Prohibited spectacle
+
+Bounce, overshoot, page rotation, large global zoom, cinematic fly-through, decorative cursor trails, global scroll hijacking, mandatory intro films, and pervasive kinetic typography are excluded from the platform interface.
+
+---
+
+# 39. Final Motion Statement
+
+The Personal Platform should move as architecture is understood: through threshold, approach, passage, orientation, concentration, comparison, trace, return, and pause.
+
+Motion should reveal relationships that static composition alone cannot fully express, then withdraw once those relationships are understood.
+
+Home carries the strongest sense of spatial passage. Work aligns and resolves. Research unfolds and traces. Lab compares and transforms. Art recedes. Products clarifies and confirms. About sequences and connects.
+
+The visitor should remember where they are, where they came from, what changed, and what deserves attention.
+
+They should not remember the website for its effects.
+
+They should remember a coherent world that moved with purpose.
