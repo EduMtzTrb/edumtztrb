@@ -40,6 +40,15 @@ import { join } from "node:path";
  * move from UNRESOLVED to RESOLVED — each calibrated to a fluid `clamp()`
  * that stays within its approved per-breakpoint range. `color-disabled` and
  * `surface-overlay` remain unresolved, owned by later work packages.
+ *
+ * Opacity tokens (below, checked separately) were never part of the
+ * original §60 registry — v1.0 approved neither opacity nor layer-order
+ * anywhere (see docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md).
+ * `DESIGN_SYSTEM.md v1.1` §100 approves five semantic opacity roles for the
+ * first time. M2.5 — Action Controls (see
+ * docs/implementation/M2.5_ACTION_CONTROLS.md) is the first genuine
+ * consumer, resolving `opacity-disabled`; the other four roles stay
+ * declared-but-empty, same pattern as everything else in this file.
  */
 
 // RESOLVED: DESIGN_SYSTEM_v1.0.md gives an exact single value (or a
@@ -158,6 +167,17 @@ const RETIRED_TOKENS = [
   "surface-2",
 ];
 
+// Opacity — separate from APPROVED_TOKENS/RESOLVED_TOKENS above because it
+// was never part of the original §60 registry (see file header). Checked
+// with its own tests, same rigor, same declared-vs-empty rules.
+const OPACITY_RESOLVED_TOKENS = ["opacity-disabled"];
+const OPACITY_UNRESOLVED_TOKENS = [
+  "opacity-full-authority",
+  "opacity-supporting",
+  "opacity-latent",
+  "opacity-recessed-context",
+];
+
 const TOKENS_DIR = join(process.cwd(), "src", "styles", "tokens");
 
 const TOKEN_FILES = [
@@ -167,6 +187,7 @@ const TOKEN_FILES = [
   "spacing.css",
   "grid.css",
   "geometry.css",
+  "opacity.css",
 ];
 
 function readAllTokenCss(): string {
@@ -222,28 +243,47 @@ describe("Token contract (DESIGN_SYSTEM_v1.0.md §60, reconciled against v1.1)",
     );
   });
 
-  it("index.css imports all six token files, in the tokens directory", () => {
+  it("index.css imports all seven token files, in the tokens directory", () => {
     const index = readFileSync(join(TOKENS_DIR, "index.css"), "utf-8");
     for (const file of TOKEN_FILES) {
       expect(index).toContain(`./${file}`);
     }
   });
+
+  it.each(OPACITY_RESOLVED_TOKENS)(
+    "--%s has a calibrated value (first real consumer: M2.5 disabled state)",
+    (token) => {
+      expect(declared.get(token)).not.toBe("");
+    },
+  );
+
+  it.each(OPACITY_UNRESOLVED_TOKENS)(
+    "--%s is deliberately unresolved (no consumer yet)",
+    (token) => {
+      expect(declared.get(token)).toBe("");
+    },
+  );
 });
 
 describe("No stale token references remain in consuming stylesheets", () => {
   const consumers = [
     readFileSync(join(process.cwd(), "src", "app", "globals.css"), "utf-8"),
     readFileSync(join(process.cwd(), "src", "styles", "shell.css"), "utf-8"),
+    readFileSync(join(process.cwd(), "src", "styles", "controls.css"), "utf-8"),
   ].join("\n");
 
-  it("globals.css and shell.css reference no retired token name", () => {
+  it("consuming stylesheets reference no retired token name", () => {
     for (const retired of RETIRED_TOKENS) {
       expect(consumers).not.toContain(`var(--${retired})`);
     }
   });
 
-  it("globals.css and shell.css reference no unresolved token (nothing may silently depend on an empty value)", () => {
-    for (const unresolved of [...UNRESOLVED_TOKENS, ...UNRESOLVED_AUXILIARY_TOKENS]) {
+  it("consuming stylesheets reference no unresolved token (nothing may silently depend on an empty value)", () => {
+    for (const unresolved of [
+      ...UNRESOLVED_TOKENS,
+      ...UNRESOLVED_AUXILIARY_TOKENS,
+      ...OPACITY_UNRESOLVED_TOKENS,
+    ]) {
       expect(consumers).not.toContain(`var(--${unresolved})`);
     }
   });

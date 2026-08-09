@@ -1,0 +1,187 @@
+/**
+ * Action controls — M2.5.
+ * Authority: DESIGN_SYSTEM.md v1.1 §25-29 (Controls and shared interaction
+ * language), §101 (Control token model). See
+ * docs/implementation/M2.5_ACTION_CONTROLS.md for the full audit and
+ * reasoning behind every choice below.
+ *
+ * TYPOGRAPHY IS NOT SET HERE. Consumers (Action.tsx, ActionLink.tsx) apply
+ * the existing `.type-label` class (M2.2) alongside these classes — this
+ * file owns geometry, color, and interaction state only, matching the
+ * established pattern of composing existing classes rather than
+ * duplicating declarations (see src/components/page-shells/PageShell.tsx
+ * for the same pattern with `.type-h1`/`.composition`).
+ *
+ * THREE ACTION LEVELS (§28 — "the platform retains three action levels,"
+ * not an invented hierarchy): `.action-primary`, `.action-secondary`,
+ * `.action-tertiary`. Two link treatments (§27): `.link` (Route/Utility —
+ * both described identically in §27.2/27.3, no visual distinction is
+ * mandated, so they share one class; semantic separation lives in how
+ * ActionLink.tsx is used, not in CSS) and `.link-inline` (§27.1, for
+ * links embedded in prose — no hit-area/padding, inherits surrounding
+ * typography).
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE. §28: "Signal is not a
+ * primary-action treatment," and DS-113 extends that to every ordinary
+ * interaction state. Hierarchy here comes from tone (an inverted fill for
+ * Primary, an outline for Secondary, plain text for Tertiary) — never from
+ * an accent color.
+ */
+
+/* Shared control geometry, independent of action level. */
+.action-primary,
+.action-secondary,
+.action-tertiary,
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Icon-only controls (§29): square-ish minimum hit area, no text padding.
+   The accessible name in this case comes from an explicit aria-label, not
+   visible text — enforced by Action.tsx's prop types, not by this class. */
+.action-icon-only {
+  min-width: 44px;
+  padding-inline: 0;
+}
+
+/**
+ * Primary (§28: "strong hierarchy... generally one primary action per
+ * local group"). An inverted fill — light background, dark text — reusing
+ * the two most extreme already-approved neutrals (the body-text color and
+ * the field color) rather than inventing an accent. Strongest available
+ * contrast in the existing palette, with no new color.
+ */
+.action-primary {
+  background: var(--color-light-text);
+  color: var(--color-void-1000);
+}
+
+/**
+ * Secondary (§28: "same basic control language with quieter hierarchy").
+ * A containing surface (a boundary), but no fill — quieter than Primary,
+ * still visually a control (unlike Tertiary).
+ */
+.action-secondary {
+  background: transparent;
+  color: var(--color-light-text);
+  border: var(--line-hairline) solid var(--color-mist-300);
+}
+
+/**
+ * Tertiary / text action (§28: "lower-priority exploratory action without
+ * a containing surface by default"). No background, no border — text plus
+ * an underline, so it stays distinguishable without relying on color alone.
+ */
+.action-tertiary {
+  background: transparent;
+  color: var(--color-light-text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/**
+ * Route / Utility link (§27.2/§27.3). Visually identical to Tertiary — the
+ * Design System describes both link purposes without a distinguishing
+ * visual requirement, and "visual similarity is allowed, semantic
+ * interchangeability is not" (this milestone's own governing principle) —
+ * the semantic difference is which component/props are used, not the CSS.
+ */
+.link {
+  color: var(--color-light-text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/**
+ * Inline link (§27.1 — "used inside prose and distinguishable without
+ * color alone"). Deliberately excluded from the shared geometry rule above:
+ * an inline link must not force a minimum height or block padding onto
+ * running text. Inherits surrounding typography entirely.
+ */
+.link-inline {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* Hover (§21.1) — enhancement only, never the sole indication of
+   interactivity, never Signal. A restrained, uniform opacity dim.
+   `:not(:disabled)` keeps this from stacking with the disabled treatment. */
+.action-primary:not(:disabled):hover,
+.action-secondary:not(:disabled):hover,
+.action-tertiary:not(:disabled):hover,
+.link:not(:disabled):hover,
+.link-inline:hover {
+  opacity: 0.85;
+}
+
+/* Pressed / active (§21.1) — perceptibly stronger than hover, still a
+   static tonal shift, no spatial-motion convention (Animation System
+   territory, not this milestone's). */
+.action-primary:not(:disabled):active,
+.action-secondary:not(:disabled):active,
+.action-tertiary:not(:disabled):active,
+.link:not(:disabled):active,
+.link-inline:active {
+  opacity: 0.7;
+}
+
+/* Focus-visible — deliberately identical to the shared shell's existing
+   focus treatment (src/styles/shell.css), not a new one. §25: "may not
+   redefine... focus behavior" — one stable control language means one
+   focus ring, reused exactly, not reinvented per component. */
+.action-primary:focus-visible,
+.action-secondary:focus-visible,
+.action-tertiary:focus-visible,
+.link:focus-visible,
+.link-inline:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/**
+ * Disabled (§21.1, §101). Communicated through more than color: reduced
+ * opacity (`--opacity-disabled`, src/styles/tokens/opacity.css — not a new
+ * color, see that file's header for why), `cursor: not-allowed`, and the
+ * native `disabled` attribute (buttons) or `aria-disabled="true"` (links,
+ * which have no native disabled state — `pointer-events: none` enforces
+ * non-interactivity the browser doesn't provide for free on an anchor).
+ */
+.action-primary:disabled,
+.action-secondary:disabled,
+.action-tertiary:disabled,
+.link[aria-disabled="true"],
+.link-inline[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.link[aria-disabled="true"],
+.link-inline[aria-disabled="true"] {
+  pointer-events: none;
+}
+
+/**
+ * Loading (§28 button invariant: "default, hover, focus-visible, pressed,
+ * disabled, loading"). Structural capability only — no spinner, no
+ * animation (nothing currently loads anywhere in this repository; a real
+ * spinner/timing treatment is deferred to the first genuine async
+ * consumer, and choreography is Animation System territory regardless).
+ * `aria-busy` is a distinct semantic signal from `disabled` (screen
+ * readers announce "busy," not "disabled"), so it gets its own selector
+ * even though the visual treatment is currently identical.
+ */
+.action-primary[aria-busy="true"],
+.action-secondary[aria-busy="true"],
+.action-tertiary[aria-busy="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: progress;
+  pointer-events: none;
+}

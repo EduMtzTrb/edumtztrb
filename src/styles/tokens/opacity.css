@@ -1,0 +1,38 @@
+/**
+ * Opacity tokens — M2.5 (Action Controls).
+ * Authority: DESIGN_SYSTEM.md v1.1 §100 (Opacity token model).
+ *
+ * §100 approves five semantic opacity roles: full authority, supporting,
+ * latent, recessed context, disabled — "exact values remain implementation-
+ * calibrated." This file is the first to need one for real: M2.5's disabled
+ * action-control state (see docs/implementation/M2.5_ACTION_CONTROLS.md
+ * "Disabled State" for the full reasoning).
+ *
+ * `--opacity-disabled` was chosen over resolving `color-disabled`
+ * (src/styles/tokens/color.css, still deliberately unresolved) because a
+ * WCAG contrast check on the only plausible existing neutral candidate
+ * (`color-graphite-500`) computed 3.98:1 against the field and 3.31:1
+ * against Plane — both below the 4.5:1 AA floor DS-141 requires. Dimming
+ * the *existing*, already-accessible text/background colors via opacity
+ * avoids inventing a new color that would risk exactly the "inaccessible
+ * low-contrast control" this milestone is explicitly told not to create,
+ * while still satisfying "communicate disabled state through more than
+ * color alone" (paired with `cursor: not-allowed` and the native `disabled`
+ * attribute — see src/styles/controls.css).
+ *
+ * The other four roles have no consumer yet and stay declared-but-empty,
+ * matching the pattern established for every other token family in this
+ * repository (M2.1 onward): a name gets a real value only when something
+ * genuinely needs one.
+ */
+
+:root {
+  /* Disabled — §100. Resolved: first real consumer is M2.5's action controls. */
+  --opacity-disabled: 0.5;
+
+  /* No current consumer — declared, deliberately unresolved. */
+  --opacity-full-authority: ;
+  --opacity-supporting: ;
+  --opacity-latent: ;
+  --opacity-recessed-context: ;
+}
