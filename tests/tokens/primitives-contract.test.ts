@@ -65,8 +65,15 @@ describe("Core visual primitives contract (DESIGN_SYSTEM.md v1.1 §16-§19)", ()
     }
   });
 
-  it("Frame uses a heavier weight than the structural line (a Frame is a more decisive boundary)", () => {
-    expect(primitivesCss).toContain("var(--line-structural)"); // Frame
-    expect(primitivesCss).toContain("var(--line-hairline)"); // Structural line
+  it("Frame uses the restrained hairline weight, not the heavier structural physical weight (calibrated after visual review)", () => {
+    const frameRule = primitivesCss.match(/\.frame\s*\{[^}]*\}/)?.[0] ?? "";
+    expect(frameRule).toContain("var(--line-hairline)");
+    expect(frameRule).not.toContain("var(--line-structural)");
+  });
+
+  it("does not consume the retired-from-default line-structural token anywhere in this file", () => {
+    // line-structural remains fully resolved in geometry.css for future
+    // use — it's just no longer referenced by any primitive here.
+    expect(primitivesCss).not.toContain("var(--line-structural)");
   });
 });

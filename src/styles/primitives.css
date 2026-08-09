@@ -75,15 +75,30 @@
 /**
  * Frame (§18 Geometry; this milestone's own "Frame" primitive) — a
  * restrained, all-around boundary marking real content/media extent, not
- * a generic card. Reuses `line-structural` (3px) — the Design System's own
- * "rare role, 3px max" physical weight (§12.1) — deliberately heavier than
- * the Structural *line* above, so a Frame reads as a decisive boundary
- * around something with real extent, not an ordinary containment edge.
+ * a generic card.
+ *
+ * Calibrated after human visual review (see
+ * docs/implementation/M2.4_CORE_VISUAL_PRIMITIVES.md "Human Visual
+ * Review"): the initial treatment used `line-structural` (3px, the Design
+ * System's own "rare role, 3px max" physical weight, §12.1) and read as a
+ * pronounced boxed container at both desktop and ~390px mobile width —
+ * especially combined with Plane, where it began to approach generic
+ * panel/card UI. Recalibrated to the smallest approved physical weight,
+ * `line-hairline` (1px) — the same weight the Structural line above
+ * already uses. Frame stays visually distinct from a single Structural
+ * line not by being heavier, but by being a full four-sided boundary with
+ * radius, marking an actual extent, rather than one edge marking a
+ * region separation.
+ *
+ * `line-structural` (3px) was not deleted or altered — it remains fully
+ * resolved in src/styles/tokens/geometry.css for whatever future,
+ * separately-justified semantic use genuinely needs a heavier weight; it
+ * is simply no longer Frame's default.
  *
  * Not applied anywhere in this task — no current page shell has media,
  * evidence, or an inspection region that needs a marked extent yet.
  */
 .frame {
-  border: var(--line-structural) solid var(--color-graphite-700);
+  border: var(--line-hairline) solid var(--color-graphite-700);
   border-radius: var(--radius-control);
 }
