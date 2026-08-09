@@ -46,8 +46,8 @@ export function CanonicalRecordShell({
   continuation,
 }: CanonicalRecordShellProps) {
   return (
-    <main data-page-type="canonical-record">
-      <header>
+    <main className="composition" data-page-type="canonical-record">
+      <header className="field-interval">
         <h1 className="type-display">{heading}</h1>
         {publicState !== undefined && <p data-region="public-state">{publicState}</p>}
         {authorship !== undefined && <p data-region="authorship">{authorship}</p>}

@@ -1,0 +1,98 @@
+/**
+ * Layout primitives — M2.3 (Spacing and Grid).
+ * Authority: `DESIGN_SYSTEM.md v1.1` §13 (Spacing infrastructure), §14
+ * (Shared grid system), §15 (Proportional grammar).
+ *
+ * WHAT THIS FILE IS FOR
+ * A small, shared set of structural building blocks any page shell can use
+ * to get the approved responsive grid and architectural spacing — without
+ * every route/component reinventing its own margins, columns, or media
+ * queries. Three classes, on purpose: `.composition`, `.field-interval`,
+ * `.measure`. This is not a utility framework (no `.mt-4`/`.gap-2`-style
+ * classes) — each class represents one approved structural concept, not an
+ * arbitrary CSS property.
+ *
+ * TOKEN SPACING VS. COMPOSITIONAL SPACING (§13.2 / §13.3)
+ * `space-0`…`space-12` (spacing.css) are for small, local, reusable
+ * relationships — the gap between a label and its control, padding inside
+ * a button. They are NOT used here. `.field-interval` below is
+ * *compositional* spacing instead: the larger, fluid breathing room around
+ * a whole section, a major heading, or a threshold — explicitly allowed by
+ * the Design System to exceed the fixed token scale (§13.1: "This fixed
+ * scale is infrastructure. It is not a conceptual ceiling for architectural
+ * void.").
+ *
+ * WHY THE GRID DOESN'T KEEP ADDING COLUMNS ON ULTRA-WIDE SCREENS
+ * The approved grid is 4 columns (compact) → 8 (medium) → 12 (wide), and
+ * 12 stays 12 forever after that (§14: "wide and ultra-wide: 12 columns").
+ * A wider screen doesn't mean "more columns" or "wider text" — it means
+ * more calm field around the same 12-column composition. `.composition`
+ * achieves this with two ordinary CSS properties, not a new breakpoint or
+ * token: `max-width: var(--composition-max)` caps the grid at ~1600px, and
+ * `margin-inline: auto` centers it — so on a very wide viewport, the extra
+ * space left and right simply becomes void. Nothing above needs a "what
+ * happens past 1600px" rule; centering already answers that.
+ */
+
+.composition {
+  width: 100%;
+  max-width: var(--composition-max);
+  margin-inline: auto;
+  padding-inline: var(--margin-compact);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-compact-4), 1fr);
+  column-gap: var(--gutter-compact);
+}
+
+/* Direct children span the full row by default — "the grid provides
+   alignment without requiring occupancy" (§14.3). No content exists yet
+   that needs a narrower span; a future component can opt into one
+   explicitly (e.g. `grid-column: span 6`) once real content requires it. */
+.composition > * {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .composition {
+    padding-inline: var(--margin-medium);
+    grid-template-columns: repeat(var(--grid-medium-8), 1fr);
+    column-gap: var(--gutter-medium);
+  }
+}
+
+@media (min-width: 1024px) {
+  .composition {
+    padding-inline: var(--margin-wide);
+    grid-template-columns: repeat(var(--grid-wide-12), 1fr);
+    column-gap: var(--gutter-wide);
+  }
+}
+
+/**
+ * Compositional void (§13.3, §13.5 "Spacing expresses informational
+ * pressure", §15.3 Record anchor). Generous, fluid vertical breathing room
+ * around a major anchor — a district threshold, a record's dominant
+ * heading, a chapter transition. Deliberately larger than any fixed
+ * `space-*` token and grows with viewport width, because architectural
+ * void is a compositional decision, not a local one. Apply to the element
+ * that should be surrounded by calm space (e.g. a shell's `<header>`), not
+ * to small repeated UI.
+ */
+.field-interval {
+  padding-block: clamp(3rem, 0.6667rem + 9.3333vw, 10rem);
+}
+
+/**
+ * Readable content measure (§12.5 Reading width; DESIGN_SYSTEM.md's
+ * approved standard-prose target is 55–72 characters per line). `ch` is a
+ * character-relative unit, so this already scales with font size — no
+ * `clamp()` needed. 65ch is the sensible midpoint of the approved range;
+ * final calibration against real prose is deferred until representative
+ * body content exists (see docs/implementation/M2.3_SPACING_GRID.md
+ * "Deferred Items") — no long-form text exists anywhere in this repository
+ * yet to calibrate against. Apply only to elements that hold running text,
+ * never to the `.composition` grid itself.
+ */
+.measure {
+  max-inline-size: 65ch;
+}

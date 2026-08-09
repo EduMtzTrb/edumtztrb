@@ -1,41 +1,52 @@
 /**
- * Grid tokens — DESIGN_SYSTEM_v1.0.md §9 (Grid system) and §60 (Approved
- * token families → Grid).
+ * Grid tokens. M2.1 originally implemented this file against
+ * `DESIGN_SYSTEM_v1.0.md` §9/§60 — historically accurate for M2.1 at the
+ * time, see docs/implementation/M2.1_TOKEN_FOUNDATION.md. Column counts
+ * (4/8/12) and maximum composition width (1600px) were already exact,
+ * single approved numbers — kept resolved, unaffected by v1.1 (confirmed
+ * against the current authority, `DESIGN_SYSTEM.md v1.1` §14.3/§14.2).
  *
- * Column counts (§9.1: 4/8/12, "structural logic remains fixed") and
- * maximum composition width (§9.2: "approximately 1600 px," a single
- * approved number) are exact — kept resolved.
+ * Margin and gutter (§14.1) are each an approved per-breakpoint *range*,
+ * not a single number — M2.1 correctly left them declared but empty rather
+ * than guess a point. M2.3 (Spacing and Grid) resolves them here.
  *
- * Margin and gutter (§9.1) are each given as a per-breakpoint range (e.g.
- * compact margin: 16–24 px), with no stated preference within the range.
- * An earlier pass of this file fixed each at the range's midpoint and
- * presented that as the token's value — that was this implementation
- * choosing a point the Design System never specified. Reviewed and
- * reverted: every margin/gutter token below is declared with an
- * intentionally **empty** value. Nothing in this repository consumes them
- * yet (the responsive grid system that would is M2.3's job); the approved
- * range is preserved in each comment for M2.3 to resolve.
+ * Calibration method (see docs/implementation/M2.3_SPACING_GRID.md for the
+ * full derivation): each token is a fluid `clamp()` that reaches its
+ * approved range minimum at the *start* of its own breakpoint band and its
+ * approved range maximum at the *end* of that band — not a guessed
+ * midpoint, not always-minimum, not always-maximum. The three bands are
+ * 320–767px (compact), 768–1023px (medium), 1024–1600px (wide); 1600px is
+ * the same number as `--composition-max` below, so "wide" and the start of
+ * "ultra-wide" meet exactly at the guardrail. Which token applies at which
+ * viewport is decided by `.composition` in src/styles/layout.css, not here
+ * — this file only declares the calibrated values.
  *
- * See docs/implementation/M2.1_TOKEN_FOUNDATION.md for the full provenance
- * table.
+ * Ultra-wide margin/gutter are deliberately **not** separate tokens: the
+ * approved token registry (§60) has no "ultra-wide" margin/gutter names,
+ * and `DESIGN_SYSTEM.md v1.1` §14.2 itself describes ultra-wide behavior as
+ * "gains margin, void, field depth" rather than a numeric range — that
+ * behavior is achieved structurally in `.composition`
+ * (`max-width: var(--composition-max)` + `margin-inline: auto`), which
+ * naturally turns any viewport width beyond the guardrail into growing
+ * outer field, with no extra token needed.
  */
 
 :root {
-  /* Column counts — DESIGN_SYSTEM_v1.0.md §9.1. Exact approved values (structural logic is fixed). */
+  /* Column counts — DESIGN_SYSTEM.md v1.1 §14.3. Exact approved values (structural logic is fixed). */
   --grid-compact-4: 4;
   --grid-medium-8: 8;
   --grid-wide-12: 12;
 
-  /* Outer margin — §9.1. Approved ranges, deliberately unresolved to a point. */
-  --margin-compact: ; /* approved range 16–24px */
-  --margin-medium: ; /* approved range 32–48px */
-  --margin-wide: ; /* approved range 48–80px */
+  /* Outer margin — §14.1. Fluid within each breakpoint's approved range; see file header. */
+  --margin-compact: clamp(1rem, 0.6421rem + 1.7897vw, 1.5rem); /* approved range 16–24px */
+  --margin-medium: clamp(2rem, -1.0118rem + 6.2745vw, 3rem); /* approved range 32–48px */
+  --margin-wide: clamp(3rem, -0.5556rem + 5.5556vw, 5rem); /* approved range 48–80px */
 
-  /* Gutter — §9.1. Approved ranges, deliberately unresolved to a point. */
-  --gutter-compact: ; /* approved range 12–16px */
-  --gutter-medium: ; /* approved range 20–24px */
-  --gutter-wide: ; /* approved range 24–32px */
+  /* Gutter — §14.1. Fluid within each breakpoint's approved range; see file header. */
+  --gutter-compact: clamp(0.75rem, 0.571rem + 0.8949vw, 1rem); /* approved range 12–16px */
+  --gutter-medium: clamp(1.25rem, 0.4971rem + 1.5686vw, 1.5rem); /* approved range 20–24px */
+  --gutter-wide: clamp(1.5rem, 0.6111rem + 1.3889vw, 2rem); /* approved range 24–32px */
 
-  /* Maximum composition width — §9.2. Single approved value, not a range. */
+  /* Maximum composition width — §14.2. Single approved value, not a range. */
   --composition-max: 1600px;
 }

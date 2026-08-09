@@ -33,9 +33,13 @@ import { join } from "node:path";
  * docs/implementation/M2.2_TYPOGRAPHY.md): `font-display`, `font-reading`,
  * `font-mono-functional`, and all eleven `type-*` role tokens move from
  * UNRESOLVED to RESOLVED — M2.2 calibrated real families and fluid clamp()
- * sizes for each, within the ranges `DESIGN_SYSTEM.md` approves. Nothing
- * else changes: margin/gutter, `color-disabled`, and `surface-overlay`
- * remain unresolved, owned by later work packages.
+ * sizes for each, within the ranges `DESIGN_SYSTEM.md` approves.
+ *
+ * Updated again by M2.3 — Spacing and Grid (see
+ * docs/implementation/M2.3_SPACING_GRID.md): all six margin/gutter tokens
+ * move from UNRESOLVED to RESOLVED — each calibrated to a fluid `clamp()`
+ * that stays within its approved per-breakpoint range. `color-disabled` and
+ * `surface-overlay` remain unresolved, owned by later work packages.
  */
 
 // RESOLVED: DESIGN_SYSTEM_v1.0.md gives an exact single value (or a
@@ -98,21 +102,18 @@ const RESOLVED_TOKENS = [
   "radius-small",
   "radius-circle",
   "surface-field",
-];
-
-// UNRESOLVED: the Design System gives only a range, or approves the name
-// with no value at all — must stay declared-but-empty (see file header and
-// each token file's own comments for the per-token reasoning).
-const UNRESOLVED_TOKENS = [
   "margin-compact",
   "margin-medium",
   "margin-wide",
   "gutter-compact",
   "gutter-medium",
   "gutter-wide",
-  "color-disabled",
-  "surface-overlay",
 ];
+
+// UNRESOLVED: the Design System gives only a range, or approves the name
+// with no value at all — must stay declared-but-empty (see file header and
+// each token file's own comments for the per-token reasoning).
+const UNRESOLVED_TOKENS = ["color-disabled", "surface-overlay"];
 
 const APPROVED_TOKENS = [...RESOLVED_TOKENS, ...UNRESOLVED_TOKENS];
 

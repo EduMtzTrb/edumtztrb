@@ -13,6 +13,10 @@ describe("CanonicalRecordShell", () => {
 
     expect(screen.getByRole("heading", { level: 1, name: "Test Record" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1 })).toHaveClass("type-display");
+    expect(mains[0]).toHaveClass("composition");
+    expect(screen.getByRole("heading", { level: 1 }).closest("header")).toHaveClass(
+      "field-interval",
+    );
 
     // No optional region exists in the DOM at all — not hidden, not empty, absent.
     expect(container.querySelectorAll("[data-region]")).toHaveLength(0);

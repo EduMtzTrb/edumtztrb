@@ -67,6 +67,14 @@ describe.each(SIMPLE_SHELLS)("$name", ({ Shell, pageType, headingClass }) => {
     render(<Shell heading="Test Heading" />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveClass(headingClass);
   });
+
+  it("applies the composition grid to its main and field-interval to its header (M2.3)", () => {
+    render(<Shell heading="Test Heading" />);
+    expect(screen.getByRole("main")).toHaveClass("composition");
+    expect(screen.getByRole("heading", { level: 1 }).closest("header")).toHaveClass(
+      "field-interval",
+    );
+  });
 });
 
 describe("WorldThresholdShell", () => {

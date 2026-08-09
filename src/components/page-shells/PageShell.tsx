@@ -17,8 +17,8 @@ interface PageShellProps {
  */
 function PageShell({ pageType, heading, district, headingClassName }: PageShellProps) {
   return (
-    <main data-page-type={pageType} data-district={district}>
-      <header>
+    <main className="composition" data-page-type={pageType} data-district={district}>
+      <header className="field-interval">
         <h1 className={headingClassName}>{heading}</h1>
       </header>
     </main>
