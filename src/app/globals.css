@@ -1,6 +1,7 @@
 @import "../styles/tokens/index.css";
 @import "../styles/shell.css";
 @import "../styles/layout.css";
+@import "../styles/primitives.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,

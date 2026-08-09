@@ -1,0 +1,89 @@
+/**
+ * Core visual primitives — M2.4.
+ * Authority: DESIGN_SYSTEM.md v1.1 §16 (Line system), §17 (Fields and
+ * surfaces), §18 (Geometry), §19 (Layering and depth). See
+ * docs/implementation/M2.4_CORE_VISUAL_PRIMITIVES.md for the full audit
+ * and the reasoning behind every choice below.
+ *
+ * FIELD is not defined here — it's already fully expressed by `body`
+ * (`background: var(--surface-field)`, since M1/M2.1). Duplicating that
+ * into a `.field` class with no second consumer would be premature
+ * abstraction, not a primitive anyone needs yet.
+ *
+ * VOID is not defined here either. M2.3's `.composition` (columns aren't
+ * forced to be occupied — "the grid provides alignment without requiring
+ * occupancy," §14.3) and `.field-interval` (fluid compositional breathing
+ * room) already express architectural void. Nothing here duplicates them.
+ *
+ * SIGNAL is deliberately absent from this file. No chromatic value or
+ * token name for it is approved anywhere in `DESIGN_SYSTEM.md v1.1` — §8.2
+ * explicitly leaves "exact chromatic values... implementation-calibrated,"
+ * and no real relational/connection content exists anywhere in this
+ * repository yet to give Signal genuine meaning (Signal means "meaningful
+ * connection, branching, or active/revealed authorship relationship" —
+ * §8, DS-111/112 — never a generic accent). Inventing an appearance now,
+ * with nothing for it to mean, is exactly the misuse §8.1/DS-113
+ * prohibit. Fully deferred to the first package with real relational data.
+ */
+
+/**
+ * Plane / Content Surface (§17.4) — "a local readable or functional plane
+ * used only where content needs contrast or separation from the field.
+ * Many compositions should remain field + content without intermediate
+ * panels." Uses `color-graphite-800`/`color-graphite-700` — already
+ * approved, already-resolved neutral tokens (§10.2), one step lighter than
+ * the field — rather than inventing a new `surface-content` value nothing
+ * in this repository can calibrate honestly yet (see the M2.4 report
+ * "Surface/Token Reconciliation"). No shadow, no transparency, no
+ * decorative radius — a restrained rectangle, not a card.
+ *
+ * Not applied anywhere in this task — no current page shell has content
+ * that needs local separation from the field yet.
+ */
+.plane {
+  background: var(--color-graphite-800);
+  color: var(--color-light-text);
+  border: var(--line-hairline) solid var(--color-graphite-700);
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+}
+
+/**
+ * Structural line (§16.1) — "quiet, continuous, non-directional,
+ * subordinate" containment/edge/region separation. Uses the hairline
+ * weight — the same semantic choice already load-bearing for the shared
+ * shell's header divider (src/styles/shell.css, untouched by this task),
+ * made explicit and reusable here for content outside the shell.
+ */
+.line-structural {
+  border-block-end: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+/**
+ * Hierarchy line (§16.2) — "stronger than ordinary structural separation,"
+ * for major section division. "Use sparingly. Spacing should perform most
+ * grouping work." Shares the emphasis (2px) weight with the shared shell's
+ * existing focus boundary — distinguished by color (neutral gray here,
+ * `color-focus` there), not by introducing a fourth physical weight
+ * (§94 explicitly permits sharing weight where semantic distinction, here
+ * color, remains).
+ */
+.line-hierarchy {
+  border-block-end: var(--line-emphasis) solid var(--color-graphite-500);
+}
+
+/**
+ * Frame (§18 Geometry; this milestone's own "Frame" primitive) — a
+ * restrained, all-around boundary marking real content/media extent, not
+ * a generic card. Reuses `line-structural` (3px) — the Design System's own
+ * "rare role, 3px max" physical weight (§12.1) — deliberately heavier than
+ * the Structural *line* above, so a Frame reads as a decisive boundary
+ * around something with real extent, not an ordinary containment edge.
+ *
+ * Not applied anywhere in this task — no current page shell has media,
+ * evidence, or an inspection region that needs a marked extent yet.
+ */
+.frame {
+  border: var(--line-structural) solid var(--color-graphite-700);
+  border-radius: var(--radius-control);
+}
