@@ -1,7 +1,7 @@
 # Personal Platform — Project State
 
 **Last updated:** 2026-08-09
-**Milestone:** Milestone 1 — Foundation: **Complete / Verified**. Milestone 2 — System Primitives: in progress (M2.2 of 12 complete).
+**Milestone:** Milestone 1 — Foundation: **Complete / Verified**. Milestone 2 — System Primitives: in progress (M2.3 of 12 complete).
 
 This document describes what is actually implemented in the repository right now. It is not a plan or a specification — see `PLATFORM_VISION.md`, `INFORMATION_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, `ANIMATION_SYSTEM.md`, `PLATFORM_SPECIFICATION.md`, `IMPLEMENTATION_PLAN.md`, and `TECHNICAL_ARCHITECTURE.md` for those. The full source-of-truth map is `docs/GOVERNING_DOCUMENTS.md`.
 
@@ -22,7 +22,7 @@ This document describes what is actually implemented in the repository right now
 - **M2.1 — Token Foundation** — **Complete, reconciled** (see `docs/implementation/M2.1_TOKEN_FOUNDATION.md`) — a review found the first pass had silently resolved several Design-System-approved *ranges* and *unvalued names* into single final-looking values (typography sizes, grid margin/gutter, `color-disabled`, `color-district-accent`, three of four surface levels, `line-standard`); all were reverted to a deliberately unresolved state, documented in a full provenance table
 - **Implementation-Readiness Reconciliation** — **Complete** (see `docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md`) — reconciled the M2.1 token baseline against `DESIGN_SYSTEM.md v1.1`; retired six superseded token names, added three v1.1 typography-voice names; classified as "Ready for M2.2 with Deferred Calibration"
 - **M2.2 — Typography** — **Complete / Verified** (see `docs/implementation/M2.2_TYPOGRAPHY.md`) — Display Voice (Space Grotesk), Reading Voice (Source Serif 4), and Functional Mono Voice (IBM Plex Mono) implemented via `next/font/google`; all eleven semantic type roles resolved to fluid, range-respecting `clamp()` values; confirmed via automated validation, structural/mechanical browser verification, and human visual approval in a real browser. One adjacent, non-typography observation from that review (responsive navigation wrapping) is recorded as deferred to **M3.7 — Global Navigation** — see **Blockers** below
-- **M2.3 — Spacing and Grid** — **Complete with documented visual follow-up** (see `docs/implementation/M2.3_SPACING_GRID.md`) — 4/8/12 responsive grid, calibrated margin/gutter tokens (fluid `clamp()` within each approved per-breakpoint range), the `composition-max` guardrail with ultra-wide auto-centering, and a compositional-void primitive (`.field-interval`) implemented and applied to all seven page shells; automated validation and structural/mechanical browser verification pass; **human visual review of the calibrated spacing/grid is still pending** — see exact review instructions in the report. `GlobalNav` was not modified (confirmed via diff)
+- **M2.3 — Spacing and Grid** — **Complete / Verified** (see `docs/implementation/M2.3_SPACING_GRID.md`) — 4/8/12 responsive grid, calibrated margin/gutter tokens (fluid `clamp()` within each approved per-breakpoint range), the `composition-max` guardrail with ultra-wide auto-centering, and a compositional-void primitive (`.field-interval`) implemented and applied to all seven page shells; confirmed via automated validation, structural/mechanical browser verification, and human visual approval in a real browser (Home, Work, About, Lab; narrow/intermediate/wide viewports). `GlobalNav` was not modified (confirmed via diff); the previously observed responsive navigation wrapping remains deferred to **M3.7 — Global Navigation**
 - **Platform Vision — Final Approval** — `PLATFORM_VISION.md` closed at **v1.0, Approved / Closed** (8 August 2026): central brand idea, personal brand identity, positioning, audience hierarchy, experience goals, design principles, curatorial threshold, role of commerce, and long-term evolution are now locked governing authority (see **Governing Documents** below)
 - **Information Architecture — Final Approval** — `INFORMATION_ARCHITECTURE.md` closed at **v1.0, Approved / Closed** (8 August 2026): canonical ownership, district boundaries, typed directional relationships, the public-inclusion/state model, Search/Index, lenses/filters, archive semantics, route hierarchy, and the minimum canonical-record contract are now locked governing authority
 - **Design System — v1.1 Final Approval** — `DESIGN_SYSTEM.md` closed at **v1.1, Approved / Closed** (9 August 2026), superseding v1.0: adds the identity system (Precision without finality, Inhabited Threshold, Typographic Voice, Signal, Trace Language, Controlled Exception), the governing compositional grammar, district-expression rules, and a reconciled Core System including semantic depth/layer-order/opacity models — see **Blockers** below for its effect on the opacity/layer-order item
@@ -30,17 +30,15 @@ This document describes what is actually implemented in the repository right now
 
 ## Current Phase
 
-Implementation — Foundation (Milestone 1 of 9): **Complete**. Milestone 2 — System Primitives: in progress (M2.2 of 12 work packages complete). Governance track: Platform Vision, Information Architecture, and Design System are now all closed at their current versions (see **Governing Documents**).
+Implementation — Foundation (Milestone 1 of 9): **Complete**. Milestone 2 — System Primitives: in progress (M2.3 of 12 work packages complete). Governance track: Platform Vision, Information Architecture, and Design System are now all closed at their current versions (see **Governing Documents**).
 
 ## Current Position
 
-M2.2 — Typography completed and closed (Complete / Verified, including human visual approval).
+M2.3 — Spacing and Grid completed and closed (Complete / Verified, including human visual approval — Home, Work, About, Lab; narrow/intermediate/wide viewports).
 
-M2.3 — Spacing and Grid implementation is complete (see `docs/implementation/M2.3_SPACING_GRID.md`); status is **Complete with documented visual follow-up** — mechanical/automated verification passed, human visual review of the calibrated margins/gutters/void is still required before M2.3 can be marked Complete / Verified. M2.4 has not started and must not begin until that review closes M2.3.
+Sequence completed: Governance Synchronization → Implementation-Readiness Reconciliation → M2.2 — Typography → M2.3 — Spacing and Grid.
 
-Sequence completed: Governance Synchronization → Implementation-Readiness Reconciliation → M2.2 — Typography → M2.3 — Spacing and Grid (implementation).
-
-Next: **M2.3 human visual spacing/grid acceptance**, then **M2.4 — Core visual primitives** (Field, Plane, Line, Frame, Void, Signal — per `IMPLEMENTATION_PLAN.md` §7).
+Next: **M2.4 — Core Visual Primitives** (Field, Plane, Line, Frame, Void, Signal — per `IMPLEMENTATION_PLAN.md` §7). M2.4 has not started.
 
 ## Governing Documents
 
@@ -64,8 +62,8 @@ Every governing document above is now Active — Approved. Do not treat any docu
 - **Platform Vision / Information Architecture — Resolved.** Both closed at v1.0, Approved / Closed, 8 August 2026. No unresolved contradiction remains at the Vision or IA level. This is no longer a blocker to any current or future work package.
 - **Design System opacity / layer-order — design-governance ambiguity resolved; implementation calibration remains.** The original blocker recorded that `DESIGN_SYSTEM_v1.0.md` approved neither opacity nor layer-order anywhere. `DESIGN_SYSTEM.md v1.1` §19 now defines the approved semantic depth sequence (Environmental Field → Resolved Layer → Working Layer → Focus Layer → Functional Overlay → Critical System Layer), §99 approves a six-token layer-order model (`layer-field`, `layer-resolved`, `layer-working`, `layer-focus`, `layer-overlay`, `layer-critical`), and §100 approves five semantic opacity roles (full authority, supporting, latent, recessed context, disabled) — recorded in the Design System's own decision register as DS-147 ("Semantic z-order bands are approved; numerical z-index values remain implementation-level"). **Exact numeric z-index and opacity values are explicitly left implementation-calibrated by v1.1 itself — this document does not invent or assign any of those values.** This item is therefore reclassified from "not approved, not implemented" to **implementation-calibration work**, owned by Implementation-Readiness Reconciliation and whichever M2 package first needs real values (previously estimated as M2.4 Core visual primitives or M2.9 Overlay-adjacent work).
 - **Implementation-Readiness Reconciliation — Resolved.** Completed; M2.2 subsequently completed and closed. No longer a blocker.
-- **Responsive navigation wrapping** — observed during M2.2's human visual review. Not a typography blocker; not fixed during M2.2 closure. Deferred to **M3.7 — Global Navigation** (Milestone 3 — Navigation + Records) — see `docs/implementation/M2.2_TYPOGRAPHY.md` "Adjacent Observation." Does not block M2.3.
-- No other blockers to M2.3 were identified.
+- **Responsive navigation wrapping** — observed during M2.2's human visual review, re-confirmed not worsened during M2.3's. Not a typography or spacing/grid blocker; not fixed during either closure. Deferred to **M3.7 — Global Navigation** (Milestone 3 — Navigation + Records) — see `docs/implementation/M2.2_TYPOGRAPHY.md` "Adjacent Observation" and `docs/implementation/M2.3_SPACING_GRID.md` "Adjacent Observation Carried Forward." Does not block M2.4.
+- No other blockers to M2.4 were identified.
 
 ---
 
@@ -219,7 +217,7 @@ Current authoritative file: `docs/systems/CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md`
 
 ### Next milestone
 
-Complete — `DESIGN_SYSTEM.md` (now v1.1), `ANIMATION_SYSTEM.md` v1.0, and `PLATFORM_SPECIFICATION.md` v1.0 are all Approved. See **Governing Documents** above for the full current list — Platform Vision and Information Architecture are also now both v1.0, Approved / Closed. Current position: see **Current Position** above (M2.2 — Typography complete / verified; next is M2.3 — Spacing and Grid).
+Complete — `DESIGN_SYSTEM.md` (now v1.1), `ANIMATION_SYSTEM.md` v1.0, and `PLATFORM_SPECIFICATION.md` v1.0 are all Approved. See **Governing Documents** above for the full current list — Platform Vision and Information Architecture are also now both v1.0, Approved / Closed. Current position: see **Current Position** above (M2.3 — Spacing and Grid complete / verified; next is M2.4 — Core Visual Primitives).
 
 ---
 
