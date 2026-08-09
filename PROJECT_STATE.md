@@ -1,9 +1,67 @@
 # Personal Platform — Project State
 
-**Last updated:** 2026-08-04
-**Milestone:** Milestone 1 — Foundation (corrected)
+**Last updated:** 2026-08-09
+**Milestone:** Milestone 1 — Foundation: **Complete / Verified**. Milestone 2 — System Primitives: in progress (M2.1 of 12 complete).
 
-This document describes what is actually implemented in the repository right now. It is not a plan or a specification — see `PLATFORM_VISION.md`, `INFORMATION_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, and `TECHNICAL_ARCHITECTURE.md` for those.
+This document describes what is actually implemented in the repository right now. It is not a plan or a specification — see `PLATFORM_VISION.md`, `INFORMATION_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, `ANIMATION_SYSTEM.md`, `PLATFORM_SPECIFICATION.md`, `IMPLEMENTATION_PLAN.md`, and `TECHNICAL_ARCHITECTURE.md` for those. The full source-of-truth map is `docs/GOVERNING_DOCUMENTS.md`.
+
+---
+
+## Completed
+
+- Architecture and Systems Specification phase — Universe Specification Set v1.1 (Approved 2026-08-06), Cross-Universe System Requirements v1.0 (Approved 2026-08-06), Design System v1.0 (Approved 2026-08-07), Animation System v1.0 (Approved), Platform Specification v1.0 (Approved 2026-08-07)
+- Implementation Planning — Implementation Plan v1.0 (Approved 2026-08-07)
+- **M1.1 — Repository Audit** — **Completed — Verified with Issues** (see `docs/implementation/M1.1_REPOSITORY_AUDIT.md`)
+- **M1.1A — Governing Documentation Reconciliation** — **Completed — Verified with Issues** (see `docs/implementation/M1.1A_GOVERNING_DOCUMENTATION_RECONCILIATION.md`)
+- **M1.2 — Environment Baseline** — **Complete** (see `docs/implementation/M1.2_ENVIRONMENT_BASELINE.md`)
+- **M1.3 — Route Skeleton** — **Complete** (see `docs/implementation/M1.3_ROUTE_SKELETON.md`)
+- **M1.4 — Shared Application Shell** — **Complete** (see `docs/implementation/M1.4_SHARED_APPLICATION_SHELL.md`)
+- **M1.5 — Semantic Page Shells** — **Complete** (see `docs/implementation/M1.5_SEMANTIC_PAGE_SHELLS.md`)
+- **M1.6 — Testing Baseline** — **Complete** (see `docs/implementation/M1.6_TESTING_BASELINE.md`)
+- **Milestone 1 — Foundation** — **Complete / Verified** (Gate M1 met — all twelve `IMPLEMENTATION_PLAN.md` §6 acceptance criteria satisfied, assessed in full in `docs/implementation/M1.6_TESTING_BASELINE.md`)
+- **M2.1 — Token Foundation** — **Complete, reconciled** (see `docs/implementation/M2.1_TOKEN_FOUNDATION.md`) — a review found the first pass had silently resolved several Design-System-approved *ranges* and *unvalued names* into single final-looking values (typography sizes, grid margin/gutter, `color-disabled`, `color-district-accent`, three of four surface levels, `line-standard`); all were reverted to a deliberately unresolved state, documented in a full provenance table
+- **Platform Vision — Final Approval** — `PLATFORM_VISION.md` closed at **v1.0, Approved / Closed** (8 August 2026): central brand idea, personal brand identity, positioning, audience hierarchy, experience goals, design principles, curatorial threshold, role of commerce, and long-term evolution are now locked governing authority (see **Governing Documents** below)
+- **Information Architecture — Final Approval** — `INFORMATION_ARCHITECTURE.md` closed at **v1.0, Approved / Closed** (8 August 2026): canonical ownership, district boundaries, typed directional relationships, the public-inclusion/state model, Search/Index, lenses/filters, archive semantics, route hierarchy, and the minimum canonical-record contract are now locked governing authority
+- **Design System — v1.1 Final Approval** — `DESIGN_SYSTEM.md` closed at **v1.1, Approved / Closed** (9 August 2026), superseding v1.0: adds the identity system (Precision without finality, Inhabited Threshold, Typographic Voice, Signal, Trace Language, Controlled Exception), the governing compositional grammar, district-expression rules, and a reconciled Core System including semantic depth/layer-order/opacity models — see **Blockers** below for its effect on the opacity/layer-order item
+- **Governing Documentation Reconciliation** — commit `bb88f62417b9b3f14a92d8c25183d43a19be3be2` (`docs: reconcile governing document names and authority`, 9 August 2026): restored stable bare canonical filenames for the core governing documents, archived superseded proposals and the superseded Design System v1.0, and reconciled `docs/GOVERNING_DOCUMENTS.md`
+
+## Current Phase
+
+Implementation — Foundation (Milestone 1 of 9): **Complete**. Milestone 2 — System Primitives: in progress (M2.1 of 12 work packages complete). Governance track: Platform Vision, Information Architecture, and Design System are now all closed at their current versions (see **Governing Documents**).
+
+## Current Position
+
+M2.1 completed. Governance Synchronization (this update) is complete.
+
+Sequence to resume implementation: **Governance Synchronization → Implementation-Readiness Reconciliation → M2.2 — Typography**.
+
+**Implementation-Readiness Reconciliation is required before M2.2 resumes.** M2.1's token baseline and existing implementation assumptions were built and verified against `DESIGN_SYSTEM.md v1.0`; they have not yet been compared against what v1.0 → v1.1 changed (the new identity system, compositional grammar, and the semantic depth/opacity/layer-order models — see **Blockers**). That comparison is explicitly a separate, not-yet-started task, not part of this governance update.
+
+Once that reconciliation is complete: **M2.2 — Typography** (load Inter and IBM Plex Mono; implement Display/H1/H2/H3/Body Large/Body/Body Small/Caption/Metadata/Annotation/Label as real applied typography, using the `type-*` tokens M2.1 defined; semantic headings remain independent of visual size — per `IMPLEMENTATION_PLAN.md` §7). M2.2 has not started.
+
+## Governing Documents
+
+Concise source-of-truth list (full detail: `docs/GOVERNING_DOCUMENTS.md`):
+
+| Document | Version | Status | Path |
+|---|---|---|---|
+| Universe Specification Set (7 districts) | 1.1 | Approved | `docs/universes/*_UNIVERSE_v1.1.md` |
+| Cross-Universe System Requirements | 1.0 | Approved | `docs/systems/CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md` |
+| Platform Vision | 1.0 | Approved / Closed (8 August 2026) | `PLATFORM_VISION.md` |
+| Information Architecture | 1.0 | Approved / Closed (8 August 2026) | `INFORMATION_ARCHITECTURE.md` |
+| Design System | 1.1 | Approved / Closed (9 August 2026) | `DESIGN_SYSTEM.md` |
+| Animation System | 1.0 | Approved | `ANIMATION_SYSTEM.md` |
+| Platform Specification | 1.0 | Approved | `PLATFORM_SPECIFICATION.md` |
+| Implementation Plan | 1.0 | Approved | `IMPLEMENTATION_PLAN.md` |
+
+Every governing document above is now Active — Approved. Do not treat any document not listed here as authoritative for implementation, regardless of filename.
+
+## Blockers
+
+- **Platform Vision / Information Architecture — Resolved.** Both closed at v1.0, Approved / Closed, 8 August 2026. No unresolved contradiction remains at the Vision or IA level. This is no longer a blocker to any current or future work package.
+- **Design System opacity / layer-order — design-governance ambiguity resolved; implementation calibration remains.** The original blocker recorded that `DESIGN_SYSTEM_v1.0.md` approved neither opacity nor layer-order anywhere. `DESIGN_SYSTEM.md v1.1` §19 now defines the approved semantic depth sequence (Environmental Field → Resolved Layer → Working Layer → Focus Layer → Functional Overlay → Critical System Layer), §99 approves a six-token layer-order model (`layer-field`, `layer-resolved`, `layer-working`, `layer-focus`, `layer-overlay`, `layer-critical`), and §100 approves five semantic opacity roles (full authority, supporting, latent, recessed context, disabled) — recorded in the Design System's own decision register as DS-147 ("Semantic z-order bands are approved; numerical z-index values remain implementation-level"). **Exact numeric z-index and opacity values are explicitly left implementation-calibrated by v1.1 itself — this document does not invent or assign any of those values.** This item is therefore reclassified from "not approved, not implemented" to **implementation-calibration work**, owned by Implementation-Readiness Reconciliation and whichever M2 package first needs real values (previously estimated as M2.4 Core visual primitives or M2.9 Overlay-adjacent work).
+- **Implementation-Readiness Reconciliation is required before M2.2 resumes** (see **Current Position**) — not itself a blocker to any already-complete work, but an explicit gate on resuming M2.2.
+- No other blockers to M2.2 were identified.
 
 ---
 
@@ -19,35 +77,58 @@ This document describes what is actually implemented in the repository right now
 
 ### Routes
 
-Seven top-level routes exist. Each has an empty `layout.tsx` and `page.tsx` — no navigation, content, components, or styling beyond the shared global stylesheet.
+Added by M1.3 (see `docs/implementation/M1.3_ROUTE_SKELETON.md`): the full route tree approved in `PLATFORM_SPECIFICATION.md` §5 now exists — **53 routes total** (corrected 2026-08-07 by M1.5 from an arithmetic error in the original M1.3/M1.4 reports, which had stated 49; the route files themselves were always correct and complete — only the prior reports' stated total was wrong, per `docs/implementation/M1.5_SEMANTIC_PAGE_SHELLS.md`). Every route renders one `<main>` and one identifying `<h1>` (a district/section label taken from the Platform Specification's own vocabulary, or for dynamic routes, the record identifier echoed back from the URL), now via one of the seven semantic page-shell components added by M1.5 (see below). No real content, no styling beyond the shared global stylesheet.
 
-- `/`
-- `/work`
-- `/research`
-- `/lab`
-- `/art`
-- `/products`
-- `/about`
+- **Top-level:** `/`, `/work`, `/research`, `/lab`, `/art`, `/products`, `/about`, `/search`, `/index`, `/contact`
+- **Work:** `/work/selected`, `/work/all`, `/work/practice/[practiceArea]`, `/work/collections/[collection]`, `/work/[entry]`
+- **Research:** `/research/current`, `/research/themes/[theme]`, `/research/publications`, `/research/writing`, `/research/talks`, `/research/archive`, `/research/[entry]`
+- **Lab:** `/lab/active`, `/lab/prototypes`, `/lab/tools`, `/lab/studies`, `/lab/archive`, `/lab/[entry]`
+- **Art:** `/art/selected`, `/art/series/[series]`, `/art/medium/[medium]`, `/art/exhibitions`, `/art/archive`, `/art/[entry]`
+- **Products:** `/products/featured`, `/products/collections/[collection]`, `/products/digital`, `/products/physical`, `/products/services`, `/products/archive`, `/products/[entry]`
+- **About:** `/about/profile`, `/about/practice`, `/about/experience`, `/about/education`, `/about/capabilities`, `/about/recognition`, `/about/current-focus`
+- **Global discovery:** `/index/district/[district]`, `/index/type/[contentType]`, `/index/discipline/[discipline]`, `/index/theme/[theme]`, `/index/year/[year]`
+
+16 dynamic route files (the `[entry]`, `[practiceArea]`, `[collection]`, `[theme]`, `[series]`, `[medium]`, `[district]`, `[contentType]`, `[discipline]`, and `[year]` segment names, several reused once per district) render on demand (no `generateStaticParams`, no fixtures, no data source) — confirmed in the `next build` output as `ƒ (Dynamic)`. The other 37 routes prerender as static content.
+
+Utility routes (`/search`, `/index`, `/contact`) use a `layout.tsx` with `data-utility="..."` on a wrapping `<div>`, mirroring the existing district `data-district="..."` convention.
+
+### Shared application shell
+
+Added by M1.4 (see `docs/implementation/M1.4_SHARED_APPLICATION_SHELL.md`): every route now renders inside a shared shell composed in `src/app/layout.tsx` via `src/components/shell/AppShell.tsx` (Server Component — skip link, `<header>`, `#main-content` anchor) and `src/components/shell/GlobalNav.tsx` (the shell's only Client Component — two `<nav>` landmarks, "Primary" for the seven districts and "Utilities" for Search/Index/Contact). Active-context detection uses `usePathname()` (switched from `useSelectedLayoutSegment()` by an M1.5 correction) and applies `aria-current="page"` on an exact route match or `aria-current="true"` when the current page is nested under a nav link's section but isn't that link's own route (e.g. "Work" gets `"true"`, not `"page"`, while viewing `/work/selected`) — both states keep the same non-color visual cue (underline + weight). Styling lives in `src/styles/shell.css` (imported from `globals.css`), using only existing Color/Spacing/Geometry tokens. No footer, no language switcher, no legal/admin utility, no district-specific secondary navigation, and no motion — all explicitly deferred. Every route's own `<main>` remains the page's sole main landmark.
+
+### Semantic page shells
+
+Added by M1.5 (see `docs/implementation/M1.5_SEMANTIC_PAGE_SHELLS.md`): all 53 routes are now assigned to one of seven approved page-shell types (`PLATFORM_SPECIFICATION.md` §6) via `src/components/page-shells/PageShell.tsx` (`WorldThresholdShell`, `DistrictOverviewShell`, `CuratedViewShell`, `ComprehensiveViewShell`, `GroupingViewShell`, `UtilityPageShell`) and `src/components/page-shells/CanonicalRecordShell.tsx` (`CanonicalRecordShell`, used by the five districts' `[entry]` routes plus `/about/profile`). Each renders `<main data-page-type="...">` with a `<header><h1>` — the Canonical Record shell additionally accepts eight optional regions (public state, authorship, context, evidence, metadata, relationships, credits, continuation) that render nothing when unset, so no page currently has any content beyond its heading. No listing/archive/filter UI, no district-specific fields, no real content — all deferred to Content Integration (Milestone 7).
+
+### Testing baseline
+
+Added by M1.6 (see `docs/implementation/M1.6_TESTING_BASELINE.md`): Vitest + `@testing-library/react` (the stack Next.js 16's own bundled docs recommend for App Router unit testing) — 98 tests across 7 files, run via `npm run test:run` (single run) or `npm test` (watch mode). A standalone `npm run typecheck` (`tsc --noEmit`) was also added. Coverage: the full 53-route contract (`tests/routes/route-contract.test.ts`, filesystem-based, transcribed from `PLATFORM_SPECIFICATION.md` §5), the M1.4 shared shell and its `aria-current` logic (`src/components/shell/*.test.tsx`), all seven M1.5 page-shell types including `CanonicalRecordShell`'s optional-region behavior (`src/components/page-shells/*.test.tsx`), real route→shell wiring for one route per shell type (`tests/routes/route-shell-wiring.test.tsx`), and structural accessibility smoke checks on a composed page (`tests/routes/accessibility-smoke.test.tsx`). No interaction/E2E, Search/Index/Contact behavior, content integrity, motion, commerce, full accessibility audit, or performance testing — all explicitly deferred to later milestones.
 
 ### Design tokens
 
-Located in `src/styles/tokens/`, imported once through `src/styles/tokens/index.css` into `src/app/globals.css`.
+Located in `src/styles/tokens/`, imported once through `src/styles/tokens/index.css` into `src/app/globals.css`. **Corrected and reconciled by M2.1** (see `docs/implementation/M2.1_TOKEN_FOUNDATION.md`, including its full provenance table) — the M1.1A follow-up flagged below is resolved: every token file cites `DESIGN_SYSTEM_v1.0.md` directly. All 68 tokens `DESIGN_SYSTEM_v1.0.md` §60 approves are declared, across six files, but **only 45 hold a real value** — the other 23 are declared with a deliberately *empty* value, because the Design System gives only a range or approves the name with no value at all, and no earlier implementation is entitled to silently pick a point within a range and call it approved.
 
-Implemented categories:
+- **Color** (`color.css`) — neutral palette (§10.2, corrected names/values: "Mist" not "Fog," four previously-missing roles added — Paper 100, Ink, Ink Secondary, Light Text) and focus/semantic-state colors as on-light/on-dark pairs (§10.3–10.4) are exact approved values, implemented. `color-disabled` and `color-district-accent` are approved *names* with **no value approved anywhere in v1.0** — declared, deliberately left unresolved (district-accent hue is explicitly district-owned per §10.6/§63, not a shared-system decision at all).
+- **Surface** (`surface.css`) — `surface-field` is implemented (near-verbatim textual support in §10.2, and load-bearing for the page's actual background). `surface-1`/`surface-2`/`surface-overlay` are declared but **unresolved** — §11 doesn't map those names to specific hexes anywhere in §10.2's table; an earlier pass had inferred a mapping and presented it as approved, which was incorrect and has been reverted.
+- **Typography** (`typography.css`) — `font-primary`/`font-technical` are exact approved family names, implemented (not loaded yet — that's M2.2). All 11 `type-*` size tokens are declared but **unresolved** — §7 gives each role a min–max range and says sizes are "fluid within these ranges" without specifying a point; the approved range is preserved in each token's comment for M2.2 to resolve.
+- **Spacing** (`spacing.css`) — `space-0` through `space-12` (§8.1), all exact approved values — already correct in M1; only the stale comment citation was fixed.
+- **Grid** (`grid.css`) — column counts (4/8/12) and `composition-max` (1600px) are exact approved values, implemented. All 6 margin/gutter tokens are declared but **unresolved** — §9.1 gives per-breakpoint ranges with no stated preference; ranges preserved in comments for M2.3.
+- **Geometry** (`geometry.css`) — `line-hairline`/`line-emphasis`/`line-structural` and all four radius tokens (renamed to the approved registry: `radius-none`/`radius-small`/`radius-control`/`radius-circle`) are exact approved values, implemented. `line-standard` is declared but **unresolved** — §12.1 gives it as a 1–1.5px range with no stated preference.
 
-- **Color** (`color.css`) — neutral palette, district-accent placeholder, functional state placeholders (`DESIGN_SYSTEM.md` §8)
-- **Spacing** (`spacing.css`) — `space-0` through `space-12` (`DESIGN_SYSTEM.md` §6)
-- **Geometry** (`geometry.css`) — line weights and corner radius (`DESIGN_SYSTEM.md` §9)
+**Not approved by `DESIGN_SYSTEM_v1.0.md` at the time M2.1 was implemented, therefore not implemented:** opacity and layer-order (z-index) tokens — named in the Implementation Plan's M2.1 description but absent from the Design System entirely at v1.0. `DESIGN_SYSTEM.md` is now v1.1 and does approve semantic roles for both (not yet reconciled into implementation) — see **Blockers** above and **Current Position**.
 
-Not yet implemented (deferred, see below):
+An empty CSS custom property (`--token-name: ;`) is valid and deliberate, not an oversight: the approved *name* stays registered and protected by the token-contract test suite, while the *value* honestly reflects that no design decision has been made. Nothing in `globals.css`/`shell.css` references any of the 23 unresolved tokens (verified by test) — resolving them, in every case, is explicit open work for a later package, not something M2.1 owns:
 
-- Typography tokens
-- Motion tokens
-- Responsive grid tokens
+- Typography sizes (fluid interpolation and final application) — M2.2
+- Grid margin/gutter and the actual responsive grid system — M2.3
+- `surface-1`/`surface-2`/`surface-overlay` — M2.4 (Core visual primitives) or whichever package first builds real overlay/floating composition
+- `color-disabled` — whichever package first builds real disabled-state UI (M2.5/M2.6/M2.10)
+- `color-district-accent` — district-level work, Milestone 5 (explicitly not a shared-system decision)
+- Motion tokens — Milestone 4
 
 ### Typography
 
-No font is loaded or configured. `body` uses a native system-font stack in `globals.css`:
+No font is loaded or configured yet — `font-primary`/`font-technical` tokens exist (M2.1) but `body` in `globals.css` still deliberately uses a plain system-font stack, not the token, to avoid silently changing rendering before the real font is actually loaded (M2.2):
 
 ```css
 font-family:
@@ -63,6 +144,79 @@ font-family:
 - `CLAUDE.md` delegates to `AGENTS.md` (`@AGENTS.md`).
 - `AGENTS.md` contains the Next.js–managed agent-rules block (auto-regenerated by `next dev`) plus a project-authored **Handling Ambiguity** rule requiring implementation to stop and ask before resolving incomplete, contradictory, or multiply-interpretable specifications, rather than deciding silently.
 
+### Environment baseline
+
+Added by M1.2 (see `docs/implementation/M1.2_ENVIRONMENT_BASELINE.md`):
+
+- Node.js `22.13.1` declared in `.nvmrc`; enforced as `engines.node: ">=22.13.1 <23.0.0"` in `package.json`.
+- npm `10.9.2`+ (`10.x`) declared as `engines.npm: ">=10.9.2 <11.0.0"` in `package.json`; npm is the only supported package manager (only `package-lock.json` is committed).
+- `.npmrc` sets `engine-strict=true` — `npm install`/`npm ci` fail fast outside the declared ranges.
+- `README.md` rewritten with project-specific prerequisites, install (`npm ci`), and command documentation, replacing the original `create-next-app` boilerplate.
+- No environment variables exist or are required; no `.env.example` was created. The convention for introducing the first real one (`.env.example` + `.env.local` + `NEXT_PUBLIC_` rules) is documented in `README.md`.
+
+---
+
+## Universe Specification Set
+
+### Completed
+
+- Universe Specification Set v1.1 reviewed
+- Cross-district consistency review completed
+- Research hierarchy corrected
+- Art media-disclosure requirements restored
+- About content-model count corrected
+- Legal and administrative ownership resolved
+- Universe Specification Set v1.1 approved
+- Previous versions archived
+
+### Approved
+
+- Home Universe v1.1
+- Work Universe v1.1
+- Research Universe v1.1
+- Lab Universe v1.1
+- Art Universe v1.1
+- Products Universe v1.1
+- About Universe v1.1
+
+Current authoritative files: `docs/universes/`. Approval status and governance are recorded in each file's own status block, not duplicated here.
+
+### Superseded but retained
+
+- Universe Specification Set v1.0 — archived at `docs/archive/universes/v1.0/`, not deleted.
+
+### Next milestone
+
+Complete — see **Cross-Universe System Requirements** below, now also complete.
+
+---
+
+## Cross-Universe System Requirements
+
+### Completed
+
+- Cross-universe system requirements extracted
+- Cross-document navigation laws consolidated
+- Shared accessibility requirements consolidated
+- Shared responsive requirements consolidated
+- Canonical ownership matrix approved
+- Shared state and archive requirements approved
+- Design System input requirements defined
+- Animation System input requirements defined
+- Platform Specification input requirements defined
+- Cross-universe quality-assurance framework approved
+- Cross-document dependency register approved
+
+### Approved
+
+- `CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md` v1.0
+
+Current authoritative file: `docs/systems/CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md`.
+
+### Next milestone
+
+Complete — `DESIGN_SYSTEM.md` (now v1.1), `ANIMATION_SYSTEM.md` v1.0, and `PLATFORM_SPECIFICATION.md` v1.0 are all Approved. See **Governing Documents** above for the full current list — Platform Vision and Information Architecture are also now both v1.0, Approved / Closed. Current position: see **Current Position** above (Governance Synchronization complete; Implementation-Readiness Reconciliation required before M2.2 — Typography resumes).
+
 ---
 
 ## Deferred
@@ -70,23 +224,48 @@ font-family:
 Explicitly not implemented at this milestone:
 
 - Typography token system and any type-family selection
-- Motion tokens and animation
+- Motion tokens and animation — the shared shell works correctly with zero animation
 - Responsive grid tokens and layout primitives
-- Navigation, footer, or any shared components
-- Page content of any kind
+- Footer, language switcher, legal/admin utility — none required by an approved source yet
+- District-specific secondary/local navigation and breadcrumbs — deferred, not inferred from the route tree
+- Real page content of any kind — every route is a structural shell (`<main>` + identifying `<h1>`, plus for Canonical Record routes, optional regions that render nothing until real data exists); canonical record content is owned by Milestone 7
+- District-specific Canonical Record fields (e.g. Work's deliverables vs. Art's medium) — same system, different content, owned by Milestone 7
+- Listing/filtering/scanning behavior for Comprehensive and Grouping views — requires real records, Milestone 7
+- Focus, Comparison, and Overlay states (`PLATFORM_SPECIFICATION.md` §6.7–6.9) — explicitly deferred by the Implementation Plan's own M1.5 definition
+- Search, Index, and Contact behavior (querying, filtering, form submission) — `/search`, `/index`, and `/contact` exist only as route shells, now reachable via the shared shell's global navigation
+- Return/spatial-memory state (filters, scroll position, comparison state) beyond native browser history
 - Universe-specific visual identity or district theming
 - SVG illustrations or architectural graphics
+- Interaction/E2E testing, content-integrity testing, motion-behavior testing, commerce testing, a full WCAG conformance audit, and performance testing — Foundation's tests are structural smoke checks only (see `docs/implementation/M1.6_TESTING_BASELINE.md`)
+- Opacity and layer-order tokens — not approved anywhere in `DESIGN_SYSTEM_v1.0.md` at the time this was deferred; `DESIGN_SYSTEM.md` v1.1 now approves semantic roles for both, exact values still implementation-calibrated; see **Blockers**
+- Final values for the 23 tokens `DESIGN_SYSTEM_v1.0.md` gives only as a range or as a name with no value (typography sizes, grid margin/gutter, `color-disabled`, `color-district-accent`, `line-standard`, three of four surface levels) — deliberately declared but empty; see **Design tokens** above and `docs/implementation/M2.1_TOKEN_FOUNDATION.md`'s provenance table
+- Typography/grid application, fluid responsive interpolation, Core visual primitives (Field/Plane/Line/Frame/Void/Signal), action/selection/form/state components, WCAG contrast verification against real composed UI — M2.2 through M2.12 (see `docs/implementation/M2.1_TOKEN_FOUNDATION.md` "Deferred Work")
 
 ---
 
 ## Validation Status
 
-Last verified 2026-08-04, on this repository state:
+**Milestone 1 gate** — last verified 2026-08-07 (M1.6), all run together on a clean install:
 
 | Command | Result |
 |---|---|
+| `npm ci` | Pass — `added 445 packages, and audited 446 packages`, `found 0 vulnerabilities`; lockfile consistent |
 | `npm run format:check` | Pass — all files match Prettier style |
 | `npm run lint` | Pass — no ESLint errors or warnings |
-| `npm run build` | Pass — all 7 routes + `/_not-found` compiled and prerendered as static content; TypeScript check passed as part of the build (no standalone type-check script exists yet) |
+| `npm run typecheck` | Pass — `tsc --noEmit` (new in M1.6) |
+| `npm run test:run` | Pass — 98/98 tests, 7/7 files |
+| `npm run build` | Pass — all 53 approved routes + `/_not-found` compiled (37 static, 16 dynamic server-rendered on demand) |
 
-No new dependencies were introduced while reaching this state.
+This is the full **Milestone 1 — Foundation** gate command set (`IMPLEMENTATION_PLAN.md` §6: "Gate M1 — Foundation Verified"). All twelve Milestone 1 acceptance criteria are met — full assessment in `docs/implementation/M1.6_TESTING_BASELINE.md`. Devdependencies added: `vitest`, `@vitejs/plugin-react`, `jsdom`, `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom`, `vite-tsconfig-paths` (test tooling only — no production dependency changed).
+
+**M2.1 — Token Foundation (reconciled)** — last verified 2026-08-07, no dependency changed so `npm ci` was not re-run:
+
+| Command | Result |
+|---|---|
+| `npm run format:check` | Pass (confirmed empty custom-property declarations `--x: ;` format cleanly) |
+| `npm run lint` | Pass |
+| `npm run typecheck` | Pass |
+| `npm run test:run` | Pass — **247/247 tests, 8/8 files** (98 carried over from M1.6 + 149 token-contract tests, restructured around resolved-vs-unresolved after the correction) |
+| `npm run build` | Pass — confirmed empty custom-property declarations are valid through Turbopack/lightningcss, not just Prettier; route table unchanged (37 static, 16 dynamic, 53 total) |
+
+Full detail, including the provenance table for every token, in `docs/implementation/M2.1_TOKEN_FOUNDATION.md`.
