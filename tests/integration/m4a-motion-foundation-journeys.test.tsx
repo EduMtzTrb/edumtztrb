@@ -116,7 +116,7 @@ describe("Journey 3 — rapid user intent (M4.2 cancellation) always resolves to
   });
 });
 
-describe("Journey 4 — token chain integrity: --motion- consumption is confined to the audited M4.3 surface", () => {
+describe("Journey 4 — token chain integrity: --motion- consumption is confined to audited consumers", () => {
   function collectCssFiles(dir: string): string[] {
     const entries = readdirSync(dir, { withFileTypes: true });
     let files: string[] = [];
@@ -128,12 +128,25 @@ describe("Journey 4 — token chain integrity: --motion- consumption is confined
     return files;
   }
 
-  it("only motion.css (declaration) and controls/selection/form.css (M4.3 consumers) reference --motion- tokens", () => {
+  // [M4.4 reconciliation] This M4-A-era assertion originally listed only
+  // M4.3's consumers (controls/selection/form.css). M4.4 — Focus +
+  // Recession is the first Focus-tier consumer (focus.css) and is
+  // authorized, audited, source-contract-tested new territory (see
+  // docs/implementation/M4.4_FOCUS_RECESSION.md) — added here rather than
+  // left to silently fail, the same reconciliation discipline M4.3 applied
+  // to the M2-era "no transition" CSS contracts.
+  it("only motion.css (declaration) and its audited real consumers (controls/selection/form/focus.css) reference --motion- tokens", () => {
     const styleFiles = collectCssFiles(join(process.cwd(), "src", "styles"));
     const globalsPath = join(process.cwd(), "src", "app", "globals.css");
     const allFiles = [...styleFiles, globalsPath];
 
-    const permittedBasenames = new Set(["motion.css", "controls.css", "selection.css", "form.css"]);
+    const permittedBasenames = new Set([
+      "motion.css",
+      "controls.css",
+      "selection.css",
+      "form.css",
+      "focus.css",
+    ]);
 
     for (const file of allFiles) {
       const basename = file.split(/[\\/]/).pop()!;
@@ -142,7 +155,7 @@ describe("Journey 4 — token chain integrity: --motion- consumption is confined
       if (referencesMotionToken) {
         expect(
           permittedBasenames.has(basename),
-          `unexpected --motion- reference in ${file} — M4.3's audited surface is controls.css/selection.css/form.css only`,
+          `unexpected --motion- reference in ${file} — audited consumers are controls.css/selection.css/form.css/focus.css only`,
         ).toBe(true);
       }
     }

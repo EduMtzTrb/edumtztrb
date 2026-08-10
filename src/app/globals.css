@@ -15,6 +15,7 @@
 @import "../styles/metadata.css";
 @import "../styles/form.css";
 @import "../styles/state.css";
+@import "../styles/focus.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,

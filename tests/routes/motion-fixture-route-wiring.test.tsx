@@ -35,4 +35,17 @@ describe("Motion fixture route wiring (M4.3)", () => {
     render(element);
     expect(screen.queryByText(/M4-A Motion Foundation Fixture/i)).not.toBeInTheDocument();
   });
+
+  it("/contact?motion-fixture=m4b renders the labeled M4-B Focus fixture instead of the M4-A one", async () => {
+    const element = await ContactPage({
+      params: Promise.resolve({}),
+      searchParams: Promise.resolve({ "motion-fixture": "m4b" }),
+    });
+    render(element);
+    expect(
+      screen.getByText("M4-B Focus / Return Fixture — not real public content"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/M4-A Motion Foundation Fixture/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /focus: evidence a/i })).toBeInTheDocument();
+  });
 });

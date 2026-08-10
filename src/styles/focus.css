@@ -1,0 +1,38 @@
+/**
+ * Focus + Recession — M4.4.
+ * Authority: ANIMATION_SYSTEM.md's locked Focus law ("Focus concentrates
+ * attention inside the current context... should quiet surrounding
+ * material rather than theatrically enlarge the selected object"),
+ * §4 (Motion Hierarchy — Focus tier), §12 (Reveal and Recession Rules).
+ * See docs/implementation/M4.4_FOCUS_RECESSION.md.
+ *
+ * FIRST REAL CONSUMER of --motion-duration-deliberate and
+ * --motion-recession-focus/overlay — both were declared by M4.1 and
+ * explicitly left unconsumed until a real Focus system existed.
+ *
+ * RECESSION IS OPACITY ONLY — no transform/scale, no blur. §A3 lists scale
+ * as merely "possibly" justified and blur as always optional; opacity
+ * alone already satisfies "quiet surrounding material" without any risk
+ * of reading as a scale/zoom effect, which this task explicitly prohibits
+ * being dramatic. Text inside a receding item stays perfectly legible at
+ * full size — only its visual priority changes.
+ *
+ * NO DISTRICT-SPECIFIC SELECTOR — how strongly a region recedes is a
+ * property the composing consumer sets via `FocusRegion`'s
+ * `recessionToken` prop (an inline CSS custom property,
+ * `--focus-recession-opacity`, always resolving to one of the three M4.1
+ * recession tokens) — never a `.work-`/`.art-`/etc. selector in this file.
+ */
+
+[data-focus-state] {
+  transition: opacity var(--motion-duration-deliberate) var(--motion-ease-move);
+}
+
+[data-focus-state="neutral"],
+[data-focus-state="active"] {
+  opacity: 1;
+}
+
+[data-focus-state="receding"] {
+  opacity: var(--focus-recession-opacity, var(--motion-recession-focus));
+}
