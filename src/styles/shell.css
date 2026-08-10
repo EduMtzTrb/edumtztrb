@@ -1,0 +1,87 @@
+/**
+ * Shared application shell — M1.4, completed by M3.7.
+ * Minimal structural styling only: no district theming, no final typography,
+ * no motion. Uses only Color/Surface/Spacing/Geometry tokens (DESIGN_SYSTEM_v1.0.md
+ * §18 Navigation family, §19 Link family, §33-39 Accessibility).
+ *
+ * M2.1: token references corrected to the renamed/re-valued Approved v1.0
+ * tokens (color.css, surface.css) — see docs/implementation/M2.1_TOKEN_FOUNDATION.md.
+ *
+ * M3.7: resolves the responsive GlobalNav wrapping deferred since M2.2/M2.3
+ * (see docs/implementation/M3.7_GLOBAL_NAVIGATION.md). Mobile-first: below
+ * the existing approved 768px breakpoint (already used by M2.3's grid), the
+ * Primary and Utilities landmarks stack as two clearly separated blocks,
+ * each wrapping its own links internally — never interleaving into one
+ * ambiguous row. At 768px and above, the original single-row layout
+ * applies. No JavaScript, no hidden/disclosure menu, no motion.
+ */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-paper-50);
+  color: var(--color-ink);
+  border-radius: var(--radius-control);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+.global-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+@media (min-width: 768px) {
+  .global-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+}
+
+.global-nav-list,
+.global-utilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  min-width: 0;
+}
+
+.global-nav-list a,
+.global-utilities-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-mist-300);
+  text-decoration: none;
+}
+
+.global-nav-list a[aria-current="page"],
+.global-utilities-list a[aria-current="page"],
+.global-nav-list a[aria-current="true"],
+.global-utilities-list a[aria-current="true"] {
+  color: var(--color-light-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+.skip-link:focus-visible,
+.global-nav-list a:focus-visible,
+.global-utilities-list a:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
