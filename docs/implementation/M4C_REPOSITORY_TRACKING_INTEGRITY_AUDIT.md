@@ -2,9 +2,9 @@
 
 ## Status
 
-**Repository Tracking Integrity — Reconciliation Required.** Diagnosis and remediation plan only. No historical reconstruction was executed as part of this audit — see **Remediation Strategy**, below, for why and what is recommended next.
+**Repository Tracking Integrity — Reconciled / Verified.** The original diagnosis below (a clean checkout of HEAD `94e3cdd`/`8e4712e` failed to build) is preserved verbatim and unedited — do not read the reconciliation as erasing that failure; it happened, was real, and is the reason this document exists. See **Reconciliation Result**, at the end of this document, for what was repaired, exactly which commits repaired it, and the fresh clean-checkout evidence proving the repair holds.
 
-This is a diagnostic document, not an implementation-milestone report. It does not belong to any M-numbered work package and does not gate M4.9, M4-C, or Gate M4 — it exists because the finding was discovered *during* a pre-review integrity pass on M4.9 and must be recorded truthfully rather than silently worked around.
+This is a diagnostic-then-reconciliation document, not an implementation-milestone report. It does not belong to any M-numbered work package and does not gate M4.9, M4-C, or Gate M4 — it exists because the finding was discovered *during* a pre-review integrity pass on M4.9 and must be recorded truthfully rather than silently worked around.
 
 ## Summary
 
@@ -117,3 +117,66 @@ Per the task's own explicit instruction, no historical reconstruction was execut
 - **(C) Requires user decision because unrelated/local work is intermingled** — not the primary blocker here (category 8 found nothing genuinely unrelated), but the user should still decide the **commit dates/authorship/ordering** question directly: these files' real history (who wrote them, in what order, relative to the M1–M3 commits that already exist) cannot be reconstructed from the working tree alone, and committing them "fresh" today would misdate work that is, in truth, weeks old relative to the visible commit log's own five-commit M3-A tail.
 
 **Default expectation, followed here:** diagnose now (this document), repair in a separate, dedicated repository-integrity task before Gate M4 closure — not mixed into this M4.9 scope-correction commit. This audit recommends option **(B)**, grouped substantially as described above, as a distinct next task the user should explicitly schedule.
+
+---
+
+# Reconciliation Result
+
+The dedicated task recommended above ran, independently re-auditing the working tree before repairing anything rather than trusting this document's own findings unquestioned. Every root cause below was independently re-confirmed, not merely copy-forwarded.
+
+## Root causes, re-confirmed
+
+- **`GlobalNav.tsx`** — confirmed the exact, sole build-blocking gap: tracked `AppShell.tsx` imports it directly; `next build` on a clean checkout fails with `Module not found: Can't resolve './GlobalNav'` until it exists.
+- **`vitest.config.mts`/`vitest.setup.ts`** and the testing devDependencies gap in `package.json`/`package-lock.json` — confirmed version-for-version against `node_modules` (every declared version in the working tree's `package.json` matched what was actually installed and passing the full suite, with zero drift), then committed faithfully as-is — no dependency upgraded, no opportunistic modernization.
+- **Fifteen grouping-route pages and three utility layouts** — cross-verified two ways: (1) `docs/implementation/M1.3_ROUTE_SKELETON.md` (itself part of this reconciliation) explicitly lists each one as its own deliverable; (2) `tests/routes/route-contract.test.ts` (itself part of this reconciliation), a route list transcribed independently from `PLATFORM_SPECIFICATION_v1.0.md` §5 rather than derived by scanning `src/app`, asserts exactly 53 approved routes and that every one has a `page.tsx` — already true in the working directory, now provable from a clean checkout.
+- **Universe document relocation** — confirmed as a *completed, already-committed-in-intent* reconciliation: `docs/GOVERNING_DOCUMENTS.md` (tracked since commit `bb88f62`, 61 commits before this repair) already declared `docs/universes/*_UNIVERSE_v1.1.md` as the active path and the root `*_UNIVERSE.md` files as "Superseded — Archived," pointing at `docs/archive/universes/`. Only the actual file move had never been committed. Git's own rename detection confirmed this at a content level — it detected the root-file deletions and the `docs/archive/universes/pre-versioned/` additions as 100% renames, not new content.
+- **`docs/systems/CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md`** and the eight M1.1–M2.1 implementation reports — the same class of gap: already-declared-canonical (the former in the same committed `GOVERNING_DOCUMENTS.md` table; the latter cited directly by already-tracked `PROJECT_STATE.md` as Gate M1's own evidentiary basis) but never actually committed.
+- **One further gap found only during this reconciliation's own clean-checkout verification, not present in the original audit**: no `.gitattributes` file existed, so a fresh checkout on a machine with `core.autocrlf=true` (this machine's setting) silently converted every text file to CRLF, failing `npm run format:check` even though the repository's actual stored content was correctly LF-only throughout and `.prettierrc.json` already declared `"endOfLine": "lf"`. This was not visible in the original audit because that audit's clean-checkout test stopped at the build failure and never reached a format check. Closed with one `.gitattributes` file (`* text=auto eol=lf`) — no existing blob content changed, only future-checkout behavior.
+
+## Files/groups reconciled
+
+Four commits, in order, none rewriting or amending any prior history:
+
+1. **`3899016` — `chore: reconcile runtime and test baseline`** — `GlobalNav.tsx`/`.test.tsx`, `vitest.config.mts`, `vitest.setup.ts`, `tests/routes/accessibility-smoke.test.tsx`, `.nvmrc`, `.npmrc`, `package.json`, `package-lock.json`, `README.md` (rewritten to describe this same tooling).
+2. **`58a4954` — `chore: reconcile navigation route baseline`** — the 15 grouping-route pages, 3 utility layouts, `tests/routes/route-contract.test.ts`, and 4 modified (not new) district `page.tsx` files completing an already-tracked shell pattern.
+3. **`5b8ad60` — `docs: reconcile repository documentation baseline`** — the Universe-document relocation (7 root files → `docs/archive/universes/pre-versioned/`, plus `docs/universes/`, `docs/archive/universes/{merge-history,reviews,v1.0}/`, `docs/archive/universes/ARCHIVE_INDEX.md`), `docs/systems/CROSS_UNIVERSE_SYSTEM_REQUIREMENTS.md`, and the 8 M1.1–M2.1 implementation reports.
+4. **`eb24f28` — `chore: enforce lf line endings via .gitattributes`** — the one file addition that closed the line-ending gap found during this reconciliation's own verification pass.
+
+## Dependency reconciliation
+
+Faithful commit, not modernization: every `devDependencies`/`dependencies` entry, every script, and the `engines` field committed exactly matches what was already installed in `node_modules` and already passing the full 1322-test suite before this reconciliation began (verified by direct version comparison, not assumed). `npm ci` from the new clean HEAD installs 445 packages with 0 vulnerabilities — the same effective dependency graph, now reproducible from a fresh checkout via the stronger `npm ci` standard rather than the looser `npm install`.
+
+## Route reconciliation
+
+Exactly the 15 grouping-route pages and 3 utility layouts identified in the original audit's Category 6 were committed — no more, no fewer. `tests/routes/route-contract.test.ts` (now itself tracked) independently confirms exactly 53 approved application routes exist, matching `PLATFORM_SPECIFICATION_v1.0.md` §5 precisely, with no unapproved/missing/renamed route file. No new route was created by this reconciliation.
+
+## Documentation reconciliation
+
+The Universe-document relocation was committed as the truthful move `docs/GOVERNING_DOCUMENTS.md` already declared complete — Git's own rename detection confirms the content is unchanged, only relocated. No Universe document was redesigned, re-versioned, or edited. `docs/GOVERNING_DOCUMENTS.md`'s own governing-reference table now matches the actual committed filesystem for the first time.
+
+## Clean-checkout verification
+
+Method: `git worktree add --detach <temp-path> HEAD`, isolated from and never touching the real working tree, removed immediately after each verification pass (used twice — once before the `.gitattributes` fix, once after, since the first pass surfaced the line-ending gap).
+
+Final clean-checkout results, from HEAD `eb24f28`:
+
+| Step | Result |
+|---|---|
+| `git status` (before install) | Clean, matches new committed HEAD exactly; none of the previously-missing files present as untracked (they're now tracked) |
+| `npm ci` | Pass — 445 packages, 0 vulnerabilities |
+| `npm run format:check` | Pass (only after `.gitattributes`; failed on 350 files before it, for the CRLF reason above — not hidden, see **Root causes** above) |
+| `npm run lint` | Pass — 0 errors, 15 pre-existing, unrelated warnings |
+| `npm run build` (run before a standalone `tsc --noEmit`, generating Next's own ambient route types) | Pass |
+| `npx tsc --noEmit` (standalone, re-run after the build above) | Pass — 0 errors. Run *before* any build/dev in a truly pristine checkout, it shows `Cannot find name 'PageProps'/'LayoutProps'` errors — this is Next.js's own ambient-type generation (`.next/types/**`, correctly gitignored, never meant to be committed) not yet existing, not a tracking defect; `npm run build` generates it internally and succeeds regardless of ordering. |
+| `npm run test:run` | Pass — **1322/1322 tests, 148/148 files** |
+| Route architecture | **54 build-table entries** (53 application routes + 1 framework-generated `/_not-found`), **35 static / 19 dynamic** |
+
+Every number matches the pre-reconciliation working-directory baseline exactly — nothing changed except that it is now reproducible from Git alone.
+
+## Remaining unrelated local state
+
+None. Re-auditing `git status` after all four commits shows a fully clean working tree — every path that existed before this reconciliation is now either committed (if it was load-bearing/governing) or was already absent. No genuinely unrelated user/local work was found at any point in this reconciliation (Category G/8 in both audits independently found nothing).
+
+## Status
+
+**Repository Tracking Integrity — Reconciled / Verified.**
