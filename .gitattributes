@@ -1,0 +1,9 @@
+# Enforce LF line endings on checkout for all text files, regardless of a
+# contributor's local `core.autocrlf` setting. Without this file, a fresh
+# checkout on a machine with `core.autocrlf=true` (a common Windows default)
+# silently converts every text file to CRLF, contradicting this repository's
+# own `.prettierrc.json` ("endOfLine": "lf") and failing `npm run
+# format:check` immediately on an otherwise-correct checkout — the exact gap
+# found and closed during the Repository Tracking Integrity Reconciliation
+# (see docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md).
+* text=auto eol=lf
