@@ -77,6 +77,31 @@ describe.each(SIMPLE_SHELLS)("$name", ({ Shell, pageType, headingClass }) => {
   });
 });
 
+describe("GroupingViewShell / UtilityPageShell — optional children (M3.10)", () => {
+  it("GroupingViewShell renders supplied children after the header", () => {
+    render(
+      <GroupingViewShell heading="Index — District: work">
+        <p>Result content</p>
+      </GroupingViewShell>,
+    );
+    expect(screen.getByText("Result content")).toBeInTheDocument();
+  });
+
+  it("UtilityPageShell renders supplied children after the header", () => {
+    render(
+      <UtilityPageShell heading="Index">
+        <p>Result content</p>
+      </UtilityPageShell>,
+    );
+    expect(screen.getByText("Result content")).toBeInTheDocument();
+  });
+
+  it("renders nothing extra when children is omitted — byte-for-byte the same heading-only shape as before", () => {
+    const { container } = render(<GroupingViewShell heading="Test Heading" />);
+    expect(container.querySelector("main")?.children).toHaveLength(1);
+  });
+});
+
 describe("WorldThresholdShell", () => {
   it('carries data-district="home", unique among the simple shells', () => {
     render(<WorldThresholdShell heading="Home" />);

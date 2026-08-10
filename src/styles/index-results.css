@@ -1,0 +1,24 @@
+/**
+ * Index results presentation — M3.10. Minimal: the systematic, precise,
+ * scannable feel required by this task's own §D5 comes from reusing
+ * `IndexRecord` (M2.7) and its existing `records.css` unchanged — this
+ * file only styles the two small pieces of Index-specific chrome (the
+ * result count and the development-fixture notice), using existing
+ * tokens only.
+ */
+
+.index-result-count {
+  padding: 0 var(--space-4);
+  color: var(--color-mist-300);
+}
+
+.index-fixture-notice {
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.index-result-list {
+  display: flex;
+  flex-direction: column;
+}
