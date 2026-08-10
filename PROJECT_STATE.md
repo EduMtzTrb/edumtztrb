@@ -1,7 +1,7 @@
 # Personal Platform — Project State
 
 **Last updated:** 2026-08-10
-**Milestone:** Milestone 1 — Foundation: **Complete / Verified**. Milestone 2 — System Primitives: **Complete / Verified** (Gate M2 met — M2.12 of 12 work packages complete; all fourteen Gate M2 acceptance criteria satisfied, assessed in full in `docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md`).
+**Milestone:** Milestone 1 — Foundation: **Complete / Verified**. Milestone 2 — System Primitives: **Complete / Verified** (Gate M2 met — M2.12 of 12 work packages complete; all fourteen Gate M2 acceptance criteria satisfied, assessed in full in `docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md`). Milestone 3 — Navigation + Records: **In progress** (M3.1 of 13 work packages complete).
 
 This document describes what is actually implemented in the repository right now. It is not a plan or a specification — see `PLATFORM_VISION.md`, `INFORMATION_ARCHITECTURE.md`, `DESIGN_SYSTEM.md`, `ANIMATION_SYSTEM.md`, `PLATFORM_SPECIFICATION.md`, `IMPLEMENTATION_PLAN.md`, and `TECHNICAL_ARCHITECTURE.md` for those. The full source-of-truth map is `docs/GOVERNING_DOCUMENTS.md`.
 
@@ -33,6 +33,7 @@ This document describes what is actually implemented in the repository right now
 - **M2.11 — Shared Static States** — **Complete / Verified** (see `docs/implementation/M2.11_SHARED_STATIC_STATES.md`) — `LoadingState`, `EmptyState`, `SparseState`, `NoResultState`, `UnavailableState`, `ArchivedState`, `ErrorState`, `SuccessState`, and `RestrictedState` (plus the internal `StaticState` foundation) implemented in `src/components/state/` plus a new `src/styles/state.css`. Interaction/system/lifecycle/commercial state dimensions stay separated per `DESIGN_SYSTEM.md v1.1` §21; color is confined to exactly Error/Success as reinforcement only, no badge taxonomy, no new color. `StatusTag` (M2.6) and `FormConfirmation` (M2.10) were both audited and left unmodified — genuinely distinct roles, not duplicated. No state is applied to any page shell — none has a genuine condition yet. `GlobalNav`/page shells were never modified (confirmed via diff). Human visual approval (externally supplied) recorded — see that document's "Human Visual Approval"
 - **M2.12 — Responsive Primitive Verification** — **Complete / Verified** (see `docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md`) — every M2.2–M2.11 primitive verified via source-level CSS/test evidence (breakpoint consistency, hover-content-gating, fixed-width hazards, focus-outline consistency, computed WCAG 2.2 contrast) rather than prose assertion. One genuine defect found and corrected: `SegmentedView`'s options container (`src/styles/selection.css`) gained `flex-wrap: wrap` to prevent option clipping at narrow widths — the one-line fix does not change any already-approved desktop treatment, and is regression-tested. Computed contrast passes for all seven representative pairs (4.88:1–17.40:1). All fourteen Gate M2 acceptance criteria pass with evidence. Human responsive approval (externally supplied) recorded — see that document's "Human Responsive Approval"
 - **Gate M2 — System Primitives Verified** — Milestone 2 (M2.1–M2.12, all twelve work packages) is formally closed. See `docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md` "Gate M2 Assessment" for the full fourteen-criterion evidence table.
+- **M3.1 — Universal Canonical-Record Contract** — **Complete / Verified** (see `docs/implementation/M3.1_UNIVERSAL_CANONICAL_RECORD_CONTRACT.md`) — a new `src/domain/records/` module (`CanonicalRecord.ts`, `registry.ts`, `fixtures.ts`) implements `IMPLEMENTATION_PLAN.md` §7's exact M3.1 field list as one minimal, strongly-typed `CanonicalRecordBase` interface: branded `CanonicalRecordId`/`CanonicalSlug` identity, the six IA §4.2 canonical-owner districts (Home excluded), the IA §13.3 seventeen-value content-type vocabulary, IA §6.2's three contract-owned independent state dimensions (curatorial inclusion, visibility, lifecycle — no generic `status`, no coupling between completion and publication, verified both behaviorally and at compile time), typed directional relationships using only the IA §5.3 six-type vocabulary (ID-referencing, never embedded, never auto-symmetric), and media references with discriminated decorative/informative/complex accessibility metadata (`PLATFORM_SPECIFICATION.md` §30). District-specific extension fields, canonical-route resolution, the classification model, and relationship presentation semantics are explicitly excluded as M3.2–M3.5's separate territory. No runtime-validation dependency was added (TypeScript types plus compile-time `@ts-expect-error` invariant tests only); the "fetch everything then filter client-side" anti-pattern is explicitly documented as unsafe for any future persistence layer. Zero non-domain files were touched — no route, component, stylesheet, or token file changed. 42 new tests (610/610 total). Human visual approval does not apply — this is a non-visual data-contract package, verified by the standard mechanical validation gate.
 - **Platform Vision — Final Approval** — `PLATFORM_VISION.md` closed at **v1.0, Approved / Closed** (8 August 2026): central brand idea, personal brand identity, positioning, audience hierarchy, experience goals, design principles, curatorial threshold, role of commerce, and long-term evolution are now locked governing authority (see **Governing Documents** below)
 - **Information Architecture — Final Approval** — `INFORMATION_ARCHITECTURE.md` closed at **v1.0, Approved / Closed** (8 August 2026): canonical ownership, district boundaries, typed directional relationships, the public-inclusion/state model, Search/Index, lenses/filters, archive semantics, route hierarchy, and the minimum canonical-record contract are now locked governing authority
 - **Design System — v1.1 Final Approval** — `DESIGN_SYSTEM.md` closed at **v1.1, Approved / Closed** (9 August 2026), superseding v1.0: adds the identity system (Precision without finality, Inhabited Threshold, Typographic Voice, Signal, Trace Language, Controlled Exception), the governing compositional grammar, district-expression rules, and a reconciled Core System including semantic depth/layer-order/opacity models — see **Blockers** below for its effect on the opacity/layer-order item
@@ -40,15 +41,15 @@ This document describes what is actually implemented in the repository right now
 
 ## Current Phase
 
-Implementation — Foundation (Milestone 1 of 9): **Complete / Verified**. Milestone 2 — System Primitives (12 of 12 work packages): **Complete / Verified — Gate M2 met**. Governance track: Platform Vision, Information Architecture, and Design System are now all closed at their current versions (see **Governing Documents**).
+Implementation — Foundation (Milestone 1 of 9): **Complete / Verified**. Milestone 2 — System Primitives (12 of 12 work packages): **Complete / Verified — Gate M2 met**. Milestone 3 — Navigation + Records (1 of 13 work packages complete): **In progress**. Governance track: Platform Vision, Information Architecture, and Design System are now all closed at their current versions (see **Governing Documents**).
 
 ## Current Position
 
-M2.12 — Responsive Primitive Verification completed and closed (Complete / Verified, including human responsive approval — see `docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md`). **Gate M2 — System Primitives Verified.** Milestone 2 is now fully complete (M2.1 through M2.12). Milestone 3 is merely ready, not started.
+M3.1 — Universal Canonical-Record Contract completed (Complete / Verified — see `docs/implementation/M3.1_UNIVERSAL_CANONICAL_RECORD_CONTRACT.md`). This is a non-visual architecture/data-contract package; verification is via the standard mechanical validation gate (format/lint/typecheck/test/build), not a visual-review round.
 
-Sequence completed: Governance Synchronization → Implementation-Readiness Reconciliation → M2.2 — Typography → M2.3 — Spacing and Grid → M2.4 — Core Visual Primitives → M2.5 — Action Controls → M2.6 — Selection / Filter Controls → M2.7 — Record Family → M2.8 — Media Family → M2.9 — Metadata Rail → M2.10 — Form Family → M2.11 — Shared Static States → M2.12 — Responsive Primitive Verification.
+Sequence completed: Governance Synchronization → Implementation-Readiness Reconciliation → M2.2 — Typography → M2.3 — Spacing and Grid → M2.4 — Core Visual Primitives → M2.5 — Action Controls → M2.6 — Selection / Filter Controls → M2.7 — Record Family → M2.8 — Media Family → M2.9 — Metadata Rail → M2.10 — Form Family → M2.11 — Shared Static States → M2.12 — Responsive Primitive Verification → **Gate M2 — System Primitives Verified** → M3.1 — Universal Canonical-Record Contract.
 
-Next: **M3.1 — Universal Canonical-Record Contract** (per `IMPLEMENTATION_PLAN.md` §7). Not started in this task.
+Next: **M3.2 — District extensions** (per `IMPLEMENTATION_PLAN.md` §7). Not started in this task — hard stop after M3.1's commit, per explicit instruction.
 
 ## Governing Documents
 
@@ -282,3 +283,15 @@ This is the full **Milestone 1 — Foundation** gate command set (`IMPLEMENTATIO
 | `npm run build` | Pass — confirmed empty custom-property declarations are valid through Turbopack/lightningcss, not just Prettier; route table unchanged (37 static, 16 dynamic, 53 total) |
 
 Full detail, including the provenance table for every token, in `docs/implementation/M2.1_TOKEN_FOUNDATION.md`.
+
+**M3.1 — Universal Canonical-Record Contract** — last verified 2026-08-10, no dependency changed so `npm ci` was not re-run:
+
+| Command | Result |
+|---|---|
+| `npm run format:check` | Pass |
+| `npm run lint` | Pass — 0 errors, 15 pre-existing `@next/next/no-img-element` warnings (M2.7–M2.9 test fixtures, unchanged) |
+| `npm run typecheck` | Pass — includes `src/domain/records/CanonicalRecord.type-tests.ts`'s compile-time invariant checks |
+| `npm run test:run` | Pass — **610/610 tests, 64/64 files** (568 carried over from Gate M2 + 42 new M3.1 tests) |
+| `npm run build` | Pass — all 53 routes unchanged (37 static, 16 dynamic); no route/component/style file touched |
+
+Full detail in `docs/implementation/M3.1_UNIVERSAL_CANONICAL_RECORD_CONTRACT.md`.
