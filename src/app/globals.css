@@ -20,6 +20,7 @@
 @import "../styles/threshold.css";
 @import "../styles/comparison.css";
 @import "../styles/trace.css";
+@import "../styles/record-passage.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,

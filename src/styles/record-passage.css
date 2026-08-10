@@ -1,0 +1,38 @@
+/**
+ * Record Passage — M4.8 reconciliation.
+ * Authority: ANIMATION_SYSTEM.md §5.2 (Passage — "may use: translation,
+ * shared geometry, controlled depth... persistent anchors"), §9.5
+ * (Index → record — "the selected record acts as the spatial origin of
+ * the detail view"), §4 (Motion Hierarchy — Record Passage sits above
+ * Focus, below District Passage/World Threshold). See
+ * docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md.
+ *
+ * ONLY EXISTING M4.1 TOKENS — `--motion-duration-deliberate` (the same
+ * tier Focus already uses — Record Passage is distinguished from Focus
+ * by using an *additional* channel, translation, not a longer duration),
+ * `--motion-ease-move` (already declared for "repositioning in place"),
+ * `--motion-distance-record` (declared by M4.1 specifically as "the
+ * largest current/near-term local-passage distance," unconsumed until
+ * now), and `--motion-recession-subtle` (declared, unconsumed until
+ * now). No new token, no new tier, no M4.1 modification.
+ *
+ * STAYS BELOW DISTRICT PASSAGE — this file never references
+ * `--motion-duration-spatial`, the tier M4.9's Home-Threshold prototype
+ * already claimed for its own, more consequential passage.
+ */
+
+.record-passage-anchor {
+  transition:
+    opacity var(--motion-duration-deliberate) var(--motion-ease-move),
+    transform var(--motion-duration-deliberate) var(--motion-ease-move);
+}
+
+[data-record-passage-state="arriving"] .record-passage-anchor {
+  opacity: var(--motion-recession-subtle);
+  transform: translateY(calc(-1 * var(--motion-distance-record)));
+}
+
+[data-record-passage-state="settled"] .record-passage-anchor {
+  opacity: 1;
+  transform: translateY(0);
+}

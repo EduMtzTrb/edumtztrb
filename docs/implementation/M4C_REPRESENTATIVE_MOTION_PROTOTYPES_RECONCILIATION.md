@@ -38,15 +38,17 @@ Perceptible consequence increases coherently and stays restrained at every tier:
 
 - **Feedback/State Change** (M4.3) — unchanged.
 - **Focus** (M4.4) — unchanged.
-- **Record Passage** (M4.8) — deliberately *no* CSS motion at all; the passage is proven as a state/data mechanism first, before any visual travel is layered on. Nothing here is more visually prominent than Focus.
-- **District Passage/World Threshold** (M4.9) — the *only* package in Milestone 4 to reuse `--motion-duration-spatial` for its own genuine purpose (previously declared but unconsumed since M4.1), confirmed via source contract to introduce no new, higher tier. Repeated entry deliberately drops to a *lower* tier (`standard`), never staying at the richest level indefinitely.
-- **Comparison/Trace** (M4.10) — deliberately zero motion; both CSS files are confirmed by source contract to declare no `transition`/`@keyframes`/`animation` at all.
+- **Record Passage** (M4.8) — corrected by a narrow reconciliation after this document's own first pass (see **D3** below): a real, restrained arrival treatment now exists (`RecordPassageArrival`), using the `deliberate` duration tier — the same tier Focus uses — distinguished from Focus not by a longer duration but by an *additional* channel (a restrained `--motion-distance-record` translation Focus never uses). Genuinely more consequential than Focus (an added channel, not merely a color/opacity change on the same element) while never approaching District Passage's `spatial` tier.
+- **District Passage/World Threshold** (M4.9) — the *only* package in Milestone 4 to reach `--motion-duration-spatial` (previously declared but unconsumed since M4.1), confirmed via source contract to introduce no new, higher tier. Repeated entry deliberately drops to a *lower* tier (`standard`), never staying at the richest level indefinitely.
+- **Comparison/Trace** (M4.10) — deliberately zero motion; both CSS files are confirmed by source contract to declare no `transition`/`@keyframes`/`animation` at all. Not reopened or redesigned by this reconciliation.
 
-No local component (M4.3/M4.4) uses a token tier heavier than `deliberate`; nothing in M4.8/M4.10 uses any tier at all; only M4.9 reaches `spatial`, and only for the one district-level passage this milestone authorizes. No Home transition became cinematic — confirmed by the same repository-wide prohibited-pattern search in D7, below.
+The observable hierarchy is now: Feedback < State Change < Focus < Record Passage < District Passage/World Threshold. No local component (M4.3/M4.4) uses a token tier heavier than `deliberate`; Record Passage (M4.8) also uses `deliberate`, distinguished by channel rather than duration, and never references `--motion-duration-spatial`; only M4.9 reaches `spatial`. No Home or record-arrival transition became cinematic — confirmed by the same repository-wide prohibited-pattern search in D7, below.
 
 ## D3 — Record-Passage audit
 
-Index → canonical record → Return, proven with: one canonical route (`entry.route`, M3.3's own resolver, never a duplicate); real origin capture (`PassageIndexRecord`); real selected-item/filter/lens/scroll preservation (`originUrl`, `resultKey`, `selectedRecordId`, `scrollY`, all M4.6's own fields); real context restoration (`RecordReturnControl`, `IndexPassageRestoration`); browser Back independently valid (Journey 3, history-length assertion); direct-entry fallback (Journey 2, no fabricated Return); rapid interruption (Journey 7, `createMotionCancellation` reconfirmed); reduced-motion parity (not applicable — no motion exists in this package to begin with, confirmed in M4.8's own report).
+Index → canonical record → Return, proven with: one canonical route (`entry.route`, M3.3's own resolver, never a duplicate); real origin capture (`PassageIndexRecord`); real selected-item/filter/lens/scroll preservation (`originUrl`, `resultKey`, `selectedRecordId`, `scrollY`, all M4.6's own fields); real context restoration (`RecordReturnControl`, `IndexPassageRestoration`); browser Back independently valid (Journey 3, history-length assertion); direct-entry fallback (Journey 2, no fabricated Return); rapid interruption (Journey 7, `createMotionCancellation` reconfirmed).
+
+**Corrected by a narrow, subsequent reconciliation** (`docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` §Reconciliation): the initial pass here stated Record Passage had "no motion... reduced motion not applicable," which a follow-up audit found genuinely mismatched `ANIMATION_SYSTEM.md` §4/§5.2/§9.5/§28's own authority (Record Passage is a named motion-hierarchy tier with an explicit reduced-motion role equivalent, "concise replacement preserving shared anchors," never "not applicable"). A new `RecordPassageArrival` component now gives genuine passage arrivals a real, token-only, restrained treatment (a shared-origin anchor settling from a receded/offset state to its final state over one `--motion-duration-deliberate` transition), rendered *only* for a genuine captured passage — a cold/direct entry receives no anchor and no motion at all, unchanged. A real reduced-motion equivalent now exists (the anchor mounts directly at its settled state, per Journey 7/8-adjacent evidence in the cumulative suite). M4.9 and M4.10 were not reopened or modified for this correction.
 
 ## D4 — Home-Threshold audit
 
@@ -87,7 +89,7 @@ Reassessed against the complete M4.1–M4.10 scope. Gate M4 stays **Open**.
 | # | Criterion | Status after M4-C |
 |---|---|---|
 | 1 | Static interface remains complete with motion disabled | Mechanically PASS |
-| 2 | Reduced motion preserves function/meaning | Mechanically PASS — now spans Focus, Overlay, and Home Threshold |
+| 2 | Reduced motion preserves function/meaning | Mechanically PASS — now spans Focus, Overlay, Home Threshold, and (following the M4.8 reconciliation) Record Passage |
 | 3 | Focus works by keyboard | Mechanically PASS |
 | 4 | Modal focus is contained | Mechanically PASS |
 | 5 | Focus returns appropriately | Mechanically PASS |
@@ -143,8 +145,12 @@ Recorded in `PROJECT_STATE.md`: M4.8/M4.9/M4.10 remain Implemented / Mechanicall
 - `npm run format:check` — pass.
 - `npm run lint` — pass, 0 errors (15 pre-existing, unrelated `<img>`/`next/image` warnings, unchanged by this task).
 - `npm run typecheck` — pass, 0 errors.
-- `npm run test:run` — **1275/1275 passing** (144 files) — 13 new tests added by this reconciliation (`tests/integration/m4c-representative-motion-journeys.test.tsx`), on top of M4.10's confirmed 1262/1262.
+- `npm run test:run` — **1275/1275 passing** (144 files) at this reconciliation's own close — 13 new tests added by this reconciliation (`tests/integration/m4c-representative-motion-journeys.test.tsx`), on top of M4.10's confirmed 1262/1262.
 - `npm run build` — pass. Route count unchanged from M4.8–M4.10's own confirmed state: **53 routes total, 34 static / 19 dynamic**.
+
+### M4.8 narrow reconciliation — updated totals
+
+A subsequent, narrow correction to M4.8 alone (`docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` §Reconciliation) added `RecordPassageArrival` and its tests, plus a fourth application of the M4-A cross-cutting CSS-consumer reconciliation. Current totals after that correction: **1288/1288 passing, 146/146 files** (13 new tests); `npm run build` unchanged — **53 routes total, 34 static / 19 dynamic**. M4.9 and M4.10 were not touched.
 
 ## D21 — Diff audit
 

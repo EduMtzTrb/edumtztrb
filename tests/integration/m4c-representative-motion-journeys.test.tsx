@@ -72,6 +72,38 @@ describe("Journey 1 — Index (Work lens) → canonical Work record → Return",
         "/index/district/work?fixture=m3b",
       );
     });
+    // Reconciliation: genuine passage arrival also receives the restrained
+    // Record-Passage treatment (the shared-origin anchor), settling to its
+    // final state — never gating the real record content behind it.
+    await waitFor(() => {
+      const anchor = screen.getByText(/Arrived from Index/);
+      expect(anchor.closest("[data-record-passage-state]")).toHaveAttribute(
+        "data-record-passage-state",
+        "settled",
+      );
+    });
+  });
+
+  it("reduced motion still provides a genuine Record-Passage equivalent — the shared anchor shows immediately, no travel", async () => {
+    mockReducedMotion(true);
+    window.history.pushState({}, "", "/index/district/work?fixture=m3b");
+    const indexElement = await IndexByDistrictPage({
+      params: Promise.resolve({ district: "work" }),
+      searchParams: Promise.resolve({ fixture: "m3b" }),
+    });
+    render(indexElement);
+    fireEvent.click(screen.getByRole("link", { name: /Fixture work outcome/i }));
+
+    const recordElement = await WorkEntryPage({
+      params: Promise.resolve({ entry: "fixture-work-outcome" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(recordElement);
+    const anchor = await screen.findByText(/Arrived from Index/);
+    expect(anchor.closest("[data-record-passage-state]")).toHaveAttribute(
+      "data-record-passage-state",
+      "settled",
+    );
   });
 });
 

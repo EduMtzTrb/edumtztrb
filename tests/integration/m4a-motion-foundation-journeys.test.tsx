@@ -128,18 +128,22 @@ describe("Journey 4 — token chain integrity: --motion- consumption is confined
     return files;
   }
 
-  // [M4.4/M4.5/M4.9 reconciliation] This M4-A-era assertion originally
-  // listed only M4.3's consumers (controls/selection/form.css). M4.4 —
-  // Focus + Recession (focus.css), M4.5 — Overlay Mechanics (overlay.css,
-  // whose backdrop reuses --motion-recession-overlay rather than a new
-  // value), and M4.9 — Home-Threshold Prototype (threshold.css, reusing
-  // the existing spatial/standard duration tiers, no new tier invented)
-  // are all authorized, audited, source-contract-tested new territory
-  // (see docs/implementation/M4.4_FOCUS_RECESSION.md,
-  // M4.5_OVERLAY_MECHANICS.md, and M4.9_HOME_THRESHOLD_PROTOTYPE.md) —
-  // added here rather than left to silently fail, the same reconciliation
-  // discipline M4.3 applied to the M2-era "no transition" CSS contracts.
-  it("only motion.css (declaration) and its audited real consumers (controls/selection/form/focus/overlay/threshold.css) reference --motion- tokens", () => {
+  // [M4.4/M4.5/M4.9/M4.8-reconciliation] This M4-A-era assertion
+  // originally listed only M4.3's consumers (controls/selection/form.css).
+  // M4.4 — Focus + Recession (focus.css), M4.5 — Overlay Mechanics
+  // (overlay.css, whose backdrop reuses --motion-recession-overlay rather
+  // than a new value), M4.9 — Home-Threshold Prototype (threshold.css,
+  // reusing the existing spatial/standard duration tiers, no new tier
+  // invented), and the M4.8 reconciliation (record-passage.css, reusing
+  // the existing deliberate duration/distance-record/recession-subtle
+  // tokens, staying below M4.9's spatial tier) are all authorized,
+  // audited, source-contract-tested new territory (see
+  // docs/implementation/M4.4_FOCUS_RECESSION.md,
+  // M4.5_OVERLAY_MECHANICS.md, M4.9_HOME_THRESHOLD_PROTOTYPE.md, and
+  // M4.8_RECORD_PASSAGE_PROTOTYPE.md) — added here rather than left to
+  // silently fail, the same reconciliation discipline M4.3 applied to the
+  // M2-era "no transition" CSS contracts.
+  it("only motion.css (declaration) and its audited real consumers reference --motion- tokens", () => {
     const styleFiles = collectCssFiles(join(process.cwd(), "src", "styles"));
     const globalsPath = join(process.cwd(), "src", "app", "globals.css");
     const allFiles = [...styleFiles, globalsPath];
@@ -152,6 +156,7 @@ describe("Journey 4 — token chain integrity: --motion- consumption is confined
       "focus.css",
       "overlay.css",
       "threshold.css",
+      "record-passage.css",
     ]);
 
     for (const file of allFiles) {
@@ -161,7 +166,7 @@ describe("Journey 4 — token chain integrity: --motion- consumption is confined
       if (referencesMotionToken) {
         expect(
           permittedBasenames.has(basename),
-          `unexpected --motion- reference in ${file} — audited consumers are controls.css/selection.css/form.css/focus.css/overlay.css/threshold.css only`,
+          `unexpected --motion- reference in ${file} — audited consumers are ${[...permittedBasenames].join("/")} only`,
         ).toBe(true);
       }
     }

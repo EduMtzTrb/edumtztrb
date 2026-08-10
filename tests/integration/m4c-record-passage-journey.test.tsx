@@ -60,9 +60,16 @@ describe("Real journey — Index (Work lens) → canonical Work record → Retur
         "/index/district/work?fixture=m3b",
       );
     });
+    // Reconciliation: a genuine passage arrival also receives the restrained
+    // Record-Passage treatment — the shared-origin anchor is real, visible content.
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Arrived from Index — Work — fixture-work-outcome/),
+      ).toBeInTheDocument();
+    });
   });
 
-  it("a direct/cold entry to the same canonical record — no prior Index visit — shows no fabricated Return control", async () => {
+  it("a direct/cold entry to the same canonical record — no prior Index visit — shows no fabricated Return control or passage state", async () => {
     const recordElement = await WorkEntryPage({
       params: Promise.resolve({ entry: "fixture-work-outcome" }),
       searchParams: Promise.resolve({}),
@@ -72,6 +79,7 @@ describe("Real journey — Index (Work lens) → canonical Work record → Retur
     await waitFor(() => {
       expect(screen.queryByRole("link", { name: /Return to Index/i })).not.toBeInTheDocument();
     });
+    expect(screen.queryByText(/Arrived from Index/)).not.toBeInTheDocument();
     // M3.13's structural orientation remains the fallback — the record is still usable.
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
   });
