@@ -90,14 +90,19 @@ export function ReturnMemoryFixture() {
       </button>
       <p role="status">{status}</p>
       {restored && (
-        <dl>
-          <dt>Restored originUrl</dt>
-          <dd>{restored.originUrl}</dd>
-          <dt>Restored expandedIds</dt>
-          <dd>{JSON.stringify(restored.expandedIds)}</dd>
-          <dt>Restored selectedRecordId</dt>
-          <dd>{restored.selectedRecordId}</dd>
-        </dl>
+        <>
+          <dl>
+            <dt>Restored originUrl</dt>
+            <dd>{restored.originUrl}</dd>
+            <dt>Restored expandedIds</dt>
+            <dd>{JSON.stringify(restored.expandedIds)}</dd>
+            <dt>Restored selectedRecordId</dt>
+            <dd>{restored.selectedRecordId}</dd>
+          </dl>
+          {/* A plain, native <a href> — real navigation, not a history.pushState
+              trick, so Back afterward behaves like any ordinary link (M4.7 §D6). */}
+          <a href={restored.originUrl}>Go to captured origin</a>
+        </>
       )}
     </div>
   );

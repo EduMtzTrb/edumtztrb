@@ -57,4 +57,17 @@ describe("ReturnMemoryFixture (M4.6 §C12)", () => {
     const captureButton = screen.getByRole("button", { name: "Capture current state" });
     expect(captureButton).toHaveAttribute("data-return-origin-key", "return-fixture-origin");
   });
+
+  it("after Return settles, a plain native link to the captured origin appears — real navigation, not a history trick (M4.7 §D6)", () => {
+    vi.useFakeTimers();
+    render(<ReturnMemoryFixture />);
+    fireEvent.click(screen.getByRole("button", { name: "Capture current state" }));
+    fireEvent.click(screen.getByRole("button", { name: /^Return/ }));
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+
+    const link = screen.getByRole("link", { name: "Go to captured origin" });
+    expect(link).toHaveAttribute("href", "/index?fixture=m3b&expanded=false");
+  });
 });
