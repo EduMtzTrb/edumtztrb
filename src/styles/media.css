@@ -1,0 +1,160 @@
+/**
+ * Media family — M2.8.
+ * Authority: IMPLEMENTATION_PLAN.md §7 (M2.8 — "Implement figure, caption,
+ * gallery sequence, comparison pair/matrix, document plate, video frame,
+ * artwork viewer shell, Product media set, captions, credits, and
+ * accessibility hooks"); DESIGN_SYSTEM.md v1.1 §37 (Media authority), §38
+ * (Aspect ratio and fidelity — governing crop rule), §40 (Artwork), §41
+ * (Product imagery), §42 (Captions and provenance), §43 (Video), §45
+ * (Comparison media), §102 (Media token model). See
+ * docs/implementation/M2.8_MEDIA_FAMILY.md for the full audit and
+ * reasoning.
+ *
+ * INTRINSIC RATIO ONLY — no rule in this file sets `aspect-ratio` or
+ * `object-fit` anywhere. §38.3's governing crop rule ("cropping is a
+ * compositional operation, not a corrective default") and §102's explicit
+ * "do not tokenize crop ratio as a global constant" both forbid a
+ * universal media ratio; every slot below passes its child through with
+ * only `width: 100%; height: auto`.
+ *
+ * NOT A CARD — no family here uses `.plane`, `box-shadow`, or a decorative
+ * radius. The one deliberate exception is Document Plate, which applies
+ * the existing `.frame` (M2.4) because a document genuinely has an extent
+ * worth marking (§16 of this task's own scope) — every other primitive
+ * stays unframed, per the border rule (spacing before containment, tonal
+ * separation before outline).
+ *
+ * NO NEW SPACING/TOKEN SCALE — every gap below reuses an already-resolved
+ * `--space-*` token directly (same pattern `controls.css`/`selection.css`/
+ * `records.css` already established); §102 names "caption gap,"
+ * "media-content gap," and "comparison gap" as *useful implementation
+ * tokens*, not as names that must become new CSS custom properties, and
+ * this file resolves them the same way M2.5 resolved action-level
+ * hierarchy — by direct token reuse, not by minting a parallel registry.
+ *
+ * NO NEW INTERACTIVE CHROME — this package introduces no custom button,
+ * slider, lightbox, or carousel control (native `<video controls>` is the
+ * only interactive element any M2.8 primitive renders, and the browser
+ * already styles/focuses it accessibly). There is therefore no
+ * `:focus-visible` rule in this file — nothing here needs one yet; a real
+ * future consumer that adds interactive navigation should reuse M2.5/M2.6
+ * focus mechanisms exactly as those packages already established.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE.
+ */
+
+/* ---------------------------------------------------------------------- */
+/* Figure — the foundational media primitive */
+/* ---------------------------------------------------------------------- */
+
+.media-figure {
+  margin: 0;
+}
+
+.media-figure-slot {
+  display: block;
+  width: 100%;
+}
+
+.media-figure-slot > * {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Caption / credit — quiet, media-attached text (§42) */
+/* ---------------------------------------------------------------------- */
+
+.media-caption {
+  margin-block-start: var(--space-2);
+  color: var(--color-mist-300);
+}
+
+.media-credit {
+  color: var(--color-mist-300);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Gallery Sequence — ordered set, stable reading order, no carousel */
+/* ---------------------------------------------------------------------- */
+
+.media-gallery-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.media-gallery-position {
+  display: block;
+  margin-block-start: var(--space-1);
+  color: var(--color-mist-300);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Comparison Pair / Matrix — shared axes, no dashboard table */
+/* ---------------------------------------------------------------------- */
+
+.media-comparison-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.media-comparison-pair > .media-comparison-item {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.media-comparison-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Document Plate — the one primitive that applies .frame by default */
+/* ---------------------------------------------------------------------- */
+
+.media-document-plate {
+  padding: var(--space-3);
+}
+
+.media-document-plate-identifier {
+  margin-block-end: var(--space-2);
+  color: var(--color-mist-300);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Video Frame — native <video>, intrinsic ratio, no cinematic treatment */
+/* ---------------------------------------------------------------------- */
+
+.media-video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Artwork Viewer Shell — strongest media authority, generous void */
+/* ---------------------------------------------------------------------- */
+
+.media-artwork-viewer {
+  padding-block: var(--space-8);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Product Media Set — evaluation order, no promotional spectacle */
+/* ---------------------------------------------------------------------- */
+
+.media-product-media-set {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
