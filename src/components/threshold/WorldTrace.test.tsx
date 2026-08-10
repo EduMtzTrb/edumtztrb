@@ -3,8 +3,12 @@ import { render } from "@testing-library/react";
 import { usePathname } from "next/navigation";
 
 import { WorldTrace } from "./WorldTrace";
-import { markThresholdTraversed } from "@/lib/threshold/familiarity";
-import { HOME_WORK_THRESHOLD_KEY } from "@/lib/threshold/thresholdKeys";
+import { markThresholdDeparture, markThresholdTraversed } from "@/lib/threshold/familiarity";
+import {
+  HOME_TO_WORK_ARRIVAL_KEY,
+  HOME_WORK_THRESHOLD_KEY,
+  WORK_TO_HOME_ARRIVAL_KEY,
+} from "@/lib/threshold/thresholdKeys";
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(),
@@ -83,5 +87,93 @@ describe("WorldTrace (M4.9 calibration)", () => {
     const traceAfter = document.querySelector(".world-trace");
     expect(traceAfter).toBe(traceBefore);
     expect(traceAfter).toHaveAttribute("data-trace-position", "work");
+  });
+});
+
+describe("WorldTrace scope — Home <-> Work only, never any-route <-> Work (pre-review integrity audit)", () => {
+  it('a genuine Home -> Work departure (real "Enter Work" click) activates the threshold passage', () => {
+    markThresholdDeparture(HOME_TO_WORK_ARRIVAL_KEY);
+    renderAt("/work");
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).toHaveAttribute("data-trace-active", "true");
+  });
+
+  it('a genuine Work -> Home departure (real "Return to Home" click) activates the threshold passage', () => {
+    markThresholdDeparture(WORK_TO_HOME_ARRIVAL_KEY);
+    renderAt("/");
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "home");
+    expect(trace).toHaveAttribute("data-trace-active", "true");
+  });
+
+  it("Research -> Work (no Home departure was ever marked) does not fabricate an active Home-threshold passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/research");
+    const { rerender } = render(<WorldTrace />);
+
+    vi.mocked(usePathname).mockReturnValue("/work");
+    rerender(<WorldTrace />);
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("About -> Work (no Home departure was ever marked) does not fabricate an active Home-threshold passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/about");
+    const { rerender } = render(<WorldTrace />);
+
+    vi.mocked(usePathname).mockReturnValue("/work");
+    rerender(<WorldTrace />);
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("Work -> Research (no Return-to-Home departure was marked) does not fabricate an active Work-threshold passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/work");
+    const { rerender } = render(<WorldTrace />);
+
+    vi.mocked(usePathname).mockReturnValue("/research");
+    rerender(<WorldTrace />);
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "elsewhere");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("Work -> About (no Return-to-Home departure was marked) does not fabricate an active Home-threshold passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/work");
+    const { rerender } = render(<WorldTrace />);
+
+    vi.mocked(usePathname).mockReturnValue("/about");
+    rerender(<WorldTrace />);
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "elsewhere");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("cold, direct entry at /work (fresh session, no departure ever marked) resolves the stable Work position with no active passage", () => {
+    renderAt("/work");
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("browser Back into /work from an unrelated route (no departure marked) fabricates no Home origin", () => {
+    vi.mocked(usePathname).mockReturnValue("/lab");
+    const { rerender } = render(<WorldTrace />);
+
+    vi.mocked(usePathname).mockReturnValue("/work");
+    rerender(<WorldTrace />);
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("a stale departure flag left over from an earlier, unrelated session moment does not leak into an unrelated district", () => {
+    markThresholdDeparture(HOME_TO_WORK_ARRIVAL_KEY);
+    renderAt("/research");
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "elsewhere");
+    expect(trace).not.toHaveAttribute("data-trace-active");
   });
 });

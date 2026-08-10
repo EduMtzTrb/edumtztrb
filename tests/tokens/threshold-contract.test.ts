@@ -87,22 +87,24 @@ describe("Threshold CSS contract (M4.9)", () => {
 
     it("first entry (default mode) and repeated entry (data-trace-mode=repeated) resolve to different durations", () => {
       expect(thresholdCss).toMatch(
-        /\.world-trace-segment\s*{[^}]*transition:\s*[^}]*var\(--motion-duration-spatial\)/,
+        /\[data-trace-active="true"\]\s*\.world-trace-segment\s*{[^}]*var\(--motion-duration-spatial\)/,
       );
       expect(thresholdCss).toMatch(
-        /\[data-trace-mode="repeated"\]\s*\.world-trace-segment\s*{[^}]*var\(--motion-duration-standard\)/,
+        /\[data-trace-active="true"\]\[data-trace-mode="repeated"\]\s*\.world-trace-segment\s*{[^}]*var\(--motion-duration-standard\)/,
       );
     });
 
     it("repeated entry also resolves to a shorter travel distance than first entry, not merely a shorter duration", () => {
       expect(thresholdCss).toMatch(
-        /\[data-trace-mode="repeated"\]\[data-trace-position="work"\][^}]*transform:\s*translateX\(calc\(75% - 72px\)\)/,
+        /\[data-trace-active="true"\]\[data-trace-mode="repeated"\]\[data-trace-position="work"\][^{]*{[^}]*transform:\s*translateX\(calc\(75% - 72px\)\)/,
       );
     });
 
     it("only transform and opacity are transitioned — cheap, composited properties, no layout thrash", () => {
       const css = stripComments(thresholdCss);
-      const traceBlockMatch = css.match(/\.world-trace-segment\s*{([^}]+)}/);
+      const traceBlockMatch = css.match(
+        /\[data-trace-active="true"\]\s*\.world-trace-segment\s*{([^}]+)}/,
+      );
       expect(traceBlockMatch).not.toBeNull();
       const transitionDeclaration = traceBlockMatch![1].match(/transition:\s*([^;]+);/);
       expect(transitionDeclaration).not.toBeNull();
@@ -112,6 +114,23 @@ describe("Threshold CSS contract (M4.9)", () => {
       for (const property of properties) {
         expect(["transform", "opacity"]).toContain(property);
       }
+    });
+
+    it("the base .world-trace-segment rule declares no transition at all — animation is opt-in via data-trace-active only", () => {
+      const css = stripComments(thresholdCss);
+      const baseBlockMatch = css.match(/(?<!\])\s*\.world-trace-segment\s*{([^}]+)}/);
+      expect(baseBlockMatch).not.toBeNull();
+      expect(baseBlockMatch![1]).not.toMatch(/transition/);
+    });
+
+    it("a non-genuine arrival at Work (no data-trace-active) is never gated by any transform/opacity override outside the active/base rules — the resting position stays the plain full-offset value", () => {
+      const css = stripComments(thresholdCss);
+      const positionOnlyRule = css.match(
+        /\[data-trace-position="work"\]\s*\.world-trace-segment\s*{([^}]+)}/,
+      );
+      expect(positionOnlyRule).not.toBeNull();
+      expect(positionOnlyRule![1]).toMatch(/translateX\(calc\(100% - 96px\)\)/);
+      expect(positionOnlyRule![1]).not.toMatch(/transition/);
     });
 
     it("shortens travel distance at the existing compact breakpoint rather than increasing motion on small screens", () => {

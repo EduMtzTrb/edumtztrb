@@ -1,10 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { usePathname } from "next/navigation";
 
 import { AppShell } from "@/components/shell/AppShell";
 import HomePage from "@/app/page";
 import WorkPage from "@/app/work/page";
+import ResearchPage from "@/app/research/page";
 import { markThresholdTraversed } from "@/lib/threshold/familiarity";
 import { HOME_WORK_THRESHOLD_KEY } from "@/lib/threshold/thresholdKeys";
 
@@ -103,5 +104,94 @@ describe("WorldTrace persists across a real Home <-> Work navigation (AppShell-l
       </AppShell>,
     );
     expect(document.querySelectorAll(".world-trace")).toHaveLength(1);
+  });
+});
+
+describe("WorldTrace scope — real genuine crossing vs. real fabricated crossing (pre-review integrity audit)", () => {
+  it('a real click on "Enter Work" from Home activates the trace at Work', () => {
+    vi.mocked(usePathname).mockReturnValue("/");
+    const { rerender } = render(
+      <AppShell>
+        <HomePage />
+      </AppShell>,
+    );
+    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+
+    vi.mocked(usePathname).mockReturnValue("/work");
+    rerender(
+      <AppShell>
+        <WorkPage />
+      </AppShell>,
+    );
+    expect(document.querySelector(".world-trace")).toHaveAttribute("data-trace-active", "true");
+  });
+
+  it('a real click on "Return to Home" from Work activates the trace at Home', () => {
+    vi.mocked(usePathname).mockReturnValue("/work");
+    const { rerender } = render(
+      <AppShell>
+        <WorkPage />
+      </AppShell>,
+    );
+    fireEvent.click(screen.getByRole("link", { name: "Return to Home" }));
+
+    vi.mocked(usePathname).mockReturnValue("/");
+    rerender(
+      <AppShell>
+        <HomePage />
+      </AppShell>,
+    );
+    expect(document.querySelector(".world-trace")).toHaveAttribute("data-trace-active", "true");
+  });
+
+  it("navigating from Research into Work without going through Home's threshold link fabricates no active passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/research");
+    const { rerender } = render(
+      <AppShell>
+        <ResearchPage />
+      </AppShell>,
+    );
+
+    vi.mocked(usePathname).mockReturnValue("/work");
+    rerender(
+      <AppShell>
+        <WorkPage />
+      </AppShell>,
+    );
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+    expect(screen.getByRole("heading", { level: 1, name: "Work" })).toBeInTheDocument();
+  });
+
+  it("leaving Work for Research without clicking Return to Home fabricates no active passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/work");
+    const { rerender } = render(
+      <AppShell>
+        <WorkPage />
+      </AppShell>,
+    );
+
+    vi.mocked(usePathname).mockReturnValue("/research");
+    rerender(
+      <AppShell>
+        <ResearchPage />
+      </AppShell>,
+    );
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "elsewhere");
+    expect(trace).not.toHaveAttribute("data-trace-active");
+  });
+
+  it("cold direct entry at /work through the real AppShell fabricates no active passage", () => {
+    vi.mocked(usePathname).mockReturnValue("/work");
+    render(
+      <AppShell>
+        <WorkPage />
+      </AppShell>,
+    );
+    const trace = document.querySelector(".world-trace");
+    expect(trace).toHaveAttribute("data-trace-position", "work");
+    expect(trace).not.toHaveAttribute("data-trace-active");
   });
 });

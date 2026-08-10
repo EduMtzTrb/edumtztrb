@@ -3,8 +3,12 @@
 import { useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
-import { hasTraversedThreshold } from "@/lib/threshold/familiarity";
-import { HOME_WORK_THRESHOLD_KEY } from "@/lib/threshold/thresholdKeys";
+import { hasTraversedThreshold, peekThresholdArrival } from "@/lib/threshold/familiarity";
+import {
+  HOME_TO_WORK_ARRIVAL_KEY,
+  HOME_WORK_THRESHOLD_KEY,
+  WORK_TO_HOME_ARRIVAL_KEY,
+} from "@/lib/threshold/thresholdKeys";
 
 /**
  * WorldTrace — M4.9 calibration. The corrected record of this task's own
@@ -62,6 +66,23 @@ import { HOME_WORK_THRESHOLD_KEY } from "@/lib/threshold/thresholdKeys";
  * transition toward a newly changed target value on its own — no
  * component-level interruption logic is needed (see
  * docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md "Interruption").
+ *
+ * SCOPE — Home <-> Work ONLY, never "any navigation into Work." Deriving
+ * `data-trace-position` from the pathname alone would make Research ->
+ * Work (or any non-Home origin) play the identical choreography as a
+ * genuine Home -> Work passage, merely because the destination happens to
+ * be `/work` — a real leak found and corrected during a pre-review
+ * integrity audit (see the M4.9 doc's own "WorldTrace Scope" section).
+ * `data-trace-active` gates the CSS `transition` itself, reusing the
+ * exact same `peekThresholdArrival` arrival-key infrastructure
+ * `ThresholdLink`/`ThresholdIndicator` already use to detect a genuine
+ * passage — never a second, parallel session/history system. Structural
+ * presence (`data-trace-position`, always correct) is kept deliberately
+ * separate from active choreography (`data-trace-active`, only true for a
+ * genuine Home<->Work crossing): an unrelated arrival at Work still shows
+ * the trace at the Work-side edge (stable shell structure), but with no
+ * transition to animate through — it simply renders there, exactly as a
+ * cold/direct entry already does.
  */
 type TracePosition = "home" | "work" | "elsewhere";
 type TraceMode = "first" | "repeated";
@@ -70,6 +91,12 @@ function resolveTracePosition(pathname: string | null): TracePosition {
   if (pathname === "/") return "home";
   if (pathname === "/work" || pathname?.startsWith("/work/")) return "work";
   return "elsewhere";
+}
+
+function isGenuineCrossing(position: TracePosition): boolean {
+  if (position === "work") return peekThresholdArrival(HOME_TO_WORK_ARRIVAL_KEY);
+  if (position === "home") return peekThresholdArrival(WORK_TO_HOME_ARRIVAL_KEY);
+  return false;
 }
 
 function subscribe(): () => void {
@@ -88,9 +115,15 @@ export function WorldTrace() {
   const pathname = usePathname();
   const position = resolveTracePosition(pathname);
   const mode = useSyncExternalStore(subscribe, getModeSnapshot, getServerSnapshot);
+  const active = isGenuineCrossing(position);
 
   return (
-    <div className="world-trace" data-trace-position={position} data-trace-mode={mode}>
+    <div
+      className="world-trace"
+      data-trace-position={position}
+      data-trace-mode={mode}
+      data-trace-active={active ? "true" : undefined}
+    >
       <span className="world-trace-segment" aria-hidden="true" />
     </div>
   );

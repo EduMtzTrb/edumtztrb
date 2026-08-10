@@ -11,13 +11,16 @@
  *
  * NO NEW DURATION TIER — M4.1's locked hierarchy has no dedicated
  * "District Passage"/"World Threshold" token beyond `--motion-duration-
- * spatial` (the largest non-ambient value, already the Sequence/Record-
- * Passage tier). Introducing a new tier would be a genuine new design
- * convention this package is not authorized to invent unilaterally.
- * First entry therefore reuses the existing `spatial` tier (the richest
- * already-approved value); repeated entry drops to `standard`
- * (State-Change tier) — both already fully resolved and tested since
- * M4.1, no new value anywhere.
+ * spatial` (the largest non-ambient value). M4.8's own Record Passage
+ * settled on `--motion-duration-deliberate` instead (see
+ * `record-passage.css`), leaving `spatial` unconsumed and available for
+ * this package's own District Passage/World Threshold tier — this file is
+ * the only consumer of `--motion-duration-spatial` in the repository.
+ * Introducing a new tier would be a genuine new design convention this
+ * package is not authorized to invent unilaterally. First entry therefore
+ * reuses `spatial` (the richest already-approved, still-unconsumed
+ * value); repeated entry drops to `standard` (State-Change tier) — both
+ * already fully resolved and tested since M4.1, no new value anywhere.
  *
  * TWO RULE GROUPS —
  *   1. `[data-threshold-state]` — the original `ThresholdIndicator` text
@@ -29,7 +32,11 @@
  *      `AppShell`) that repositions across the real route change. Only
  *      `transform`/`opacity` are animated (cheap, GPU-composited
  *      properties) — no transform beyond translation, no blur, no
- *      perspective, no scale, no rotation.
+ *      perspective, no scale, no rotation. `data-trace-position` always
+ *      reflects real, current structure; the `transition` itself only
+ *      applies when `data-trace-active="true"` — a genuine Home<->Work
+ *      crossing, never merely "pathname is /work" (see WorldTrace.tsx's
+ *      own "SCOPE" doc comment for the leak this prevents).
  */
 
 [data-threshold-state="first-entry"] {
@@ -54,6 +61,18 @@
   background: var(--color-mist-300);
   transform: translateX(0);
   opacity: var(--motion-recession-subtle);
+}
+
+/*
+ * The transition itself is gated on `data-trace-active="true"` — set only
+ * for a genuine Home<->Work crossing (see WorldTrace.tsx's own "SCOPE"
+ * doc comment). An unrelated arrival at Work (Research -> Work, About ->
+ * Work, cold entry, browser Back from an unrelated route) still resolves
+ * `data-trace-position` correctly (stable shell structure) but never gets
+ * this `transition` — the segment simply renders at its resting position,
+ * with no animated implication that Home was traversed.
+ */
+[data-trace-active="true"] .world-trace-segment {
   transition:
     transform var(--motion-duration-spatial) var(--motion-ease-move),
     opacity var(--motion-duration-spatial) var(--motion-ease-move);
@@ -69,11 +88,12 @@
   opacity: 1;
 }
 
-[data-trace-mode="repeated"] .world-trace-segment {
+[data-trace-active="true"][data-trace-mode="repeated"] .world-trace-segment {
   transition-duration: var(--motion-duration-standard);
 }
 
-[data-trace-mode="repeated"][data-trace-position="work"] .world-trace-segment {
+[data-trace-active="true"][data-trace-mode="repeated"][data-trace-position="work"]
+  .world-trace-segment {
   transform: translateX(calc(75% - 72px));
 }
 
@@ -83,7 +103,8 @@
     transform: translateX(calc(60% - 58px));
   }
 
-  [data-trace-mode="repeated"][data-trace-position="work"] .world-trace-segment {
+  [data-trace-active="true"][data-trace-mode="repeated"][data-trace-position="work"]
+    .world-trace-segment {
     transform: translateX(calc(45% - 43px));
   }
 }
