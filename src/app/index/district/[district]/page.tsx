@@ -13,7 +13,11 @@ export default async function IndexByDistrictPage({
 
   return (
     <GroupingViewShell heading={`Index — District: ${district}`}>
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <IndexResults
+        result={result}
+        usingFixtures={usingFixtures}
+        scopeDescription={`district: ${district}`}
+      />
     </GroupingViewShell>
   );
 }

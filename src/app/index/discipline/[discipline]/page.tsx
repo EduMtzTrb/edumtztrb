@@ -13,7 +13,11 @@ export default async function IndexByDisciplinePage({
 
   return (
     <GroupingViewShell heading={`Index — Discipline: ${discipline}`}>
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <IndexResults
+        result={result}
+        usingFixtures={usingFixtures}
+        scopeDescription={`discipline: ${discipline}`}
+      />
     </GroupingViewShell>
   );
 }

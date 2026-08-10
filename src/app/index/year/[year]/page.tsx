@@ -13,7 +13,11 @@ export default async function IndexByYearPage({
 
   return (
     <GroupingViewShell heading={`Index — Year: ${year}`}>
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <IndexResults
+        result={result}
+        usingFixtures={usingFixtures}
+        scopeDescription={`year: ${year}`}
+      />
     </GroupingViewShell>
   );
 }

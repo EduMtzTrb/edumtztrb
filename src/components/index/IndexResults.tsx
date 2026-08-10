@@ -4,23 +4,32 @@ import { NoResultState } from "@/components/state/NoResultState";
 import type { IndexResult } from "@/domain/records/IndexModel";
 
 /**
- * Index results presentation — M3.10. Reuses M2.7's `IndexRecord` (the
- * dense, scannable row primitive already built for exactly this role) and
- * M2.11's `EmptyState`/`NoResultState` — no new record/state primitive was
- * designed, per this task's own §D5 ("do not redesign them").
+ * Index results presentation — M3.10, corrected by M3.11. Reuses M2.7's
+ * `IndexRecord` (the dense, scannable row primitive already built for
+ * exactly this role) and M2.11's `EmptyState`/`NoResultState` — no new
+ * record/state primitive was designed, per this task's own §D5 ("do not
+ * redesign them").
+ *
+ * `scopeDescription` (M3.11 correction) — M3.10's original empty-state
+ * branch used `result.lens` alone to decide between "genuinely empty"
+ * (`EmptyState`) and "no match for this scope" (`NoResultState`). That
+ * missed M3.11's own filter-narrowed case: filtering an already-lens-free
+ * `/index` view down to zero results is "no match," not "nothing exists,"
+ * but the constructed `IndexResult` in that case carries no `lens`. A
+ * caller now supplies `scopeDescription` explicitly whenever ANY
+ * narrowing (lens or filter) produced the empty result; its absence means
+ * the underlying public source itself is empty.
  */
 interface IndexResultsProps {
   result: IndexResult;
   usingFixtures: boolean;
+  scopeDescription?: string;
 }
 
-export function IndexResults({ result, usingFixtures }: IndexResultsProps) {
+export function IndexResults({ result, usingFixtures, scopeDescription }: IndexResultsProps) {
   if (result.entries.length === 0) {
-    return result.lens ? (
-      <NoResultState
-        heading="No public records match this Index scope."
-        query={`${result.lens.dimension}: ${result.lens.value}`}
-      />
+    return scopeDescription ? (
+      <NoResultState heading="No public records match this Index scope." query={scopeDescription} />
     ) : (
       <EmptyState
         heading="No public records exist yet."

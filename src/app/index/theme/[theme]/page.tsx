@@ -13,7 +13,11 @@ export default async function IndexByThemePage({
 
   return (
     <GroupingViewShell heading={`Index — Theme: ${theme}`}>
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <IndexResults
+        result={result}
+        usingFixtures={usingFixtures}
+        scopeDescription={`theme: ${theme}`}
+      />
     </GroupingViewShell>
   );
 }

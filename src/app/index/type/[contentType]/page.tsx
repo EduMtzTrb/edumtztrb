@@ -13,7 +13,11 @@ export default async function IndexByTypePage({
 
   return (
     <GroupingViewShell heading={`Index — Type: ${contentType}`}>
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <IndexResults
+        result={result}
+        usingFixtures={usingFixtures}
+        scopeDescription={`content-type: ${contentType}`}
+      />
     </GroupingViewShell>
   );
 }

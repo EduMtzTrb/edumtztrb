@@ -1,15 +1,42 @@
 import { UtilityPageShell } from "@/components/page-shells/PageShell";
 import { IndexResults } from "@/components/index/IndexResults";
+import { FilterBar } from "@/components/index/FilterBar";
+import { ActiveFilters } from "@/components/index/ActiveFilters";
 import { resolvePublicRecordSource } from "@/domain/records/devFixtureSource";
 import { queryIndex } from "@/domain/records/IndexModel";
+import {
+  applyFilterCriteria,
+  describeCriteria,
+  distinctContentTypes,
+  distinctDistricts,
+  parseFilterCriteria,
+} from "@/domain/records/FilterModel";
+
+const PATHNAME = "/index";
 
 export default async function IndexPage({ searchParams }: PageProps<"/index">) {
-  const { records, usingFixtures } = resolvePublicRecordSource(await searchParams);
-  const result = queryIndex(records);
+  const params = await searchParams;
+  const { records, usingFixtures } = resolvePublicRecordSource(params);
+  const baseResult = queryIndex(records);
+
+  const criteria = parseFilterCriteria(params);
+  const filteredEntries = applyFilterCriteria(baseResult.entries, criteria);
 
   return (
     <UtilityPageShell heading="Index">
-      <IndexResults result={result} usingFixtures={usingFixtures} />
+      <FilterBar
+        pathname={PATHNAME}
+        searchParams={params}
+        criteria={criteria}
+        districtOptions={distinctDistricts(baseResult.entries)}
+        contentTypeOptions={distinctContentTypes(baseResult.entries)}
+      />
+      <ActiveFilters pathname={PATHNAME} searchParams={params} criteria={criteria} />
+      <IndexResults
+        result={{ entries: filteredEntries, count: filteredEntries.length }}
+        usingFixtures={usingFixtures}
+        scopeDescription={describeCriteria(criteria)}
+      />
     </UtilityPageShell>
   );
 }

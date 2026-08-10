@@ -1,0 +1,70 @@
+/**
+ * Filters — M3.11. Plain link-based controls (see FilterBar.tsx/
+ * ActiveFilters.tsx for why) styled with the same non-color-alone active
+ * cue every other navigation system in this repository already uses
+ * (underline + weight on `aria-current`/current state), reusing existing
+ * tokens only.
+ */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+}
+
+.filter-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin-top: var(--space-1);
+}
+
+.filter-option {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-mist-300);
+  text-decoration: underline;
+}
+
+.filter-option[aria-current="true"] {
+  color: var(--color-light-text);
+  font-weight: 600;
+}
+
+.filter-option:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+}
+
+.active-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.active-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: var(--line-hairline) solid var(--color-graphite-700);
+}
