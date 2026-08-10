@@ -1,0 +1,66 @@
+/**
+ * Shared static states — M2.11.
+ * Authority: IMPLEMENTATION_PLAN.md §7 (M2.11 — "Implement loading, empty,
+ * sparse, no-result, unavailable, archived, error, success, confirmation,
+ * and restricted/unpublished where relevant"); DESIGN_SYSTEM.md v1.1 §21
+ * (State representation — interaction/system/lifecycle/commercial state
+ * are separate dimensions; §21.5 State communication priority: clear
+ * language → typography → placement → structure → icon → color last),
+ * §86 (Archive and state — "represented through lifecycle state, not
+ * deletion styling"). See docs/implementation/M2.11_SHARED_STATIC_STATES.md
+ * for the full audit and reasoning.
+ *
+ * COLOR IS REINFORCEMENT, NEVER THE SOLE CARRIER (§21.5): only Error and
+ * Success apply a functional color at all — every other state (Empty,
+ * Sparse, No Result, Unavailable, Archived, Restricted) stays fully
+ * neutral, differentiated only by its consumer-supplied heading text.
+ * There is no hue-per-state badge taxonomy anywhere in this file.
+ *
+ * NO FAKE CONTENT: nothing here draws a skeleton shape, shimmer, or
+ * placeholder graphic meant to resemble real content — `.loading-state`
+ * reserves geometry via an author-supplied `min-height` only.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE.
+ */
+
+.static-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.static-state-heading {
+  margin: 0;
+  color: var(--color-light-text);
+}
+
+.static-state-explanation,
+.static-state-detail {
+  margin: 0;
+  color: var(--color-mist-300);
+}
+
+.static-state-action {
+  margin-block-start: var(--space-1);
+}
+
+/* Error — the one place a functional color reinforces the heading; the
+   heading text and role="alert" (component-level) carry the actual
+   meaning, not this color alone. */
+.static-state-error .static-state-heading {
+  color: var(--color-error);
+}
+
+/* Success/confirmation — same reinforcement-only pattern, using the
+   already-resolved --color-success (never a new color). */
+.static-state-success .static-state-heading {
+  color: var(--color-success);
+}
+
+/* Loading — reserved geometry only, no spinner/shimmer/skeleton. */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-mist-300);
+}
