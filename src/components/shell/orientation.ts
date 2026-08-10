@@ -121,6 +121,8 @@ export interface UtilityOrientationInput {
   readonly currentLabel: string;
   readonly currentHref: string;
   readonly activeLens?: ActiveLens;
+  /** M3.13: a utility route may itself be nested under another utility (e.g. an Index lens route under `/index`) — contextual, never canonical ownership, same as a district's own `parentGrouping`. */
+  readonly parentGrouping?: ParentGrouping;
 }
 
 /** Orientation for a global utility (Search, Index, an Index lens route, Contact) — owns no district. */
@@ -129,6 +131,7 @@ export function orientationForUtility(input: UtilityOrientationInput): Orientati
     currentLabel: input.currentLabel,
     currentHref: input.currentHref,
     activeLens: input.activeLens,
+    parentGrouping: input.parentGrouping,
   };
 }
 

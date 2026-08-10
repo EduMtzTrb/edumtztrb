@@ -102,6 +102,44 @@ describe("GroupingViewShell / UtilityPageShell — optional children (M3.10)", (
   });
 });
 
+describe("DistrictOverviewShell / CuratedViewShell / ComprehensiveViewShell — optional children (M3.13)", () => {
+  it("DistrictOverviewShell renders supplied children after the header", () => {
+    render(
+      <DistrictOverviewShell heading="Work">
+        <p>Orientation content</p>
+      </DistrictOverviewShell>,
+    );
+    expect(screen.getByText("Orientation content")).toBeInTheDocument();
+  });
+
+  it("CuratedViewShell renders supplied children after the header", () => {
+    render(
+      <CuratedViewShell heading="Work — Selected">
+        <p>Orientation content</p>
+      </CuratedViewShell>,
+    );
+    expect(screen.getByText("Orientation content")).toBeInTheDocument();
+  });
+
+  it("ComprehensiveViewShell renders supplied children after the header", () => {
+    render(
+      <ComprehensiveViewShell heading="Work — All">
+        <p>Orientation content</p>
+      </ComprehensiveViewShell>,
+    );
+    expect(screen.getByText("Orientation content")).toBeInTheDocument();
+  });
+
+  it("all three render nothing extra when children is omitted", () => {
+    const { container: a } = render(<DistrictOverviewShell heading="Test" />);
+    const { container: b } = render(<CuratedViewShell heading="Test" />);
+    const { container: c } = render(<ComprehensiveViewShell heading="Test" />);
+    expect(a.querySelector("main")?.children).toHaveLength(1);
+    expect(b.querySelector("main")?.children).toHaveLength(1);
+    expect(c.querySelector("main")?.children).toHaveLength(1);
+  });
+});
+
 describe("WorldThresholdShell", () => {
   it('carries data-district="home", unique among the simple shells', () => {
     render(<WorldThresholdShell heading="Home" />);

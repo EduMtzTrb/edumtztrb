@@ -57,24 +57,54 @@ export function WorldThresholdShell({ heading }: { heading: ReactNode }) {
  * /work, /research, /lab, /art, /products, /about.
  * PLATFORM_SPECIFICATION_v1.0.md §6.2.
  */
-export function DistrictOverviewShell({ heading }: { heading: ReactNode }) {
-  return <PageShell pageType="district-overview" heading={heading} headingClassName="type-h1" />;
+export function DistrictOverviewShell({
+  heading,
+  children,
+}: {
+  heading: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <PageShell pageType="district-overview" heading={heading} headingClassName="type-h1">
+      {children}
+    </PageShell>
+  );
 }
 
 /**
  * Selected / current / active / featured foreground views.
  * PLATFORM_SPECIFICATION_v1.0.md §6.3.
  */
-export function CuratedViewShell({ heading }: { heading: ReactNode }) {
-  return <PageShell pageType="curated-view" heading={heading} headingClassName="type-h1" />;
+export function CuratedViewShell({
+  heading,
+  children,
+}: {
+  heading: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <PageShell pageType="curated-view" heading={heading} headingClassName="type-h1">
+      {children}
+    </PageShell>
+  );
 }
 
 /**
  * Archive / all / catalogue views.
  * PLATFORM_SPECIFICATION_v1.0.md §6.4.
  */
-export function ComprehensiveViewShell({ heading }: { heading: ReactNode }) {
-  return <PageShell pageType="comprehensive-view" heading={heading} headingClassName="type-h1" />;
+export function ComprehensiveViewShell({
+  heading,
+  children,
+}: {
+  heading: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <PageShell pageType="comprehensive-view" heading={heading} headingClassName="type-h1">
+      {children}
+    </PageShell>
+  );
 }
 
 /**

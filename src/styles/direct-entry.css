@@ -1,0 +1,14 @@
+/**
+ * Direct-entry orientation — M3.13. The truthful "next actions" list
+ * beneath a deep-entry Breadcrumb — plain links, existing tokens only,
+ * matching the same non-interactive-list pattern already used throughout
+ * M3.7–M3.11.
+ */
+
+.direct-entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  list-style: none;
+  padding: var(--space-2) var(--space-4);
+}

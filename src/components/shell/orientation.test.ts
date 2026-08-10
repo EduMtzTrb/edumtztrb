@@ -145,4 +145,17 @@ describe("Orientation model (M3.9)", () => {
     expect(contextA.currentHref).toBe(contextB.currentHref);
     expect(contextA.district).toBe(contextB.district);
   });
+
+  it("M3.13: a utility route may itself carry a parent grouping (e.g. an Index lens route parented by Index)", () => {
+    const context = orientationForUtility({
+      currentLabel: "District: work",
+      currentHref: "/index/district/work",
+      parentGrouping: { label: "Index", href: "/index" },
+    });
+    const trail = buildBreadcrumbTrail(context);
+    expect(trail).toEqual([
+      { label: "Index", href: "/index", current: false },
+      { label: "District: work", current: true },
+    ]);
+  });
 });
