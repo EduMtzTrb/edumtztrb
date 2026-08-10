@@ -4,6 +4,7 @@
 @import "../styles/primitives.css";
 @import "../styles/controls.css";
 @import "../styles/selection.css";
+@import "../styles/records.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,

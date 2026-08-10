@@ -1,0 +1,263 @@
+/**
+ * Record family — M2.7.
+ * Authority: DESIGN_SYSTEM.md v1.1 §34.1 (Shared record/plate family — no
+ * generic universal card; Portal/Media/Index/Editorial/Product records,
+ * each with its own emphasis, all sharing one platform vocabulary), §15
+ * (Record anchor/void proportion), §16.7 (Border rule — one meaningful
+ * edge over four automatic edges, shared dividers over repeated boxes,
+ * tonal separation before outline, spacing before containment). See
+ * docs/implementation/M2.7_RECORD_FAMILY.md for the full audit and
+ * reasoning.
+ *
+ * NOT ONE GENERIC CARD (§34.1): there is no `.record-card` base class.
+ * Each family below owns its own selectors; what they share is
+ * typography roles (M2.2), spacing tokens (M2.3), color/geometry tokens,
+ * and the focus-visible mechanism — never a shared box/shadow/radius
+ * treatment. Consistent with §16.7, no family applies `.plane`/`.frame`
+ * (M2.4) by default — containment is used only where a specific family's
+ * own section below says so, never automatically.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE — no record family uses
+ * Signal to mark itself, its price, its status, or its route.
+ *
+ * NO FORCED ASPECT RATIO, NO FORCED CROP: media slots below set no
+ * `aspect-ratio` and no `object-fit`. Real media handling (Figure,
+ * Gallery Sequence, artwork viewer, etc.) is M2.8's; this file only
+ * reserves the slot and lets intrinsic media ratio pass through.
+ *
+ * HOVER IS ENHANCEMENT ONLY: every family uses the same restrained
+ * opacity dim already established by controls.css/selection.css — no
+ * scale transform, no shadow lift, no blur. Every essential piece of
+ * information (title, status, price, availability) renders unconditionally,
+ * never revealed only on hover.
+ */
+
+/* ---------------------------------------------------------------------- */
+/* Portal Record — entry into a district or major collection */
+/* ---------------------------------------------------------------------- */
+
+.record-portal-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-8);
+  padding-inline: var(--space-4);
+  text-decoration: none;
+  color: var(--color-light-text);
+}
+
+.record-portal-identifier {
+  color: var(--color-mist-300);
+}
+
+.record-portal-title {
+  margin: 0;
+}
+
+.record-portal-orientation {
+  max-width: 60ch;
+  color: var(--color-mist-300);
+}
+
+.record-portal-link:hover {
+  opacity: 0.85;
+}
+
+.record-portal-link:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Media Record — preview of a visual Work/Art/Lab/Product/other record */
+/* ---------------------------------------------------------------------- */
+
+.record-media-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-light-text);
+}
+
+/* The slot itself imposes no ratio or crop — see file header. */
+.record-media-slot {
+  display: block;
+  width: 100%;
+}
+
+.record-media-slot > * {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.record-media-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.record-media-title {
+  margin: 0;
+}
+
+.record-media-metadata,
+.record-media-description {
+  color: var(--color-mist-300);
+}
+
+.record-media-link:hover {
+  opacity: 0.85;
+}
+
+.record-media-link:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Index Record — dense, scannable row for archives/catalogues/results */
+/* ---------------------------------------------------------------------- */
+
+/* Shared dividers between rows, not a repeated box per row (§16.7). */
+.record-index + .record-index {
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+.record-index-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  text-decoration: none;
+  color: var(--color-light-text);
+}
+
+.record-index-title {
+  flex: 1 1 auto;
+  min-width: 12ch;
+}
+
+.record-index-field {
+  color: var(--color-mist-300);
+}
+
+.record-index-link:hover {
+  opacity: 0.85;
+}
+
+/* Inward offset (mirrors the M2.6 segmented-option pattern): rows sit flush
+   against their neighbors' dividers with no external margin, so an outward
+   2px offset would clip against the adjacent row. */
+.record-index-link:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Editorial Record — text-led preview (Research paper/essay/note/etc.) */
+/* ---------------------------------------------------------------------- */
+
+.record-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 65ch;
+}
+
+.record-editorial-title {
+  margin: 0;
+}
+
+.record-editorial-link {
+  color: var(--color-light-text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+.record-editorial-link:hover {
+  opacity: 0.85;
+}
+
+.record-editorial-link:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.record-editorial-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-mist-300);
+}
+
+.record-editorial-excerpt {
+  color: var(--color-light-text);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Product Record — commercial object/offer preview */
+/* ---------------------------------------------------------------------- */
+
+.record-product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.record-product-slot {
+  display: block;
+  width: 100%;
+}
+
+.record-product-slot > * {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.record-product-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.record-product-family {
+  color: var(--color-mist-300);
+}
+
+.record-product-title {
+  margin: 0;
+}
+
+.record-product-link {
+  color: var(--color-light-text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+.record-product-link:hover {
+  opacity: 0.85;
+}
+
+.record-product-link:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.record-product-descriptor {
+  color: var(--color-mist-300);
+}
+
+/* Commercially material information (§24) — always rendered, never
+   hover-gated. No Product-specific accent color: same neutral text color
+   every other record family uses. */
+.record-product-commercial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  color: var(--color-light-text);
+}
