@@ -1,0 +1,10 @@
+/**
+ * Layout only for the M4-B development fixture — a CSS Module so it stays
+ * scoped to this one dev-only component. No design-system decision lives
+ * here — plain spacing only.
+ */
+.returnFixtureRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
