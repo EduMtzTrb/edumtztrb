@@ -1,0 +1,59 @@
+/**
+ * Overlay Mechanics — M4.5.
+ * Authority: ANIMATION_SYSTEM.md's locked Overlay law ("overlays use
+ * Focus + Recession + Return and do not imply a new architectural
+ * destination"); DESIGN_SYSTEM.md's overlay family (visible close,
+ * Escape, contained focus, background-interaction prevention, preserved
+ * underlying context). See docs/implementation/M4.5_OVERLAY_MECHANICS.md.
+ *
+ * NO NEW VISUAL SURFACE — the overlay panel reuses `.plane` + `.frame`
+ * (src/styles/primitives.css, M2.4) exactly as any other content surface
+ * would. This file owns positioning only: the fixed backdrop/content
+ * layer and the panel's max-extent/scroll behavior.
+ *
+ * NO ENTRANCE/EXIT TRANSITION — presence is binary (open/closed), not
+ * animated. This keeps M4.5 unambiguously non-theatrical (no "large
+ * zoom," no "cinematic fly-through," no "theatrical full-screen
+ * transition") and avoids depending on newer, less consistently
+ * supported CSS features (`@starting-style`) this repository has no way
+ * to mechanically verify. The one motion this package DOES apply is the
+ * background's recession opacity transition — inherited unchanged from
+ * `focus.css`'s existing `[data-focus-state]` rule; no second transition
+ * declaration exists in this file.
+ */
+
+[data-overlay-content] {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  /* No `--layer-*` token exists yet — DESIGN_SYSTEM.md v1.1 §99's six-token
+     layer-order model is approved in name only; PROJECT_STATE.md's own
+     Blockers entry leaves exact numeric z-index values implementation-
+     calibrated by whichever package first genuinely needs one. Resolving
+     the full token model is a larger, separate Design-System-calibration
+     decision this package does not attempt. This reuses shell.css's own
+     existing precedent — a plain literal (`z-index: 100` on the header) —
+     one step above it, the smallest change that reliably keeps an open
+     overlay above the persistent header. */
+  z-index: 200;
+}
+
+[data-overlay-backdrop] {
+  position: absolute;
+  inset: 0;
+  background: var(--color-void-1000);
+  opacity: var(--motion-recession-overlay);
+}
+
+[data-overlay-panel] {
+  position: relative;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

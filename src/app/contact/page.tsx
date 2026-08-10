@@ -1,6 +1,6 @@
 import { UtilityPageShell } from "@/components/page-shells/PageShell";
 import { MotionFixture } from "@/components/motion/MotionFixture";
-import { FocusFixture } from "@/components/focus/FocusFixture";
+import { OverlayFixture } from "@/components/overlay/OverlayFixture";
 import { isFocusFixtureActive, isMotionFixtureActive } from "@/lib/motion/fixtureGate";
 
 export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
@@ -19,7 +19,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
       {showFocusFixture && (
         <>
           <p role="status">M4-B Focus / Return Fixture — not real public content</p>
-          <FocusFixture />
+          <OverlayFixture />
         </>
       )}
     </UtilityPageShell>

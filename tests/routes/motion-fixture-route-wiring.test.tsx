@@ -47,5 +47,6 @@ describe("Motion fixture route wiring (M4.3)", () => {
     ).toBeInTheDocument();
     expect(screen.queryByText(/M4-A Motion Foundation Fixture/i)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /focus: evidence a/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Open overlay" })).toBeInTheDocument();
   });
 });
