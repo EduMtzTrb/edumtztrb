@@ -2,9 +2,7 @@
 
 ## Status
 
-**Ready for Integrated Human Review.**
-
-This is a batch reconciliation document, not an approval record. M4.4, M4.5, M4.6, and M4.7 remain individually **Implemented / Mechanically Verified — awaiting M4-B integrated human review**; none is Complete / Verified yet, and this document does not change that. Its purpose is to confirm the four packages form one coherent, non-duplicated interaction architecture before a human reviewer looks at it, and to hand that reviewer an exact, reproducible procedure.
+**Approved / Closed.** The M4-B integrated human browser review (externally supplied by the user) has PASSED — see **Integrated Human Review Result** below. M4.4, M4.5, M4.6, and M4.7 are each now individually **Complete / Verified** (each report's own "Integrated Human Review" section records the accepted findings).
 
 ## Authority
 
@@ -17,7 +15,27 @@ This is a batch reconciliation document, not an approval record. M4.4, M4.5, M4.
 | M4.4 — Focus + Recession | `docs/implementation/M4.4_FOCUS_RECESSION.md` | Implemented / Mechanically Verified |
 | M4.5 — Overlay Mechanics | `docs/implementation/M4.5_OVERLAY_MECHANICS.md` | Implemented / Mechanically Verified |
 | M4.6 — Spatial Memory / Return | `docs/implementation/M4.6_SPATIAL_MEMORY_RETURN.md` | Implemented / Mechanically Verified |
-| M4.7 — Browser-History Contract | `docs/implementation/M4.7_BROWSER_HISTORY_CONTRACT.md` | Implemented / Mechanically Verified |
+| M4.7 — Browser-History Contract | `docs/implementation/M4.7_BROWSER_HISTORY_CONTRACT.md` | Complete / Verified |
+
+## Integrated Human Review Result
+
+`PASSED — externally supplied human browser review.`
+
+This approval was supplied externally by the user after reviewing the running application in a real browser. Claude did not independently observe, render, or pixel-inspect the browser interface at any point — this section records the user's own reported findings, not an automated or Claude-originated visual judgment.
+
+The user reviewed the integrated M4-B system — Focus + Recession, Overlay Mechanics, Spatial Memory / Return, and the Browser-History Contract — across non-modal keyboard behavior, modal Overlay (Tab/Shift+Tab containment, visible Close, Escape, originating-focus restoration, background interaction prevention, underlying-scroll preservation), Return/spatial-memory restoration and cold entry, real browser Back/Forward, URL-backed filter/lens restoration, reduced-motion parity, rapid-intent behavior, and 390px responsive behavior, and reported:
+
+> All reviewed M4-B behavior passes. No additional M4-B calibration is required.
+
+Summarized accepted results, per package (full detail recorded in each package's own updated implementation report, "Integrated Human Review" section):
+
+- **M4.4 — Focus + Recession**: selected content became primary; surrounding material receded without disappearing; Focus remained non-modal; no dramatic zoom; no route mutation; keyboard/touch behavior passed.
+- **M4.5 — Overlay Mechanics**: overlay appeared above the complete shell; modal focus remained contained (Tab and Shift+Tab both passed); visible Close passed; Escape passed; background interaction prevention passed; originating-focus restoration passed; underlying-scroll preservation passed.
+- **M4.6 — Spatial Memory / Return**: genuine captured state restored; no fabricated state on cold entry; Return remained distinct from Close and Back; session-scoped behavior passed.
+- **M4.7 — Browser-History Contract**: actual browser Back/Forward passed; filter/lens URL state behaved predictably; no artificial history stack became visible; no stale restoration appeared.
+- **Integrated M4-B behavior**: reduced-motion behavior passed across every reviewed control; rapid-intent behavior passed; 390px responsive behavior passed; no M4-B visual or interaction blocker remains.
+
+No further M4-B calibration is required. `M4-B — Focus / Return / History: Approved / Closed`.
 
 ## E1 — Integrated architecture audit
 
@@ -202,4 +220,4 @@ This document, plus `tests/integration/m4b-focus-return-history-journeys.test.ts
 
 ## Acceptance result
 
-Pending. This document's status is **Ready for Integrated Human Review** — the next action is the one externally supplied human review covering all four M4-B packages together, per E11/E10 above. This document does not itself constitute approval and does not close M4.4, M4.5, M4.6, M4.7, M4-B, or Gate M4.
+The M4-B integrated human browser review has PASSED across all four M4.4–M4.7 packages with no further calibration required (see **Integrated Human Review Result** above). M4.4, M4.5, M4.6, and M4.7 are each now individually Complete / Verified (their own implementation reports each carry a new "Integrated Human Review" section recording the accepted findings). **M4-B — Focus / Return / History: Approved / Closed.** Gate M4 remains open and unassessed for closure — this document does not close Gate M4; see the Gate M4 pre-assessment (E9) above, which still stands unchanged by this closure. M4.8 has not been started.
