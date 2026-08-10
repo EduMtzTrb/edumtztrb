@@ -1,0 +1,12 @@
+/**
+ * Search — M3.12. Minimal: the form itself reuses M2.10's `form.css`
+ * unmodified; this file only lays the form and its submit control out on
+ * one row at rest, using existing tokens only.
+ */
+
+.search-form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+}
