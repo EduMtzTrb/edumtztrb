@@ -2,9 +2,13 @@
 
 ## Status
 
-**Ready for Integrated Human Review.**
+**Ready for Integrated Human Re-review.** (Downgraded from "Ready for Integrated Human Review" — the first M4-C human-review attempt found M4.9's Home ↔ Work threshold imperceptible in a real browser. See **M4.9 Calibration** below.)
 
-This is a batch reconciliation document, not an approval record. M4.8, M4.9, and M4.10 remain individually **Implemented / Mechanically Verified — awaiting M4-C integrated human review**; none is Complete / Verified yet, and this document does not change that. Its purpose is to confirm the three packages prove reusable mechanics — never broad district choreography — and to hand a human reviewer an exact, reproducible procedure.
+This is a batch reconciliation document, not an approval record. M4.8 and M4.10 remain individually **Implemented / Mechanically Verified — awaiting M4-C integrated human review**, unchanged and not reopened by this calibration pass. M4.9 remains **Implemented / Mechanically Verified — awaiting M4-C integrated human re-review** following its own narrow correction. None is Complete / Verified yet. Its purpose is to confirm the three packages prove reusable mechanics — never broad district choreography — and to hand a human reviewer an exact, reproducible procedure.
+
+## M4.9 Calibration
+
+The first M4-C integrated human browser review reported that M4.9's Home ↔ Work threshold read as static page replacement with explanatory text, not a perceptible spatial passage — recorded in full in `docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md`'s own "Human Review — Calibration Required" section. **M4.8 was not reopened. M4.10 was not reopened.** M4.9 alone was narrowly recalibrated: a persistent, always-mounted shared spatial trace (`WorldTrace`, living in `AppShell`, the one layout level that genuinely survives Home ↔ Work navigation) now provides a real, CSS-transitionable structural cue that repositions across the route change, with mechanically demonstrable first-entry (richer, `--motion-duration-spatial`, fuller travel) and repeated-entry (`--motion-duration-standard`, shorter travel) presentation states — not merely different wording. M4-C requires one human re-review of the corrected passage before it can be approved; M4.8 and M4.10 need only a regression smoke-check confirming this correction did not affect them (already covered by the unchanged cumulative M4-C suite, which still passes in full).
 
 ## Authority
 
@@ -15,7 +19,7 @@ This is a batch reconciliation document, not an approval record. M4.8, M4.9, and
 | Package | Report | Status |
 |---|---|---|
 | M4.8 — Record-Passage Prototype | `docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` | Implemented / Mechanically Verified |
-| M4.9 — Home-Threshold Prototype | `docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md` | Implemented / Mechanically Verified |
+| M4.9 — Home-Threshold Prototype | `docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md` | Implemented / Mechanically Verified (recalibrated — see **M4.9 Calibration**) |
 | M4.10 — Comparison and Trace Prototypes | `docs/implementation/M4.10_COMPARISON_TRACE_PROTOTYPES.md` | Implemented / Mechanically Verified |
 
 ## D1 — Complete motion chain audit
@@ -39,7 +43,7 @@ Perceptible consequence increases coherently and stays restrained at every tier:
 - **Feedback/State Change** (M4.3) — unchanged.
 - **Focus** (M4.4) — unchanged.
 - **Record Passage** (M4.8) — corrected by a narrow reconciliation after this document's own first pass (see **D3** below): a real, restrained arrival treatment now exists (`RecordPassageArrival`), using the `deliberate` duration tier — the same tier Focus uses — distinguished from Focus not by a longer duration but by an *additional* channel (a restrained `--motion-distance-record` translation Focus never uses). Genuinely more consequential than Focus (an added channel, not merely a color/opacity change on the same element) while never approaching District Passage's `spatial` tier.
-- **District Passage/World Threshold** (M4.9) — the *only* package in Milestone 4 to reach `--motion-duration-spatial` (previously declared but unconsumed since M4.1), confirmed via source contract to introduce no new, higher tier. Repeated entry deliberately drops to a *lower* tier (`standard`), never staying at the richest level indefinitely.
+- **District Passage/World Threshold** (M4.9) — the *only* package in Milestone 4 to reach `--motion-duration-spatial` (previously declared but unconsumed since M4.1), confirmed via source contract to introduce no new, higher tier. Repeated entry deliberately drops to a *lower* tier (`standard`), never staying at the richest level indefinitely. **Recalibrated** after the first human review found the original text-only indicator imperceptible: a persistent, shell-level shared spatial trace (`WorldTrace`) now carries this tier's own transition on a genuinely-transitionable element (see **M4.9 Calibration** and D4, below), with repeated entry now differing by *both* duration and travel distance, not duration alone.
 - **Comparison/Trace** (M4.10) — deliberately zero motion; both CSS files are confirmed by source contract to declare no `transition`/`@keyframes`/`animation` at all. Not reopened or redesigned by this reconciliation.
 
 The observable hierarchy is now: Feedback < State Change < Focus < Record Passage < District Passage/World Threshold. No local component (M4.3/M4.4) uses a token tier heavier than `deliberate`; Record Passage (M4.8) also uses `deliberate`, distinguished by channel rather than duration, and never references `--motion-duration-spatial`; only M4.9 reaches `spatial`. No Home or record-arrival transition became cinematic — confirmed by the same repository-wide prohibited-pattern search in D7, below.
@@ -53,6 +57,8 @@ Index → canonical record → Return, proven with: one canonical route (`entry.
 ## D4 — Home-Threshold audit
 
 Home → Work → Home, proven with: an explicit destination (`ThresholdIndicator`'s message names Work by name); continuity with the shared platform (first-entry message states "part of the same platform" — never presented as an unrelated site); orientation preserved (GlobalNav untouched, reconfirmed); no mandatory transit (direct access to Work fabricates nothing, M4.9's own direct-access test, reconfirmed in Journey 12's spirit); no intro gate (content is immediately present, the indicator itself *is* real content, not a blocking overlay); first entry richer (Journey 4); repeated entry more efficient (Journey 6, `reduced assembly`); direct district access unchanged (reconfirmed); reduced motion meaningful (Journey 8 — identical classification/message under `prefers-reduced-motion`); interruption valid (Journey 7's second test — double departure resolves to one clean indicator).
+
+**Post-calibration addendum:** the first real M4-C human review found the above insufficient — a text-only indicator on a conditionally-mounted node is not, in a real browser, a perceptible spatial passage, since a freshly-inserted DOM node has no prior value for its own declared `transition` to animate from (full root-cause analysis in `M4.9_HOME_THRESHOLD_PROTOTYPE.md`'s own "Root Cause" section). The correction adds `WorldTrace`, a single persistent structural segment mounted once in `AppShell` (never conditionally mounted/unmounted, so its own `transition` genuinely has a prior value on every route change), reading `usePathname()` to reposition between a Home-side and Work-side edge. First/repeated entry now differ by both duration (`spatial` → `standard`) and real travel distance (full → `calc(75% - 72px)`, shorter again at the compact breakpoint), proven by `tests/tokens/threshold-contract.test.ts`'s `.world-trace` sub-suite and `tests/integration/m4c-world-trace-journey.test.tsx`'s node-identity + attribute-transition assertions. This is additive to, not a replacement of, the D4 evidence above — `ThresholdIndicator`'s own text-based orientation, first/repeated classification, and direct-entry boundary are all unchanged and still independently tested.
 
 ## D5 — Comparison audit
 
@@ -112,7 +118,7 @@ Fifteen of sixteen criteria now carry mechanical evidence; only criterion 8 reta
 One integrated browser session covers everything:
 
 - **Record Passage**: `/index/district/work?fixture=m3b` → click into the one Work fixture record → confirm the Return control → click it.
-- **Home Threshold**: `/` → "Enter Work" → observe the arrival message → "Return to Home" → "Enter Work" again to observe the repeated-entry message.
+- **Home Threshold**: `/` → "Enter Work" → observe both the arrival message *and* the structural trace segment moving from the Home edge to the Work edge → "Return to Home" (trace returns to the Home edge) → "Enter Work" again to observe both the repeated-entry message *and* the trace's now visibly quicker, shorter movement.
 - **Comparison/Trace**: `/contact?motion-fixture=m4c`.
 - **M4-B regression spot-check** (reusing the existing fixture, not re-reviewing it from scratch): `/contact?motion-fixture=m4b` — a quick confirmation nothing regressed, not a full re-review.
 
@@ -122,7 +128,9 @@ At `/index/district/work?fixture=m3b`, click into the one listed record. Expecte
 
 ## D15 — Human review: Home Threshold
 
-At `/`, click "Enter Work." Expected: Home clearly remains the origin the visitor is leaving; Work is identifiable as the destination before/as the transition happens; the transition communicates continuity — Work never feels like an unrelated site suddenly loading; there is no cinema/intro feeling; clicking "Return to Home" restores a clearly common, shared space; repeating Home → Work a second time in the same session feels — and reads, via the shorter message — perceptibly quicker/lighter than the first; with reduced motion enabled, the same relationship (arrival, continuity, repeated-entry difference) is preserved via structure alone.
+At `/`, click "Enter Work." Expected: a visible structural segment near the top of the page moves from the Home-side edge toward the Work-side edge — a genuine, perceptible spatial passage, not merely a page swap; Home clearly remains the origin the visitor is leaving; Work is identifiable as the destination before/as the transition happens; the transition communicates continuity — Work never feels like an unrelated site suddenly loading; there is no cinema/intro feeling; clicking "Return to Home" moves the same segment back and restores a clearly common, shared space; repeating Home → Work a second time in the same session feels — and reads, via both the shorter message *and* the segment's visibly quicker, shorter movement — perceptibly quicker/lighter than the first; with reduced motion enabled, the same relationship (arrival, continuity, repeated-entry difference) is preserved via structure alone — the segment still appears at the correct edge immediately, without needing to animate there.
+
+This directly re-tests the specific defect the first human review reported (see `M4.9_HOME_THRESHOLD_PROTOTYPE.md`'s "Human Review — Calibration Required"): the passage should no longer read as "static page → static page replacement → explanatory text."
 
 ## D16 — Human review: Comparison
 
@@ -134,11 +142,11 @@ At the same fixture. Expected: the relationship's meaning ("Tested in") is obvio
 
 ## D18 — Human review: performance / interruption
 
-Across all of the above: navigate rapidly (click Enter Work, then immediately click something else); use Back during/after a passage; scroll while any of this is happening. Expected in every case: the visitor's latest action always wins; nothing blocks input; no stale focus, scroll position, or message ever appears after a newer action has already superseded it; nothing feels janky enough to interfere with actually using the site.
+Across all of the above: navigate rapidly (click Enter Work, then immediately click something else); use Back during/after a passage; scroll while any of this is happening. Expected in every case: the visitor's latest action always wins; nothing blocks input; no stale focus, scroll position, or message ever appears after a newer action has already superseded it; nothing feels janky enough to interfere with actually using the site. For the recalibrated Home Threshold specifically: click Enter Work, then immediately click Return to Home before the trace segment visually settles — expected: the segment smoothly redirects back toward the Home edge rather than snapping, finishing late on the wrong page, or leaving a stale position.
 
 ## D19 — Project state
 
-Recorded in `PROJECT_STATE.md`: M4.8/M4.9/M4.10 remain Implemented / Mechanically Verified (not yet Complete / Verified); M4-C moves to Ready for Integrated Human Review; Milestone 4 stays In Progress; Gate M4 stays Open; Milestone 5 stays Not Started.
+Recorded in `PROJECT_STATE.md`: M4.8/M4.10 remain Implemented / Mechanically Verified — awaiting M4-C integrated human review (unchanged, not reopened); M4.9 is Implemented / Mechanically Verified — awaiting M4-C integrated human **re-review** (recalibrated this pass); M4-C moves to Ready for Integrated Human Re-review; Milestone 4 stays In Progress; Gate M4 stays Open; Milestone 5 stays Not Started.
 
 ## Full validation
 
@@ -152,14 +160,24 @@ Recorded in `PROJECT_STATE.md`: M4.8/M4.9/M4.10 remain Implemented / Mechanicall
 
 A subsequent, narrow correction to M4.8 alone (`docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` §Reconciliation) added `RecordPassageArrival` and its tests, plus a fourth application of the M4-A cross-cutting CSS-consumer reconciliation. Current totals after that correction: **1288/1288 passing, 146/146 files** (13 new tests); `npm run build` unchanged — **53 routes total, 34 static / 19 dynamic**. M4.9 and M4.10 were not touched.
 
+### M4.9 calibration — updated totals
+
+Following the first M4-C human review's finding that M4.9's Home ↔ Work threshold was imperceptible, a narrow correction to M4.9 alone (`docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md` "Human Review — Calibration Required" / "Root Cause" / "Calibration Architecture") added `WorldTrace` and its tests (`WorldTrace.test.tsx`, `tests/integration/m4c-world-trace-journey.test.tsx`), plus 5 new cases extending `tests/tokens/threshold-contract.test.ts`'s existing suite. Current totals after this correction: **1306/1306 passing, 148/148 files** (18 new tests: 9 + 4 new files, 5 extending the existing contract suite); `npm run build` unchanged in kind, updated in count from the repository's own broader untouched growth since the last reconciliation snapshot — **54 routes total, 35 static / 19 dynamic**, and this correction itself added no new route (confirmed — `WorldTrace` lives in the existing `AppShell`, not a page). M4.8 and M4.10 were not touched.
+
 ## D21 — Diff audit
 
-Confirmed via `git log`/`git diff` scoped to this task's own commits (`ac58c25` through this reconciliation's own commit): no M5.0 shared district shell, no final Home/Work district composition, no broad district-wide choreography, no environmental animation system, no scroll-linked environmental behavior, no new canonical route, no new relationship ontology (still exactly the six `CanonicalRelationshipType` values from M3.1), no new Trace-specific ontology, no new Signal meaning (Signal remains entirely absent, as it has been since M2.4), no fake real content (every fixture is unmistakably labeled), no transaction/commercial behavior. The large pre-existing untouched worktree changes present since before this session began (deleted `*_UNIVERSE.md` files, `README.md`, `package.json`/`package-lock.json`, six district `page.tsx` files) remain completely untouched throughout every M4-C commit, reconfirmed via `git status`.
+Confirmed via `git log`/`git diff` scoped to this task's own commits (`ac58c25` through this reconciliation's own commit): no M5.0 shared district shell, no final Home/Work district composition, no broad district-wide choreography, no environmental animation system, no scroll-linked environmental behavior, no new canonical route, no new relationship ontology (still exactly the six `CanonicalRelationshipType` values from M3.1), no new Trace-specific ontology, no new Signal meaning (Signal remains entirely absent, as it has been since M2.4), no fake real content (every fixture is unmistakably labeled), no transaction/commercial behavior. The large pre-existing untouched worktree changes present since before this session began (deleted `*_UNIVERSE.md` files, `README.md`, `package.json`/`package-lock.json`, several district `page.tsx` files, and numerous untracked `??` files/directories) remain completely untouched throughout every M4-C commit, reconfirmed via `git status`.
+
+**Post-calibration addendum:** the M4.9 calibration commit was independently diff-audited against the same criteria, plus this task's own explicit calibration-specific boundaries: `src/components/threshold/RecordPassageArrival.tsx` and every other M4.8 file are byte-for-byte unchanged; every M4.10 file (`RecordTrace`, `comparison.css`, `trace.css`, `LabComparisonFixture`) is byte-for-byte unchanged; M5.0 was not started (no shared district shell, no district environmental language); no new route was created (`WorldTrace` lives inside the existing `AppShell`, confirmed by `git status` showing no new file under `src/app/`); no new district, relationship type, or Signal semantics were touched. Nothing was pushed.
 
 ## D22 — Reconciliation commit
 
 This document, plus `tests/integration/m4c-representative-motion-journeys.test.tsx` and the `PROJECT_STATE.md` update, are committed together as `docs: prepare m4-c integrated motion review`. Not pushed.
 
+### M4.9 calibration — commit
+
+The M4.9 calibration described above (`WorldTrace.tsx`, `WorldTrace.test.tsx`, `AppShell.tsx`, `threshold.css`, `threshold-contract.test.ts`, `m4c-world-trace-journey.test.tsx`, `M4.9_HOME_THRESHOLD_PROTOTYPE.md`, this document, `PROJECT_STATE.md`) is committed separately as `fix: calibrate m4.9 home threshold passage`, on top of the M4.8 reconciliation commit — neither M4.9's own original implementation commit nor the M4.8 reconciliation commit was squashed or amended. Not pushed.
+
 ## Acceptance result
 
-Pending. This document's status is **Ready for Integrated Human Review** — the next action is the one externally supplied human review covering all three M4-C packages together, per D13–D18 above. This document does not itself constitute approval and does not close M4.8, M4.9, M4.10, M4-C, or Gate M4.
+Pending. This document's status is **Ready for Integrated Human Re-review** — the next action is one externally supplied human review, primarily targeting the corrected Home ↔ Work threshold (M4.9), with M4.8 and M4.10 needing only a regression smoke-check since neither was reopened or modified by this calibration. This document does not itself constitute approval and does not close M4.8, M4.9, M4.10, M4-C, or Gate M4.

@@ -1,9 +1,13 @@
 /**
- * Home-Threshold Prototype — M4.9.
+ * Home-Threshold Prototype — M4.9, calibrated after real-browser human
+ * review (see docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md
+ * "Human Review — Calibration Required" / "Root Cause" / "Calibration
+ * Architecture").
+ *
  * Authority: ANIMATION_SYSTEM.md's District Passage/World Threshold
  * hierarchy (this task's own quoted wording: "Home may carry the
  * strongest spatial consequence in the platform. That does NOT authorize
- * spectacle."). See docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md.
+ * spectacle.").
  *
  * NO NEW DURATION TIER — M4.1's locked hierarchy has no dedicated
  * "District Passage"/"World Threshold" token beyond `--motion-duration-
@@ -15,8 +19,17 @@
  * (State-Change tier) — both already fully resolved and tested since
  * M4.1, no new value anywhere.
  *
- * OPACITY ONLY — same restrained channel M4.4/M4.5 already established;
- * no transform/scale/zoom/blur/perspective anywhere in this file.
+ * TWO RULE GROUPS —
+ *   1. `[data-threshold-state]` — the original `ThresholdIndicator` text
+ *      announcement. Kept as a real accessibility/status role (a screen
+ *      reader still hears exactly what changed) but demoted: it is no
+ *      longer the primary evidence of a threshold.
+ *   2. `.world-trace` — the calibration's actual fix: a persistent,
+ *      never-unmounted structural segment (`WorldTrace.tsx`, mounted in
+ *      `AppShell`) that repositions across the real route change. Only
+ *      `transform`/`opacity` are animated (cheap, GPU-composited
+ *      properties) — no transform beyond translation, no blur, no
+ *      perspective, no scale, no rotation.
  */
 
 [data-threshold-state="first-entry"] {
@@ -25,4 +38,52 @@
 
 [data-threshold-state="repeated-entry"] {
   transition: opacity var(--motion-duration-standard) var(--motion-ease-enter);
+}
+
+.world-trace {
+  position: relative;
+  height: var(--line-emphasis);
+}
+
+.world-trace-segment {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 96px;
+  max-width: 33%;
+  background: var(--color-mist-300);
+  transform: translateX(0);
+  opacity: var(--motion-recession-subtle);
+  transition:
+    transform var(--motion-duration-spatial) var(--motion-ease-move),
+    opacity var(--motion-duration-spatial) var(--motion-ease-move);
+}
+
+[data-trace-position="home"] .world-trace-segment {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+[data-trace-position="work"] .world-trace-segment {
+  transform: translateX(calc(100% - 96px));
+  opacity: 1;
+}
+
+[data-trace-mode="repeated"] .world-trace-segment {
+  transition-duration: var(--motion-duration-standard);
+}
+
+[data-trace-mode="repeated"][data-trace-position="work"] .world-trace-segment {
+  transform: translateX(calc(75% - 72px));
+}
+
+/* Compact viewports (existing 768px breakpoint, M3.7) — shorter travel, same mechanism. */
+@media (max-width: 767px) {
+  [data-trace-position="work"] .world-trace-segment {
+    transform: translateX(calc(60% - 58px));
+  }
+
+  [data-trace-mode="repeated"][data-trace-position="work"] .world-trace-segment {
+    transform: translateX(calc(45% - 43px));
+  }
 }
