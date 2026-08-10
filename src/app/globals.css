@@ -17,6 +17,7 @@
 @import "../styles/state.css";
 @import "../styles/focus.css";
 @import "../styles/overlay.css";
+@import "../styles/threshold.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,

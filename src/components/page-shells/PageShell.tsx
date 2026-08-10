@@ -42,14 +42,23 @@ function PageShell({ pageType, heading, district, headingClassName, children }: 
  * Visual role: Display (DESIGN_SYSTEM.md v1.1 §7.1 — "threshold moments" is
  * explicitly listed as Display Voice purpose).
  */
-export function WorldThresholdShell({ heading }: { heading: ReactNode }) {
+export function WorldThresholdShell({
+  heading,
+  children,
+}: {
+  heading: ReactNode;
+  /** Optional body content (M4.9) — additive and backward-compatible, mirroring the same optional-children extension every other shell already received (M3.10/M3.13); every existing caller that omits it renders byte-for-byte the same heading-only output as before. */
+  children?: ReactNode;
+}) {
   return (
     <PageShell
       pageType="world-threshold"
       heading={heading}
       district="home"
       headingClassName="type-display"
-    />
+    >
+      {children}
+    </PageShell>
   );
 }
 

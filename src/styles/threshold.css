@@ -1,0 +1,28 @@
+/**
+ * Home-Threshold Prototype — M4.9.
+ * Authority: ANIMATION_SYSTEM.md's District Passage/World Threshold
+ * hierarchy (this task's own quoted wording: "Home may carry the
+ * strongest spatial consequence in the platform. That does NOT authorize
+ * spectacle."). See docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md.
+ *
+ * NO NEW DURATION TIER — M4.1's locked hierarchy has no dedicated
+ * "District Passage"/"World Threshold" token beyond `--motion-duration-
+ * spatial` (the largest non-ambient value, already the Sequence/Record-
+ * Passage tier). Introducing a new tier would be a genuine new design
+ * convention this package is not authorized to invent unilaterally.
+ * First entry therefore reuses the existing `spatial` tier (the richest
+ * already-approved value); repeated entry drops to `standard`
+ * (State-Change tier) — both already fully resolved and tested since
+ * M4.1, no new value anywhere.
+ *
+ * OPACITY ONLY — same restrained channel M4.4/M4.5 already established;
+ * no transform/scale/zoom/blur/perspective anywhere in this file.
+ */
+
+[data-threshold-state="first-entry"] {
+  transition: opacity var(--motion-duration-spatial) var(--motion-ease-enter);
+}
+
+[data-threshold-state="repeated-entry"] {
+  transition: opacity var(--motion-duration-standard) var(--motion-ease-enter);
+}
