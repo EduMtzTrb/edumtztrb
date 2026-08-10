@@ -4,7 +4,8 @@
  * Added by M2.1 (Token foundation): Typography, Grid, and Surface. Color and Geometry (radius)
  * were corrected against the Approved v1.0 palette/registry in the same task — see
  * docs/implementation/M2.1_TOKEN_FOUNDATION.md. Opacity added by M2.5 (Action Controls) — see
- * docs/implementation/M2.5_ACTION_CONTROLS.md. Motion tokens remain deferred to Milestone 4.
+ * docs/implementation/M2.5_ACTION_CONTROLS.md. Motion added by M4.1 (Motion Tokens) — see
+ * docs/implementation/M4.1_MOTION_TOKENS.md.
  */
 
 @import "./color.css";
@@ -14,3 +15,4 @@
 @import "./grid.css";
 @import "./geometry.css";
 @import "./opacity.css";
+@import "./motion.css";

@@ -1,0 +1,132 @@
+/**
+ * Motion tokens — M4.1.
+ * Authority: ANIMATION_SYSTEM.md §31 (Motion Tokens — the six recommended
+ * token families and their exact names, reproduced verbatim below) and §4
+ * (Motion Hierarchy — the approved duration/consequence ordering this
+ * file's values must preserve). See
+ * docs/implementation/M4.1_MOTION_TOKENS.md for the full audit, naming
+ * reconciliation, and per-value rationale.
+ *
+ * STARTING STATE — no motion tokens existed anywhere in this repository
+ * before this file (`tokens/index.css`'s own header comment: "Motion
+ * tokens remain deferred to Milestone 4"). The one pre-existing motion
+ * artifact, a blanket `@media (prefers-reduced-motion: reduce)` rule in
+ * `src/app/globals.css` (added in M1, before this token system existed),
+ * is NOT duplicated or replaced here — M4.2 reconciles it into the
+ * centralized capability model. No stale/component-specific motion value
+ * was found anywhere in `src/` (confirmed by direct audit — every
+ * "motion"/"transition"/"animation" grep hit in the repository, before
+ * this file, was prose explicitly deferring motion to Milestone 4, or an
+ * unrelated use of the word "transition" describing M3.6's state-machine
+ * design, not CSS).
+ *
+ * INITIAL IMPLEMENTATION VALUES — every value below is, per this task's
+ * own explicit authority ("exact values may be tuned through prototype
+ * testing while preserving the approved hierarchy"), an initial
+ * centralized implementation value, not a claimed-final design decision.
+ * The semantic hierarchy (names, relative ordering, family boundaries) is
+ * locked; the numbers are calibration-ready. This deliberately extends
+ * the "resolve now, tune later" posture to every family in this file
+ * (duration AND easing AND distance AND recession AND stagger AND
+ * environment) — distinct from M2.1's "declared but empty until a real
+ * consumer exists" precedent (`opacity.css`), because unlike M2.1's
+ * unresolved Design-System *ranges*, the Animation System gives this
+ * package no range to preserve — only a hierarchy — and a temporal system
+ * needs internally consistent numbers to be testable/usable at all, even
+ * before every family has a real first consumer.
+ *
+ * NO TYPESCRIPT MOTION-TOKEN MODULE — no component in this repository
+ * drives animation programmatically yet (M4.2's capability hook reads
+ * `matchMedia` directly, not these values; M4.3 consumes these tokens
+ * purely through CSS). Per this task's own §A7 ("avoid two independent
+ * token sources that can drift"), a TS constants module is deliberately
+ * NOT created until a genuine programmatic consumer needs the same
+ * semantic vocabulary — CSS custom properties remain the single source of
+ * truth for now.
+ */
+
+:root {
+  /* ---------------------------------------------------------------
+   * Duration — §31 "Duration". Hierarchy: immediate < fast < standard
+   * < deliberate < spatial << ambient (this task's own §A4). Maps onto
+   * §4's Motion Hierarchy: immediate/fast = Feedback; standard =
+   * State Change; deliberate = Focus; spatial = Sequence/Record Passage;
+   * ambient = Environmental Animation (§21) — deliberately, drastically
+   * larger, since environmental cycles must be "long or irregular."
+   * --------------------------------------------------------------- */
+  --motion-duration-immediate: 80ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-standard: 240ms;
+  --motion-duration-deliberate: 360ms;
+  --motion-duration-spatial: 520ms;
+  --motion-duration-ambient: 6000ms;
+
+  /* ---------------------------------------------------------------
+   * Easing — §31 "Easing". Standard, well-established deceleration/
+   * acceleration curves (the same "decelerate"/"accelerate"/"standard"
+   * curve family used across mainstream design systems) — every control
+   * point's Y value stays within [0, 1], which is what makes a
+   * cubic-bezier() curve free of overshoot/bounce/spring by construction
+   * (tested directly, `motion-token-contract.test.ts`). `progress` uses
+   * `linear` deliberately: a loading/progress indicator should not imply
+   * false deceleration near completion.
+   * --------------------------------------------------------------- */
+  --motion-ease-enter: cubic-bezier(0, 0, 0.2, 1); /* decelerate — arriving/appearing */
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1); /* accelerate — leaving/disappearing */
+  --motion-ease-move: cubic-bezier(0.4, 0, 0.2, 1); /* standard — repositioning in place */
+  --motion-ease-progress: linear; /* progress/loading — no implied deceleration */
+
+  /* ---------------------------------------------------------------
+   * Distance — §31 "Distance". Restrained translation magnitudes —
+   * micro (press-scale nudges) through record (the largest, still
+   * restrained, local passage distance any current or near-term
+   * component needs). No value here authorizes large/cinematic movement.
+   * --------------------------------------------------------------- */
+  --motion-distance-micro: 2px;
+  --motion-distance-component: 8px;
+  --motion-distance-record: 32px;
+
+  /* Depth — §31 lists these under "Distance" alongside translation
+     distances. Represented as restrained relative-scale deltas (a
+     fraction to subtract from 1, e.g. `scale(calc(1 - var(--motion-depth-near)))`)
+     rather than translation, since depth communicates recession/
+     approach in the Z sense, not lateral movement — deliberately far
+     from this task's prohibited "large global zoom." */
+  --motion-depth-near: 0.02;
+  --motion-depth-district: 0.05;
+
+  /* ---------------------------------------------------------------
+   * Recession — §31 "Recession", §12.2 ("lower opacity... reduces
+   * hierarchy without erasing context"). Represented as an opacity/
+   * visual-presence multiplier — subtle (barely receded) through
+   * overlay (strongly receded behind a future overlay layer). Token
+   * values only — no Focus/overlay system exists yet (M4.4/M4.5).
+   * --------------------------------------------------------------- */
+  --motion-recession-subtle: 0.9;
+  --motion-recession-focus: 0.6;
+  --motion-recession-overlay: 0.35;
+
+  /* ---------------------------------------------------------------
+   * Stagger — §31 "Stagger". Short per-item delay increments for a
+   * revealed/grouped composition (§12.1: "related content should
+   * reveal as a composition"). Deliberately short — this task's own
+   * §A9: "stagger must remain short enough that grouped elements do
+   * not force the visitor to wait."
+   * --------------------------------------------------------------- */
+  --motion-stagger-tight: 20ms;
+  --motion-stagger-standard: 40ms;
+  --motion-stagger-group: 60ms;
+
+  /* ---------------------------------------------------------------
+   * Environment — §31 "Environment", §21 (Environmental Animation:
+   * "low amplitude... low contrast... long or irregular cycles...
+   * substantial periods of stillness"). Token foundation only — no
+   * environmental loop/`@keyframes` exists anywhere in this file or
+   * consumes these values yet; M4.2 establishes the contract that any
+   * future environmental motion must disable itself under reduced
+   * motion / lower-cost / document-hidden conditions.
+   * --------------------------------------------------------------- */
+  --motion-environment-amplitude-low: 4px;
+  --motion-environment-speed-slow: 12000ms;
+  --motion-environment-presence-low: 0.15;
+}
