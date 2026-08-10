@@ -1,0 +1,102 @@
+/**
+ * Form family — M2.10.
+ * Authority: IMPLEMENTATION_PLAN.md §7 (M2.10 — "Implement persistent
+ * labels, guidance, required state, focus, errors, error explanation,
+ * disabled state, and confirmation hooks"); DESIGN_SYSTEM.md v1.1 §33
+ * (Forms — "deliberately conventional," "placeholder text cannot replace
+ * a field label," "completion clarity outranks atmosphere"). See
+ * docs/implementation/M2.10_FORM_FAMILY.md for the full audit and
+ * reasoning.
+ *
+ * DELIBERATELY CONVENTIONAL: rectilinear geometry (`--radius-control`,
+ * already-approved), no pill/capsule inputs, no glass, no floating-label
+ * theatrics, no inset shadow. A form field looks like a form field.
+ *
+ * LABEL IS NEVER THE PLACEHOLDER: `.form-label` is a real, persistent
+ * `<label>` — this file styles it as always-visible; nothing here ever
+ * hides a label on focus or fakes one with `::placeholder` styling.
+ *
+ * ERROR IS MORE THAN COLOR: `[aria-invalid="true"]` changes the field's
+ * border color, but the actual error explanation is a real, separately
+ * rendered paragraph (`.form-error`) — the structural presence of that
+ * text, not the border color, is what actually communicates the problem.
+ *
+ * DISABLED reuses `--opacity-disabled` (M2.5) — no second disabled model.
+ * FOCUS reuses the exact shared outline mechanism (M2.5/M2.6/M2.7/M2.8) —
+ * byte-identical, not reinvented.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE. Error/success reuse the
+ * already-resolved functional semantic colors (`--color-error`,
+ * `--color-success`, DESIGN_SYSTEM_v1.0.md §10.4) — not Signal, not a new
+ * color, not a per-metadata-type taxonomy.
+ */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-label {
+  color: var(--color-light-text);
+}
+
+/* Explicit, always-visible text — never a bare color-only asterisk, per
+   this task's own "must not rely on red color only, must not become
+   decorative punctuation with unclear meaning." */
+.form-required {
+  color: var(--color-mist-300);
+}
+
+.form-guidance {
+  margin: 0;
+  color: var(--color-mist-300);
+}
+
+.text-field,
+.textarea-field {
+  width: 100%;
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  padding-block: var(--space-2);
+  border-radius: var(--radius-control);
+  border: var(--line-hairline) solid var(--color-mist-300);
+  background: transparent;
+  color: var(--color-light-text);
+}
+
+.textarea-field {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.text-field:focus-visible,
+.textarea-field:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.text-field:disabled,
+.textarea-field:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* Error state (§33, this task's own "more than a red border" instruction):
+   border color is one signal among several — see file header. */
+.text-field[aria-invalid="true"],
+.textarea-field[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.form-error {
+  margin: 0;
+  color: var(--color-error);
+}
+
+/* Confirmation hook (§16 of this task's own scope) — a minimal polite
+   live-region slot, not the full M2.11 static-state system. */
+.form-confirmation {
+  margin: 0;
+  color: var(--color-success);
+}

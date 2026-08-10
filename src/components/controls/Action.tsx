@@ -4,6 +4,13 @@ type ActionLevel = "primary" | "secondary" | "tertiary";
 
 interface ActionOwnProps {
   level?: ActionLevel;
+  /**
+   * M2.10 (Form family) is the first genuine consumer of `type="submit"` —
+   * see docs/implementation/M2.10_FORM_FAMILY.md "M2.5 Submit Integration"
+   * for the full reasoning. Defaults to `"button"`, preserving every
+   * existing call site's exact prior behavior unchanged.
+   */
+  type?: "button" | "submit";
 }
 
 /**
@@ -23,11 +30,14 @@ type ActionProps = ActionOwnProps &
  * button/link semantic boundary at the type level — ActionLink.tsx is the
  * only way to render something that navigates.
  *
- * `type="button"` is fixed rather than exposed as a prop: nothing in this
- * repository currently submits a form, so `type="submit"` has no real
- * consumer yet (DESIGN_SYSTEM.md v1.1 §25-29, this milestone's own
- * "don't build ahead of a real consumer" constraint). Add it when a form
- * genuinely needs it, not speculatively.
+ * `type` defaults to `"button"` — safe for every existing call site. M2.10
+ * (Form family) extended this from a permanently-fixed `"button"` to an
+ * explicit `"button" | "submit"` prop once a real form genuinely needed
+ * submit semantics (this milestone's own "don't build ahead of a real
+ * consumer" constraint no longer applied once that consumer existed) —
+ * `"reset"` was not added, since nothing has asked for it. This preserves
+ * M2.5's full visual hierarchy, disabled/loading semantics, and focus
+ * behavior for a submit action exactly as for any other Action.
  *
  * Three action levels — §28: "the platform retains three action levels."
  * Defaults to `"primary"` since a lone action in a group is ordinarily the
@@ -35,6 +45,7 @@ type ActionProps = ActionOwnProps &
  */
 export function Action({
   level = "primary",
+  type = "button",
   children,
   iconOnly = false,
   className,
@@ -45,7 +56,7 @@ export function Action({
   if (className) classes.push(className);
 
   return (
-    <button type="button" className={classes.join(" ")} {...buttonProps}>
+    <button type={type} className={classes.join(" ")} {...buttonProps}>
       {children}
     </button>
   );

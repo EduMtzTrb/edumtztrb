@@ -12,6 +12,11 @@ describe("Action", () => {
     expect(button).toHaveClass("action-primary");
   });
 
+  it("supports type=submit for real form submission (M2.10's extension), without changing the default", () => {
+    render(<Action type="submit">Save changes</Action>);
+    expect(screen.getByRole("button", { name: "Save changes" })).toHaveAttribute("type", "submit");
+  });
+
   it.each(["primary", "secondary", "tertiary"] as const)(
     "applies action-%s for level=%s",
     (level) => {
