@@ -1,3 +1,5 @@
+import { DistrictOverviewShell } from "@/components/page-shells/PageShell";
+
 export default function ResearchPage() {
-  return <main></main>;
+  return <DistrictOverviewShell heading="Research" />;
 }
