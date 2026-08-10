@@ -1,0 +1,418 @@
+/**
+ * Selection / filter controls — M2.6.
+ * Authority: DESIGN_SYSTEM.md v1.1 §21.1 (Interaction state — selection is
+ * distinct from active route, focus, and Signal), §31/§85 (Filters and
+ * lenses — a selected filter must not resemble canonical navigation or a
+ * lens), §65 (Selected/checked/expanded state must be programmatically
+ * exposed), §96 (Color token model — `interaction-selected`), §101 (Control
+ * token model — "selected control surface" is an approved semantic role).
+ * See docs/implementation/M2.6_SELECTION_FILTER_CONTROLS.md for the full
+ * audit and reasoning behind every choice below.
+ *
+ * GOVERNING RULE (IMPLEMENTATION_PLAN.md §7, M2.6): "Selected state must use
+ * more than color alone." Every selected/checked rule in this file pairs a
+ * color change with at least one non-color channel — border/boundary
+ * presence, a filled marker/dot/checkmark, or typography weight — never
+ * color by itself. See each rule's comment for its specific second channel.
+ *
+ * "SELECTED CONTROL SURFACE" (§101): no new named custom property is
+ * minted for this role. Consistent with how M2.5's action levels expressed
+ * hierarchy by directly composing already-resolved neutral tokens rather
+ * than declaring a `--control-surface` variable, selection here reuses
+ * `--color-light-text` (foreground/marker fill) and `--color-graphite-700`
+ * (the same one-step-lighter-than-field neutral Plane already uses, §17.4)
+ * directly. Both are already-approved, already-resolved values — nothing
+ * here guesses a new chromatic language.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE — selection, active route,
+ * focus, and Signal remain independent concepts (§21.1). Selected/checked
+ * state is expressed through boundary, fill-presence, and typography
+ * weight, never an accent color.
+ *
+ * NO PILL/CAPSULE LANGUAGE (IMPLEMENTATION_PLAN.md §7, "do not make pills
+ * dominant"): every rectilinear control surface below uses the existing
+ * `--radius-control` (2px) or no radius at all. The one deliberate
+ * exception is `.radio-dot`, which uses `--radius-circle` — an actual
+ * circular marker is the correct, expected native-radio affordance, not a
+ * chip/pill visual trend; the selection-contract test suite checks these
+ * two facts separately rather than banning `--radius-circle` outright.
+ *
+ * TYPOGRAPHY IS NOT SET HERE beyond applying existing `.type-*` roles
+ * (M2.2) — this file owns geometry, color, and interaction state only,
+ * matching src/styles/controls.css's established pattern.
+ */
+
+/* Shared visually-hidden technique for native inputs (checkbox/radio) that
+   are given a custom-drawn sibling marker. The input stays in the
+   accessibility tree, keyboard-operable and focusable — this hides it only
+   visually, it is never display:none or removed from the tab order. */
+.visually-hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tabs (§21.1; ARIA tablist/tab/tabpanel pattern) */
+/* ---------------------------------------------------------------------- */
+
+.tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  border-block-end: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  margin-block-end: calc(var(--line-hairline) * -1);
+  background: transparent;
+  border: none;
+  border-block-end: var(--line-emphasis) solid transparent;
+  color: var(--color-mist-300);
+  cursor: pointer;
+}
+
+/* Selected tab (§21.1, §65): color changes (text + border color), but the
+   border's mere presence/absence is independent of color, and font-weight
+   is a second, fully non-color channel. */
+.tab[aria-selected="true"] {
+  border-block-end-color: var(--color-light-text);
+  color: var(--color-light-text);
+  font-weight: 600;
+}
+
+.tab:hover {
+  opacity: 0.85;
+}
+
+.tab:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Segmented view (mutually-exclusive view selection, native radiogroup) */
+/* ---------------------------------------------------------------------- */
+
+.segmented-view {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.segmented-view-legend {
+  padding: 0;
+  margin-block-end: var(--space-2);
+  color: var(--color-mist-300);
+}
+
+.segmented-view-options {
+  display: inline-flex;
+  border: var(--line-hairline) solid var(--color-mist-300);
+  border-radius: var(--radius-control);
+  overflow: hidden;
+}
+
+.segmented-option {
+  position: relative;
+  display: inline-flex;
+}
+
+.segmented-option:not(:first-child) .segmented-option-label {
+  border-inline-start: var(--line-hairline) solid var(--color-mist-300);
+}
+
+.segmented-option-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  cursor: pointer;
+  color: var(--color-mist-300);
+}
+
+/* Selected segment (§21.1, §65): fill (color) plus font-weight — a second,
+   non-color channel — mirrors the Tab selected-state pattern above. */
+.segmented-option-input:checked + .segmented-option-label {
+  background: var(--color-graphite-700);
+  color: var(--color-light-text);
+  font-weight: 600;
+}
+
+.segmented-option-input:focus-visible + .segmented-option-label {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.segmented-option-input:disabled + .segmented-option-label {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Filter toggle (a selectable filter criterion) */
+/* ---------------------------------------------------------------------- */
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-control);
+  border: var(--line-hairline) solid var(--color-mist-300);
+  background: transparent;
+  color: var(--color-light-text);
+  cursor: pointer;
+}
+
+.filter-toggle-marker {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border: var(--line-hairline) solid var(--color-mist-300);
+  background: transparent;
+}
+
+/* Selected/active filter (§21.1, §65, §31/§85 — must not resemble a
+   button/CTA or route ownership): border color plus a filled marker box
+   (shape/presence, not color alone) plus font-weight. */
+.filter-toggle[aria-pressed="true"] {
+  border-color: var(--color-light-text);
+  font-weight: 600;
+}
+
+.filter-toggle[aria-pressed="true"] .filter-toggle-marker {
+  background: var(--color-light-text);
+  border-color: var(--color-light-text);
+}
+
+.filter-toggle:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.filter-toggle:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.filter-toggle:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Checkbox (native input, custom-drawn box + checkmark) */
+/* ---------------------------------------------------------------------- */
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.checkbox-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: var(--line-hairline) solid var(--color-mist-300);
+  background: transparent;
+}
+
+.checkbox-box::after {
+  content: "";
+  width: 5px;
+  height: 9px;
+  border-bottom: var(--line-emphasis) solid var(--color-void-1000);
+  border-inline-end: var(--line-emphasis) solid var(--color-void-1000);
+  transform: rotate(45deg) translate(-1px, -2px);
+  opacity: 0;
+}
+
+.checkbox-label-text {
+  color: var(--color-light-text);
+}
+
+/* Checked state (§21.1, §65): filled box (color) plus an explicit checkmark
+   mark (shape, a genuinely different channel from color) — never color
+   alone, per IMPLEMENTATION_PLAN.md §7's selected-state rule. */
+.visually-hidden-input:checked + .checkbox-box {
+  background: var(--color-light-text);
+  border-color: var(--color-light-text);
+}
+
+.visually-hidden-input:checked + .checkbox-box::after {
+  opacity: 1;
+}
+
+.visually-hidden-input:focus-visible + .checkbox-box {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.visually-hidden-input:disabled + .checkbox-box {
+  opacity: var(--opacity-disabled);
+}
+
+.visually-hidden-input:disabled ~ .checkbox-label-text {
+  opacity: var(--opacity-disabled);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Radio (native input, custom-drawn circle + inner dot) */
+/* ---------------------------------------------------------------------- */
+
+.radio-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.radio-group-legend {
+  padding: 0;
+  margin-block-end: var(--space-2);
+  color: var(--color-mist-300);
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.radio-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: var(--line-hairline) solid var(--color-mist-300);
+  /* The one deliberate use of --radius-circle in this file: an actual
+     circular radio marker, the expected native affordance — not part of
+     the pill/capsule control-surface language §7 prohibits. */
+  border-radius: var(--radius-circle);
+  background: transparent;
+}
+
+.radio-dot::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--color-light-text);
+  opacity: 0;
+}
+
+.radio-label-text {
+  color: var(--color-light-text);
+}
+
+/* Checked state (§21.1, §65): border color plus a filled inner dot (shape,
+   not color alone) — mirrors the Checkbox pattern above. */
+.visually-hidden-input:checked + .radio-dot {
+  border-color: var(--color-light-text);
+}
+
+.visually-hidden-input:checked + .radio-dot::after {
+  opacity: 1;
+}
+
+.visually-hidden-input:focus-visible + .radio-dot {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.visually-hidden-input:disabled + .radio-dot {
+  opacity: var(--opacity-disabled);
+}
+
+.visually-hidden-input:disabled ~ .radio-label-text {
+  opacity: var(--opacity-disabled);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Select (native <select>, minimally styled) */
+/* ---------------------------------------------------------------------- */
+
+.select-field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.select-label {
+  color: var(--color-mist-300);
+}
+
+.select {
+  min-height: 44px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-control);
+  border: var(--line-hairline) solid var(--color-mist-300);
+  background: transparent;
+  color: var(--color-light-text);
+}
+
+.select:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.select:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Status tag (informational, non-interactive by default) */
+/* ---------------------------------------------------------------------- */
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-2);
+  padding-block: var(--space-1);
+  border: var(--line-hairline) solid var(--color-mist-300);
+  border-radius: var(--radius-control);
+  color: var(--color-mist-300);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Removable filter (active criterion + native remove button) */
+/* ---------------------------------------------------------------------- */
+
+.removable-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-inline-start: var(--space-3);
+  border: var(--line-hairline) solid var(--color-mist-300);
+  border-radius: var(--radius-control);
+}
+
+.removable-filter-label {
+  color: var(--color-light-text);
+}
