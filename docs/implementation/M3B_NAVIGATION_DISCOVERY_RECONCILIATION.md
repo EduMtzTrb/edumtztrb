@@ -2,7 +2,7 @@
 
 ## Status
 
-**Ready for Integrated Human Review.** This is a batch reconciliation document, not a new Implementation Plan work package — no `M3.13.1` or equivalent was invented. M3-B is **not** formally approved/closed by this document; that requires one externally supplied integrated browser review (see **Human review procedure** below).
+**Approved / Closed.** This is a batch reconciliation document, not a new Implementation Plan work package — no `M3.13.1` or equivalent was invented. The externally supplied integrated human browser review this document previously required (see **Human review procedure** below) has now been completed and PASSED — see **Integrated Human Review Result**. `M3-B — Navigation + Discovery: Approved / Closed`.
 
 ## Authority
 
@@ -14,15 +14,38 @@
 
 | Package | Status | Commit |
 |---|---|---|
-| M3.7 — Global Navigation | Implemented / Mechanically Verified | `f8e414f` |
-| M3.8 — District Navigation | Implemented / Mechanically Verified | `23b1bc5` |
-| M3.9 — Breadcrumb / Orientation System | Implemented / Mechanically Verified | `dbb08cf` |
-| M3.10 — Index | Implemented / Mechanically Verified | `785f479` |
-| M3.11 — Filters | Implemented / Mechanically Verified | `41fd03e` |
-| M3.12 — Search | Implemented / Mechanically Verified | `5e2d2db` |
-| M3.13 — Direct-Entry Orientation | Implemented / Mechanically Verified | `2b48ee7` |
+| M3.7 — Global Navigation | Complete / Verified | `f8e414f` |
+| M3.8 — District Navigation | Complete / Verified | `23b1bc5` |
+| M3.9 — Breadcrumb / Orientation System | Complete / Verified | `dbb08cf` |
+| M3.10 — Index | Complete / Verified | `785f479` |
+| M3.11 — Filters | Complete / Verified | `41fd03e` |
+| M3.12 — Search | Complete / Verified | `5e2d2db` |
+| M3.13 — Direct-Entry Orientation | Complete / Verified | `2b48ee7` |
 
-None of the seven is individually "Complete / Verified" — per this task's own explicit instruction, that status is reserved until this one integrated review completes.
+All seven are now individually **Complete / Verified** — the integrated human review this table previously deferred that status until (see prior revision) has now passed; each package's own implementation report was updated in this closure pass with its own "Integrated Human Review" section.
+
+## Integrated Human Review Result
+
+`PASSED — externally supplied human browser review.`
+
+This approval was supplied externally by the user after reviewing the running application in a real browser. Claude did not independently observe, render, or pixel-inspect the browser interface at any point — this section records the user's own reported findings, not an automated or Claude-originated visual judgment.
+
+The user reviewed the integrated M3-B system — Global Navigation, District Navigation, Breadcrumb/Orientation, Index, Filters, Search, and Direct-Entry Orientation — across desktop behavior, compact/mobile behavior, development fixture behavior, successful Search, Search no-result behavior, filtered Index behavior, and deep direct entry, and reported:
+
+> All reviewed M3-B routes and representative journeys pass.
+
+Summarized accepted results, per package (full detail recorded in each package's own updated implementation report, "Integrated Human Review" section):
+
+- **M3.7 — Global Navigation**: all seven districts legible/reachable; Search/Index/Contact structurally distinct; current district identifiable; responsive wrapping no longer ambiguous; compact navigation complete; no hover-hidden navigation; no motion required.
+- **M3.8 — District Navigation**: visibly/conceptually distinct from global navigation; shared conceptual order understandable; district terminology coherent; all six districts distinguishable without becoming separate websites; active secondary location understandable; compact layouts usable.
+- **M3.9 — Breadcrumb / Orientation**: sufficient location context on deep structures; orientation hierarchy subordinate, not noisy; contextual grouping never redefines canonical ownership; current page never unnecessarily self-linked; understandable without animation.
+- **M3.10 — Index**: systematic/precise/scannable, not a dashboard or portfolio-card wall; development fixtures unmistakably labeled; canonical destinations clear; global lens behavior understandable; empty/no-result behavior appropriate.
+- **M3.11 — Filters**: active state visually clear; Reset understandable; state reflected in shareable URL; recomposition visible/intentional; canonical identity unaffected; zero-result filtering correctly shown as No Result, not Empty; keyboard/touch understandable.
+- **M3.12 — Search**: meaningfully distinct from Index; visible query understandable; match context/reason sufficient without internal scoring noise; no-result preserves query; empty Search never presented as Error; native form behavior clear; fixtures clearly non-public.
+- **M3.13 — Direct-Entry Orientation**: a deep canonical route opened cold in a fresh tab is understandable; owning district/current record identifiable; truthful structural next actions available; no invented prior-session history; no fake "Return to where you came from"; M4's future Return/spatial-memory system correctly deferred.
+- **Integrated M3-B behavior**: global/district navigation remain distinct; Index/Search remain distinct while querying the same canonical public system; Filters narrow views without mutating record identity; canonical destinations stable; public archived records reachable where intended; deep-entry orientation truthful; compact/mobile navigation coherent; essential navigation requires neither motion nor hover; no M3-B visual or interaction blocker remains.
+
+No further M3-B calibration is required. `M3-B — Navigation + Discovery: Approved / Closed`.
 
 ## M3-A dependency audit
 
@@ -101,27 +124,27 @@ One shared mechanism (`devFixtureSource.ts`, M3.10, reused unchanged by M3.12): 
 
 Plus: no duplicate canonical route or ID across the full fixture corpus; Search/Index parity reconfirmed at full-corpus scale.
 
-## Gate M3 pre-assessment
+## Gate M3 — Final Audit
 
-All 13 `IMPLEMENTATION_PLAN.md` §7 acceptance criteria, assessed now — **not** formally closed (that is Gate M3's own separate, later closure event):
+All 13 `IMPLEMENTATION_PLAN.md` §7/§8 acceptance criteria, given both mechanical evidence and the now-completed integrated human review. **Gate M3 — Navigation + Records Verified.**
 
-| # | Criterion | Assessment |
-|---|---|---|
-| 1 | Every test record has one canonical route | **Mechanically Passed** — `buildCanonicalRouteRegistry` succeeds, zero collisions, reconfirmed at M3-B integration scope |
-| 2 | Duplicate IDs are rejected | **Mechanically Passed** — `createRecordRegistry` (M3.1), reconfirmed unchanged |
-| 3 | Every relationship resolves | **Mechanically Passed** — M3.5's own guarantee, reconfirmed via Journey 5 |
-| 4 | Search and Index query the same public source | **Mechanically Passed** — direct parity test, three independent confirmations |
-| 5 | Filters preserve canonical identity | **Mechanically Passed** — M3.11's own tests + integration Journey 2 |
-| 6 | Public archive records remain reachable when intended | **Mechanically Passed** — Journey 6 |
-| 7 | Public state is explicit | **Mechanically Passed** — M3.1/M3.6, unchanged, surfaced via `IndexRecord`'s `status` slot in Search/Index |
-| 8 | Internal state remains internal by default | **Mechanically Passed** — M3.6's side-table architecture, structurally incapable of leaking; reconfirmed absent from every M3-B projection |
-| 9 | Deep links orient correctly | **Mechanically Passed** — M3.13, all ten representative cases |
-| 10 | Meaningful depth has breadcrumbs/equivalent orientation | **Mechanically Passed** — M3.9 model + M3.13 wiring |
-| 11 | Global/district navigation remain distinct | **Mechanically Passed** — M3.7/M3.8, structurally distinct landmarks + distinct active-state semantics |
-| 12 | Discovery is keyboard operable | **Mechanically Passed** — every control audited is a native, keyboard-operable element |
-| 13 | Essential navigation does not require motion | **Mechanically Passed** — zero motion CSS anywhere in M3-B |
+| # | Criterion | Result | Evidence |
+|---|---|---|---|
+| 1 | Every test record has one canonical route | **PASS** | M3.3's `resolveCanonicalRoute`/`buildCanonicalRouteRegistry`, reconfirmed against the full fixture corpus in `tests/integration/m3b-navigation-discovery-journeys.test.tsx` ("no duplicate canonical route exists across the whole fixture corpus") — zero collisions, registry size equals fixture count. Originally established in M3.3's own 42-test suite and reconfirmed unchanged throughout M3-A and M3-B. |
+| 2 | Duplicate IDs are rejected | **PASS** | M3.1's `createRecordRegistry` (`registry.ts`) throws on the first duplicate ID; reconfirmed unchanged via the same integration test's "no duplicate canonical ID" assertion. `registry.ts` confirmed byte-for-byte unchanged since M3.1's own commit through the entirety of M3-A and M3-B. |
+| 3 | Every relationship resolves | **PASS** | M3.5's `assertRelationshipsResolve`/`validateRelationships`, reconfirmed by Journey 5 of the integration suite (Research's `tested-in` relationship resolves to Lab's exact canonical route, `resolveRelationship` returning a real `targetRoute`). |
+| 4 | Search and Index query the same public source | **PASS** | Direct parity test (`tests/domain/search-index-parity.test.ts`), reconfirmed at M3-B integration scope (this document's own "Cross-cutting invariants" test), and human-confirmed distinct-yet-same-source behavior (Integrated Human Review Result, M3.12/Integrated M3-B behavior). Three independent mechanical confirmations plus human review. |
+| 5 | Filters preserve canonical identity | **PASS** | `FilterModel.test.ts` ("never mutates canonical route or record identity"), reconfirmed via Journey 2 (a filtered Index result's link is the exact M3.3 canonical route), and human-confirmed ("filters do not appear to change canonical identity"). |
+| 6 | Public archive records remain reachable when intended | **PASS** | M3.6's `isPublicArchiveEligible`/`selectPublicArchive`, reconfirmed via Journey 6 (an archived-but-public record resolves to the identical canonical route through both Index and Search), and human-confirmed ("public archived records remain reachable where intended"). |
+| 7 | Public state is explicit | **PASS** | M3.1's `curatorialInclusion`/`visibility`/`lifecycle` (no generic `status`), surfaced explicitly via `IndexRecord`'s `status` slot in both Search and Index results (M3.10/M3.12), unchanged since M3.1. |
+| 8 | Internal state remains internal by default | **PASS** | M3.6's `InternalPublicationRecord` side-table, structurally outside `CanonicalRecordBase` — confirmed absent from every M3-B projection (`IndexModel.ts`/`SearchModel.ts` source contracts: "never reads internal publication state"). |
+| 9 | Deep links orient correctly | **PASS** | M3.13's `tests/routes/direct-entry-orientation-wiring.test.tsx`, all ten §G6 representative cases, plus human-confirmed ("a deep canonical route is understandable when opened directly in a fresh tab"). |
+| 10 | Meaningful depth has breadcrumbs/equivalent orientation | **PASS** | M3.9's `OrientationContext`/`Breadcrumb`, wired by M3.13 into all touched deep routes; human-confirmed ("deep structures expose sufficient location context... hierarchy remains subordinate rather than visually noisy"). |
+| 11 | Global/district navigation remain distinct | **PASS** | M3.7/M3.8 — two structurally separate `<nav>` landmark pairs per page, distinct active-state semantics (prefix-match vs. exact-match), confirmed at the source level (`DistrictNav.test.tsx`) and human-confirmed ("district navigation is visibly and conceptually distinct from global navigation"). |
+| 12 | Discovery is keyboard operable | **PASS** | Every Index/Search/Filter control audited is a native `<a>`, `<button type="submit">`, or `<input>` — no custom key handling anywhere in M3-B source (confirmed by absence of `onKeyDown`/non-standard `tabIndex` usage); human-confirmed ("controls remain keyboard/touch understandable"). |
+| 13 | Essential navigation does not require motion | **PASS** | Zero `transition`/`animation`/`@keyframes` rules in any M3.7–M3.13 CSS file, confirmed by each package's own CSS contract test; human-confirmed ("no motion is required... essential navigation requires neither motion nor hover"). |
 
-All 13 are **Mechanically Passed**. None is **Failed / Blocked**. Literal visual/interaction quality (does it *feel* right, not just structurally correct) remains **Needs Human Browser Confirmation** — the subject of the review below. Gate M3 itself is not closed by this table; that closure is a separate, later event after the human review and after M3.7–M3.13 are individually marked Complete / Verified.
+**All 13 criteria PASS.** No criterion is Failed/Blocked. No contradiction was found during this final audit that would require reopening M3-A or any M3-B package. **Gate M3 — Navigation + Records Verified.**
 
 ## Known limitations
 
@@ -159,7 +182,9 @@ Motion, Focus manager, overlay/modal manager, full Return/spatial-memory store, 
 | M3.13 | 25 | 1008 |
 | Phase H (cumulative integration) | 10 | 1018 |
 
-## Human review procedure
+## Human review procedure (completed)
+
+This is the procedure the externally supplied review (**Integrated Human Review Result**, above) followed. Preserved here as the record of what was actually reviewed, and as reusable reference for any future spot-check.
 
 ### Development fixture activation
 
@@ -202,4 +227,10 @@ Judge the integrated system, not isolated visual polish:
 
 ## Acceptance result
 
-M3-B — Navigation + Discovery is implementation-complete across all seven work packages (M3.7–M3.13), mechanically verified against all 13 Gate M3 criteria, with Search/Index parity independently confirmed three times and zero canonical-identity/route/ownership violations found anywhere in the cumulative integration journeys. **Ready for Integrated Human Review.**
+M3-B — Navigation + Discovery is complete across all seven work packages (M3.7–M3.13), mechanically verified against all 13 Gate M3 criteria, with Search/Index parity independently confirmed three times, zero canonical-identity/route/ownership violations found anywhere in the cumulative integration journeys, and the externally supplied integrated human browser review PASSED with no further calibration required for any package.
+
+`M3-B — Navigation + Discovery: Approved / Closed`
+
+`Gate M3 — Navigation + Records Verified`
+
+M3-A's canonical architecture (M3.1–M3.6) remained stable and unmodified throughout the entire Navigation + Discovery implementation and this closure — confirmed once more in this pass, no contradiction found, not reopened.
