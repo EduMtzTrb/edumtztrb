@@ -69,6 +69,9 @@
   border-block-end: var(--line-hairline) solid var(--color-graphite-700);
 }
 
+/* M4.3: hover (opacity, Approach speed) and the selected transition
+   (color/border-color, State Change speed) both live on one declaration —
+   each only fires for the property that actually changes. */
 .tab {
   display: inline-flex;
   align-items: center;
@@ -80,6 +83,10 @@
   border-block-end: var(--line-emphasis) solid transparent;
   color: var(--color-mist-300);
   cursor: pointer;
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease-move),
+    color var(--motion-duration-standard) var(--motion-ease-move),
+    border-block-end-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 /* Selected tab (§21.1, §65): color changes (text + border color), but the
@@ -133,6 +140,8 @@
   border-inline-start: var(--line-hairline) solid var(--color-mist-300);
 }
 
+/* M4.3: the selected-state entry (background + color) settles at State
+   Change speed — no hover exists here to animate (none did statically). */
 .segmented-option-label {
   display: inline-flex;
   align-items: center;
@@ -141,6 +150,9 @@
   padding-inline: var(--space-4);
   cursor: pointer;
   color: var(--color-mist-300);
+  transition:
+    background-color var(--motion-duration-standard) var(--motion-ease-move),
+    color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 /* Selected segment (§21.1, §65): fill (color) plus font-weight — a second,
@@ -165,6 +177,8 @@
 /* Filter toggle (a selectable filter criterion) */
 /* ---------------------------------------------------------------------- */
 
+/* M4.3: hover (opacity, Approach) and the selected transition
+   (border-color, State Change) share one declaration. */
 .filter-toggle {
   display: inline-flex;
   align-items: center;
@@ -176,6 +190,9 @@
   background: transparent;
   color: var(--color-light-text);
   cursor: pointer;
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease-move),
+    border-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 .filter-toggle-marker {
@@ -185,6 +202,9 @@
   flex-shrink: 0;
   border: var(--line-hairline) solid var(--color-mist-300);
   background: transparent;
+  transition:
+    background-color var(--motion-duration-standard) var(--motion-ease-move),
+    border-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 /* Selected/active filter (§21.1, §65, §31/§85 — must not resemble a
@@ -226,6 +246,9 @@
   cursor: pointer;
 }
 
+/* M4.3: the checked-state fill settles at State Change speed; the
+   checkmark itself uses the shorter, quicker "enter" easing/duration —
+   a mark appearing, not a container settling. */
 .checkbox-box {
   display: inline-flex;
   align-items: center;
@@ -235,6 +258,9 @@
   flex-shrink: 0;
   border: var(--line-hairline) solid var(--color-mist-300);
   background: transparent;
+  transition:
+    background-color var(--motion-duration-standard) var(--motion-ease-move),
+    border-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 .checkbox-box::after {
@@ -245,6 +271,7 @@
   border-inline-end: var(--line-emphasis) solid var(--color-void-1000);
   transform: rotate(45deg) translate(-1px, -2px);
   opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-enter);
 }
 
 .checkbox-label-text {
@@ -303,6 +330,8 @@
   cursor: pointer;
 }
 
+/* M4.3: same pattern as Checkbox above — border settles at State Change
+   speed, the inner dot appears at the shorter "enter" speed. */
 .radio-dot {
   display: inline-flex;
   align-items: center;
@@ -312,10 +341,11 @@
   flex-shrink: 0;
   border: var(--line-hairline) solid var(--color-mist-300);
   /* The one deliberate use of --radius-circle in this file: an actual
-     circular radio marker, the expected native affordance — not part of
-     the pill/capsule control-surface language §7 prohibits. */
+     circular radio marker, the expected native-radio affordance — not part
+     of the pill/capsule control-surface language §7 prohibits. */
   border-radius: var(--radius-circle);
   background: transparent;
+  transition: border-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 .radio-dot::after {
@@ -325,6 +355,7 @@
   border-radius: var(--radius-circle);
   background: var(--color-light-text);
   opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-enter);
 }
 
 .radio-label-text {
@@ -368,6 +399,7 @@
   color: var(--color-mist-300);
 }
 
+/* M4.3: disabled-entry settles at State Change speed. */
 .select {
   min-height: 44px;
   padding-inline: var(--space-3);
@@ -375,6 +407,7 @@
   border: var(--line-hairline) solid var(--color-mist-300);
   background: transparent;
   color: var(--color-light-text);
+  transition: opacity var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 .select:focus-visible {

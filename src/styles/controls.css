@@ -28,7 +28,15 @@
  * an accent color.
  */
 
-/* Shared control geometry, independent of action level. */
+/* Shared control geometry, independent of action level. M4.3: a single
+   opacity transition covers hover (Approach), press, disabled-entry, and
+   loading-entry — every state below that changes this element's opacity.
+   `--motion-duration-fast`/`--motion-ease-move` is the resting (hover)
+   speed; the more specific `:active` rule below overrides the duration to
+   `--motion-duration-immediate` for press, per ANIMATION_SYSTEM.md §17.1
+   ("press states... feedback must begin immediately"). Reduced motion is
+   already handled by the existing global rule (src/app/globals.css) —
+   nothing extra was added here (see docs/implementation/M4.2_REDUCED_MOTION_CAPABILITY.md). */
 .action-primary,
 .action-secondary,
 .action-tertiary,
@@ -41,6 +49,7 @@
   border-radius: var(--radius-control);
   text-decoration: none;
   cursor: pointer;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-move);
 }
 
 /* Icon-only controls (§29): square-ish minimum hit area, no text padding.
@@ -109,6 +118,7 @@
   color: inherit;
   text-decoration: underline;
   text-underline-offset: var(--space-1);
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-move);
 }
 
 /* Hover (§21.1) — enhancement only, never the sole indication of
@@ -122,15 +132,17 @@
   opacity: 0.85;
 }
 
-/* Pressed / active (§21.1) — perceptibly stronger than hover, still a
-   static tonal shift, no spatial-motion convention (Animation System
-   territory, not this milestone's). */
+/* Pressed / active (§21.1, §17.1) — perceptibly stronger than hover.
+   M4.3: begins immediately (`--motion-duration-immediate`, overriding the
+   base rule's fast/hover-speed transition for this state specifically) —
+   no bounce, no delayed reaction. */
 .action-primary:not(:disabled):active,
 .action-secondary:not(:disabled):active,
 .action-tertiary:not(:disabled):active,
 .link:not(:disabled):active,
 .link-inline:active {
   opacity: 0.7;
+  transition-duration: var(--motion-duration-immediate);
 }
 
 /* Focus-visible — deliberately identical to the shared shell's existing
@@ -145,6 +157,11 @@
   outline: var(--line-emphasis) solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* M4.3 (ANIMATION_SYSTEM.md §29: "focus restoration is defined... essential
+   state is not hover-only"): deliberately no transition on the outline
+   above — focus must be visible immediately, never delayed by animation,
+   and must never be weaker/slower to appear than hover. */
 
 /**
  * Disabled (§21.1, §101). Communicated through more than color: reduced
@@ -170,13 +187,14 @@
 
 /**
  * Loading (§28 button invariant: "default, hover, focus-visible, pressed,
- * disabled, loading"). Structural capability only — no spinner, no
- * animation (nothing currently loads anywhere in this repository; a real
- * spinner/timing treatment is deferred to the first genuine async
- * consumer, and choreography is Animation System territory regardless).
- * `aria-busy` is a distinct semantic signal from `disabled` (screen
- * readers announce "busy," not "disabled"), so it gets its own selector
- * even though the visual treatment is currently identical.
+ * disabled, loading"). Structural capability, no spinner (ANIMATION_SYSTEM.md
+ * §18: "loading is a State Change, not a spectacle" — no branded/looping
+ * indicator). M4.3 gives the transition *into* this state the same quiet
+ * opacity settle as disabled (via the shared base-rule transition above) —
+ * a real, if restrained, State Change, not the "no animation at all" M2.5
+ * originally left this at. `aria-busy` is a distinct semantic signal from
+ * `disabled` (screen readers announce "busy," not "disabled"), so it gets
+ * its own selector even though the visual treatment is currently identical.
  */
 .action-primary[aria-busy="true"],
 .action-secondary[aria-busy="true"],

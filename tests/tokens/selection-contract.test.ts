@@ -111,10 +111,20 @@ describe("Selection/filter controls contract (IMPLEMENTATION_PLAN.md §7, M2.6)"
     }
   });
 
-  it("uses only var(--...) values — no hard-coded color, no transition/animation property", () => {
+  it("uses only var(--...) values — no hard-coded color", () => {
     expect(selectionCss).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
     expect(selectionCss).not.toMatch(/rgb\(|hsl\(/);
-    expect(selectionCss).not.toMatch(/(?:^|\s)(?:transition|animation)\s*:/);
+  });
+
+  it("M4.3: every transition declaration uses only motion tokens — no raw duration/easing, no @keyframes animation", () => {
+    const transitionDeclarations =
+      selectionCss.match(/transition(?:-duration)?\s*:\s*[^;]+;/g) ?? [];
+    expect(transitionDeclarations.length).toBeGreaterThan(0);
+    for (const declaration of transitionDeclarations) {
+      expect(declaration).toMatch(/var\(--motion-/);
+      expect(declaration).not.toMatch(/\b\d+m?s\b/);
+    }
+    expect(selectionCss).not.toMatch(/@keyframes|animation\s*:|animation-name\s*:/);
   });
 
   it("does not reintroduce any retired token name", () => {

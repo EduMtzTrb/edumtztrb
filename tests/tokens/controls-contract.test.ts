@@ -61,10 +61,20 @@ describe("Action controls contract (DESIGN_SYSTEM.md v1.1 §25-29)", () => {
     }
   });
 
-  it("uses only var(--...) values — no hard-coded color, no transition/animation property (comment prose mentioning them elsewhere is fine)", () => {
+  it("uses only var(--...) values — no hard-coded color (comment prose mentioning one elsewhere is fine)", () => {
     expect(controlsCss).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
     expect(controlsCss).not.toMatch(/rgb\(|hsl\(/);
-    expect(controlsCss).not.toMatch(/(?:^|\s)(?:transition|animation)\s*:/);
+  });
+
+  it("M4.3: every transition declaration uses only motion tokens — no raw duration/easing, no @keyframes animation", () => {
+    const transitionDeclarations =
+      controlsCss.match(/transition(?:-duration)?\s*:\s*[^;]+;/g) ?? [];
+    expect(transitionDeclarations.length).toBeGreaterThan(0);
+    for (const declaration of transitionDeclarations) {
+      expect(declaration).toMatch(/var\(--motion-/);
+      expect(declaration).not.toMatch(/\b\d+m?s\b/);
+    }
+    expect(controlsCss).not.toMatch(/@keyframes|animation\s*:|animation-name\s*:/);
   });
 
   it("does not reintroduce any retired token name", () => {

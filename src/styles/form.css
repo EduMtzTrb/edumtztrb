@@ -53,6 +53,10 @@
   color: var(--color-mist-300);
 }
 
+/* M4.3: disabled-entry (opacity) and error-entry (border-color) both
+   settle at State Change speed — quiet, no shake (ANIMATION_SYSTEM.md
+   §17.3: "errors must be localized... the interface must not shake
+   entire forms"). */
 .text-field,
 .textarea-field {
   width: 100%;
@@ -63,6 +67,9 @@
   border: var(--line-hairline) solid var(--color-mist-300);
   background: transparent;
   color: var(--color-light-text);
+  transition:
+    opacity var(--motion-duration-standard) var(--motion-ease-move),
+    border-color var(--motion-duration-standard) var(--motion-ease-move);
 }
 
 .textarea-field {

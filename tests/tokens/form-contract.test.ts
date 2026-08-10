@@ -84,8 +84,14 @@ describe("Form family contract (IMPLEMENTATION_PLAN.md §7, M2.10)", () => {
     }
   });
 
-  it("does not introduce unauthorized animation/transition", () => {
-    expect(formCode).not.toMatch(/(?:^|\s)(?:transition|animation)\s*:/);
+  it("M4.3: every transition declaration uses only motion tokens — no raw duration/easing, no @keyframes animation", () => {
+    const transitionDeclarations = formCode.match(/transition(?:-duration)?\s*:\s*[^;]+;/g) ?? [];
+    expect(transitionDeclarations.length).toBeGreaterThan(0);
+    for (const declaration of transitionDeclarations) {
+      expect(declaration).toMatch(/var\(--motion-/);
+      expect(declaration).not.toMatch(/\b\d+m?s\b/);
+    }
+    expect(formCode).not.toMatch(/@keyframes|animation\s*:|animation-name\s*:/);
   });
 
   it("does not reference a still-unresolved or retired token", () => {

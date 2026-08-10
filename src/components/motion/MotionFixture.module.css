@@ -1,0 +1,18 @@
+/**
+ * Layout only for the M4-A development fixture — a CSS Module so it stays
+ * scoped to this one dev-only component and is never bundled into the
+ * shared design-token stylesheets (`controls.css`, `selection.css`, etc.).
+ * No design-system decision lives here — plain spacing only.
+ */
+.motionFixtureGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.motionFixtureGrid section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
