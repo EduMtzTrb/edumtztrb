@@ -1,0 +1,109 @@
+/**
+ * Metadata rail — M2.9.
+ * Authority: IMPLEMENTATION_PLAN.md §7 (M2.9 — "Implement shared
+ * structured secondary information with compact-screen reflow");
+ * DESIGN_SYSTEM.md v1.1 §22 (Metadata hierarchy — Primary/Secondary/
+ * Latent tiers, §22.4 Metadata composition), §34.2 (Metadata rail — "a
+ * role rather than a fixed sidebar," uses the Primary/Secondary/Latent
+ * hierarchy, "must not become a dashboard column"), §97 (Metadata token
+ * model). See docs/implementation/M2.9_METADATA_RAIL.md for the full
+ * audit and reasoning.
+ *
+ * SEMANTIC STRUCTURE: a real `<dl>` of `<dt>`/`<dd>` pairs (label/value is
+ * exactly what a description list is for), with `.metadata-item` wrapper
+ * divs given `display: contents` so their dt/dd children flatten directly
+ * into the shared grid — the standard, spec-supported technique for
+ * grouping grid items inside `<dl>` without breaking column alignment
+ * (`display: contents` is applied only to this presentational wrapper,
+ * never to `.metadata-group`, which carries `role="group"`/`aria-label`
+ * and must keep a real accessible box — see the component's own
+ * comments).
+ *
+ * COMPACT-SCREEN REFLOW (the M2.9 Plan's own explicit second requirement):
+ * one column (label stacked above value) below the same 768px breakpoint
+ * `layout.css`'s `.composition` already uses, two aligned columns
+ * (label | value) at and above it — real recomposition via CSS Grid
+ * auto-placement, not a font-size reduction.
+ *
+ * NOT A DASHBOARD (§34.2, §22.4 "avoid badge-wall or spreadsheet-dashboard
+ * appearance"): no box/border around each item, no `.plane`/`.frame`, no
+ * box-shadow, no zebra-striping, no per-item pill/badge.
+ *
+ * METADATA TIERS (§22.1–§22.3, §97): Primary aliases `--color-light-text`
+ * directly; Secondary aliases `--color-mist-300` directly (the default —
+ * no `data-tier` attribute needed); Latent applies `--opacity-latent`
+ * (resolved by this package — see src/styles/tokens/opacity.css's header
+ * for the full WCAG derivation) on top of the Secondary color. No new
+ * color was minted for any tier.
+ *
+ * SIGNAL DOES NOT APPEAR ANYWHERE IN THIS FILE. No status/lifecycle color
+ * taxonomy exists here either — where a value is itself a status, the
+ * consumer reuses M2.6's `StatusTag`, which already carries that
+ * restraint; this file does not duplicate it.
+ */
+
+.metadata-rail {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .metadata-rail {
+    grid-template-columns: max-content 1fr;
+  }
+}
+
+/* Presentational only — flattens into whichever grid is the nearest real
+   ancestor (.metadata-rail or .metadata-group) so its dt/dd children
+   become direct grid items. Never carries a role/aria-label itself. */
+.metadata-item {
+  display: contents;
+}
+
+.metadata-label {
+  margin: 0;
+  color: var(--color-mist-300);
+}
+
+.metadata-value {
+  margin: 0;
+  color: var(--color-mist-300);
+}
+
+.metadata-clarification {
+  color: var(--color-mist-300);
+}
+
+/* Primary tier — full authority, same color already-established for body text. */
+.metadata-item[data-tier="primary"] .metadata-value {
+  color: var(--color-light-text);
+  font-weight: 500;
+}
+
+/* Latent tier — one step more recessed than the Secondary default, via the
+   resolved --opacity-latent token (never a new color). */
+.metadata-item[data-tier="latent"] .metadata-value {
+  opacity: var(--opacity-latent);
+}
+
+/* A named group of related items (§22.4/B8's optional "group label") —
+   a real box with role="group", its own nested grid so grouped items keep
+   the same one-column/two-column reflow behavior as the rest of the rail.
+   Spans the full rail width regardless of the parent grid's own column
+   count. */
+.metadata-group {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .metadata-group {
+    grid-template-columns: max-content 1fr;
+  }
+}

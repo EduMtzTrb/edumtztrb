@@ -46,9 +46,11 @@ import { join } from "node:path";
  * anywhere (see docs/implementation/IMPLEMENTATION_READINESS_RECONCILIATION.md).
  * `DESIGN_SYSTEM.md v1.1` §100 approves five semantic opacity roles for the
  * first time. M2.5 — Action Controls (see
- * docs/implementation/M2.5_ACTION_CONTROLS.md) is the first genuine
- * consumer, resolving `opacity-disabled`; the other four roles stay
- * declared-but-empty, same pattern as everything else in this file.
+ * docs/implementation/M2.5_ACTION_CONTROLS.md) was the first genuine
+ * consumer, resolving `opacity-disabled`. M2.9 — Metadata Rail (see
+ * docs/implementation/M2.9_METADATA_RAIL.md) resolves `opacity-latent` for
+ * its latent metadata tier; the other three roles stay declared-but-empty,
+ * same pattern as everything else in this file.
  */
 
 // RESOLVED: DESIGN_SYSTEM_v1.0.md gives an exact single value (or a
@@ -170,11 +172,10 @@ const RETIRED_TOKENS = [
 // Opacity — separate from APPROVED_TOKENS/RESOLVED_TOKENS above because it
 // was never part of the original §60 registry (see file header). Checked
 // with its own tests, same rigor, same declared-vs-empty rules.
-const OPACITY_RESOLVED_TOKENS = ["opacity-disabled"];
+const OPACITY_RESOLVED_TOKENS = ["opacity-disabled", "opacity-latent"];
 const OPACITY_UNRESOLVED_TOKENS = [
   "opacity-full-authority",
   "opacity-supporting",
-  "opacity-latent",
   "opacity-recessed-context",
 ];
 

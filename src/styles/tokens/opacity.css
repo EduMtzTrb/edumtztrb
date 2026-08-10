@@ -1,12 +1,13 @@
 /**
- * Opacity tokens — M2.5 (Action Controls).
+ * Opacity tokens — M2.5 (Action Controls), extended M2.9 (Metadata Rail).
  * Authority: DESIGN_SYSTEM.md v1.1 §100 (Opacity token model).
  *
  * §100 approves five semantic opacity roles: full authority, supporting,
  * latent, recessed context, disabled — "exact values remain implementation-
- * calibrated." This file is the first to need one for real: M2.5's disabled
- * action-control state (see docs/implementation/M2.5_ACTION_CONTROLS.md
- * "Disabled State" for the full reasoning).
+ * calibrated." `--opacity-disabled` was the first to need one for real:
+ * M2.5's disabled action-control state (see
+ * docs/implementation/M2.5_ACTION_CONTROLS.md "Disabled State" for the full
+ * reasoning).
  *
  * `--opacity-disabled` was chosen over resolving `color-disabled`
  * (src/styles/tokens/color.css, still deliberately unresolved) because a
@@ -20,19 +21,50 @@
  * color alone" (paired with `cursor: not-allowed` and the native `disabled`
  * attribute — see src/styles/controls.css).
  *
- * The other four roles have no consumer yet and stay declared-but-empty,
- * matching the pattern established for every other token family in this
- * repository (M2.1 onward): a name gets a real value only when something
- * genuinely needs one.
+ * `--opacity-latent` — resolved by M2.9 (Metadata Rail), same methodology.
+ * DESIGN_SYSTEM.md v1.1 §22.3 defines "latent" metadata ("appropriate for
+ * deeper record disclosure, peripheral zones... latent means visually
+ * secondary, not inaccessible") and §97 explicitly allows the
+ * `metadata-latent` semantic role to alias an opacity token. Applied to
+ * `--color-mist-300` (already this repository's established "quiet/
+ * supporting" text color — captions, index fields, etc.) rather than to
+ * `--color-light-text`, since mist-300 is already one visual step more
+ * recessed and `--opacity-latent` only needs to push it one step further,
+ * not carry the whole distance alone.
+ *
+ * Value derivation (WCAG 2.2 relative-luminance contrast, same method as
+ * `--opacity-disabled` above): blending `--color-mist-300` (#b9bebd) at
+ * opacity 0.65 over `--surface-field-on-dark` (`--color-void-1000`,
+ * #0b0d0e) composites to approximately rgb(124, 128, 128) — contrast ratio
+ * ≈ 4.88:1 against the field, clearing the 4.5:1 AA floor for normal-size
+ * text (`.type-metadata` is 12–13px) with real margin, while remaining
+ * visibly more muted than full-opacity mist-300 (≈10.4:1) or light-text
+ * (≈17.4:1). This is the one deliberate three-step differentiation this
+ * repository's metadata hierarchy needs (§22.1–§22.3's Primary/Secondary/
+ * Latent tiers) — Primary reuses `--color-light-text` directly and
+ * Secondary reuses `--color-mist-300` directly, so `--opacity-latent` is
+ * the only genuinely new value this required (see
+ * docs/implementation/M2.9_METADATA_RAIL.md "Metadata Tiers" for the full
+ * derivation and rationale).
+ *
+ * The other three roles (`full-authority`, `supporting`, `recessed-context`)
+ * have no consumer yet and stay declared-but-empty, matching the pattern
+ * established for every other token family in this repository (M2.1
+ * onward): a name gets a real value only when something genuinely needs
+ * one. Primary/Secondary metadata did not need `full-authority`/
+ * `supporting` resolved — direct color-token aliasing already sufficed.
  */
 
 :root {
   /* Disabled — §100. Resolved: first real consumer is M2.5's action controls. */
   --opacity-disabled: 0.5;
 
+  /* Latent — §100/§22.3/§97. Resolved: first real consumer is M2.9's
+     Metadata Rail latent tier (applied to --color-mist-300, not alone). */
+  --opacity-latent: 0.65;
+
   /* No current consumer — declared, deliberately unresolved. */
   --opacity-full-authority: ;
   --opacity-supporting: ;
-  --opacity-latent: ;
   --opacity-recessed-context: ;
 }

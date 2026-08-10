@@ -6,6 +6,7 @@
 @import "../styles/selection.css";
 @import "../styles/records.css";
 @import "../styles/media.css";
+@import "../styles/metadata.css";
 
 /* Minimal base reset (box-sizing, margin/padding hygiene) — standard hygiene, not itself a Design System decision. */
 *,
