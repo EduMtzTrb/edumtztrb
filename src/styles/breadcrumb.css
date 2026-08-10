@@ -1,0 +1,38 @@
+/**
+ * Breadcrumb / orientation trail — M3.9.
+ * Small, low-emphasis, structurally distinct from both the global
+ * navigation (shell.css) and district navigation (district-nav.css) — its
+ * own class names, never shared. Purely a decorative "/" separator between
+ * items (CSS-generated content, not semantic — the ordered list itself
+ * already carries the real sequence for assistive technology).
+ */
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  padding: var(--space-2) var(--space-4);
+}
+
+.breadcrumb-list li:not(:first-child)::before {
+  content: "/";
+  margin-right: var(--space-1);
+  color: var(--color-mist-300);
+}
+
+.breadcrumb-list a {
+  color: var(--color-mist-300);
+  text-decoration: underline;
+}
+
+.breadcrumb-list a:focus-visible {
+  outline: var(--line-emphasis) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.breadcrumb-list span[aria-current="page"] {
+  color: var(--color-light-text);
+  font-weight: 600;
+}
