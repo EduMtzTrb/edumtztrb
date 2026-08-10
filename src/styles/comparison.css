@@ -1,0 +1,36 @@
+/**
+ * Comparison — M4.10.
+ * Authority: this task's own Comparison law — common reference points
+ * remain stable; comparison stays usable while completely still. See
+ * docs/implementation/M4.10_COMPARISON_TRACE_PROTOTYPES.md.
+ *
+ * NO MOTION ANYWHERE IN THIS FILE — deliberate. A real `<table>` already
+ * guarantees row alignment structurally; nothing here needs to animate to
+ * "establish correspondence" (§C3), and continuous/auto motion during
+ * comparison is explicitly prohibited (§C6).
+ *
+ * RESPONSIVE (§C5) — the table scrolls horizontally within its own
+ * container at narrow widths rather than being stacked into two
+ * unrelated blocks, which would destroy the row-to-row reference the
+ * whole comparison depends on.
+ */
+
+.comparison-scroll {
+  overflow-x: auto;
+}
+
+.comparison {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.comparison th,
+.comparison td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-block-end: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+.comparison th[scope="row"] {
+  white-space: nowrap;
+}

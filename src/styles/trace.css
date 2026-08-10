@@ -1,0 +1,27 @@
+/**
+ * Trace — M4.10.
+ * Authority: this task's own Trace law — "Trace corresponds to semantic
+ * relationships" (Gate M4 criterion 15); "the semantic relationship
+ * remains legible without motion and without the line." See
+ * docs/implementation/M4.10_COMPARISON_TRACE_PROTOTYPES.md.
+ *
+ * LAYOUT ONLY — no new color, no new line weight. `.trace` reuses M2.4's
+ * already-resolved `.line-structural` primitive directly (applied via
+ * className in Trace.tsx) rather than resolving the still-unvalued
+ * `line-relationship-trace` token name. This file positions the three
+ * real pieces of text (source / label / destination) in reading order —
+ * the relationship remains fully legible from that text alone, with
+ * nothing here dependent on motion.
+ */
+
+.trace {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+}
+
+.trace-group {
+  display: flex;
+  flex-direction: column;
+}

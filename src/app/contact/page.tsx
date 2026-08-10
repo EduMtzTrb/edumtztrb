@@ -2,12 +2,18 @@ import { UtilityPageShell } from "@/components/page-shells/PageShell";
 import { MotionFixture } from "@/components/motion/MotionFixture";
 import { OverlayFixture } from "@/components/overlay/OverlayFixture";
 import { ReturnMemoryFixture } from "@/components/return/ReturnMemoryFixture";
-import { isFocusFixtureActive, isMotionFixtureActive } from "@/lib/motion/fixtureGate";
+import { ComparisonTraceFixture } from "@/components/comparison/ComparisonTraceFixture";
+import {
+  isComparisonTraceFixtureActive,
+  isFocusFixtureActive,
+  isMotionFixtureActive,
+} from "@/lib/motion/fixtureGate";
 
 export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
   const params = await searchParams;
   const showMotionFixture = isMotionFixtureActive(params);
   const showFocusFixture = isFocusFixtureActive(params);
+  const showComparisonTraceFixture = isComparisonTraceFixtureActive(params);
 
   return (
     <UtilityPageShell heading="Contact">
@@ -25,6 +31,12 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
             <h2>Return / spatial memory</h2>
             <ReturnMemoryFixture />
           </section>
+        </>
+      )}
+      {showComparisonTraceFixture && (
+        <>
+          <p role="status">M4-C Comparison / Trace Fixture — not real public content</p>
+          <ComparisonTraceFixture />
         </>
       )}
     </UtilityPageShell>
