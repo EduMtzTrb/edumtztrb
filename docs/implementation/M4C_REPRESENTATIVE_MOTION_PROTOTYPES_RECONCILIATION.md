@@ -2,9 +2,35 @@
 
 ## Status
 
-**Ready for Integrated Human Re-review.** (Downgraded from "Ready for Integrated Human Review" — the first M4-C human-review attempt found M4.9's Home ↔ Work threshold imperceptible in a real browser. See **M4.9 Calibration** below.)
+**Approved / Closed.** See **Integrated Human Re-review Result**, below, for the passing review that closes this document. The path here was not straight-line — see **M4.9 Calibration** and **Integrated Human Re-review Result**'s own chronology for the full, preserved history.
 
-This is a batch reconciliation document, not an approval record. M4.8 and M4.10 remain individually **Implemented / Mechanically Verified — awaiting M4-C integrated human review**, unchanged and not reopened by this calibration pass. M4.9 remains **Implemented / Mechanically Verified — awaiting M4-C integrated human re-review** following its own narrow correction. None is Complete / Verified yet. Its purpose is to confirm the three packages prove reusable mechanics — never broad district choreography — and to hand a human reviewer an exact, reproducible procedure.
+This document is a batch reconciliation and, as of this closure, an approval record. M4.8, M4.9, and M4.10 are each individually **Complete / Verified** — see their own reports' "Integrated Human Review"/"Integrated Human Re-review" sections. Its purpose was to confirm the three packages prove reusable mechanics — never broad district choreography — hand a human reviewer an exact, reproducible procedure, and record that review's outcome.
+
+## Integrated Human Re-review Result
+
+`PASSED — externally supplied by the user`
+
+Claude did not independently observe or pixel-inspect the rendered interface at any point in this document's own history — every finding recorded here and in M4.8/M4.9/M4.10's own reports is the user's externally supplied real-browser evidence, recorded truthfully.
+
+Full chronology, preserved in order:
+
+1. **Initial implementation** — M4.8, M4.9, M4.10 built (commits `ac58c25`, `e221984`, `d4ca29d`).
+2. **M4.8 narrow Record-Passage correction** — reduced-motion authority mismatch found and fixed (commit `e3bbd95`; see M4.8's own "Reconciliation" section).
+3. **First M4-C human review** — requested against the corrected M4.8 alongside M4.9/M4.10 as originally implemented.
+4. **M4.9 human-review failure** — the first review reported the Home ↔ Work threshold as imperceptible, a static page replacement with explanatory text (recorded verbatim in M4.9's own "Human Review — Calibration Required").
+5. **M4.9 `WorldTrace` calibration** — a persistent, shell-level shared spatial trace introduced to correct the root cause (commit `94e3cdd`).
+6. **Pre-review scope-integrity audit** — before the re-review took place, a further audit found `WorldTrace`'s active choreography was gated on pathname alone, not genuine Home ↔ Work departure.
+7. **`WorldTrace` scope correction** — `data-trace-active` gating added, reusing existing arrival-key infrastructure (commit `b35d823`). The same audit also independently confirmed a real, unrelated repository-tracking gap, diagnosed but deliberately not remediated (`docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md`).
+8. **Final M4-C integrated human re-review** — covering the corrected M4.9 behavior plus regression smoke-checks of M4.8 and M4.10.
+9. **Approval** — the review above.
+
+Final package statuses:
+
+- **M4.8 — Complete / Verified**
+- **M4.9 — Complete / Verified**
+- **M4.10 — Complete / Verified**
+
+This approval closes M4-C. It does **not** close Gate M4 — see **D12 — Final Gate M4 Pre-Assessment**, below, and `PROJECT_STATE.md`'s own "Repository Tracking Integrity — Reconciliation Required" note for the reason Gate M4 stays open despite this closure.
 
 ## M4.9 Calibration
 
@@ -18,9 +44,9 @@ The first M4-C integrated human browser review reported that M4.9's Home ↔ Wor
 
 | Package | Report | Status |
 |---|---|---|
-| M4.8 — Record-Passage Prototype | `docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` | Implemented / Mechanically Verified |
-| M4.9 — Home-Threshold Prototype | `docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md` | Implemented / Mechanically Verified (recalibrated — see **M4.9 Calibration**) |
-| M4.10 — Comparison and Trace Prototypes | `docs/implementation/M4.10_COMPARISON_TRACE_PROTOTYPES.md` | Implemented / Mechanically Verified |
+| M4.8 — Record-Passage Prototype | `docs/implementation/M4.8_RECORD_PASSAGE_PROTOTYPE.md` | Complete / Verified |
+| M4.9 — Home-Threshold Prototype | `docs/implementation/M4.9_HOME_THRESHOLD_PROTOTYPE.md` | Complete / Verified (recalibrated and scope-corrected — see **M4.9 Calibration** and **Integrated Human Re-review Result**) |
+| M4.10 — Comparison and Trace Prototypes | `docs/implementation/M4.10_COMPARISON_TRACE_PROTOTYPES.md` | Complete / Verified |
 
 ## D1 — Complete motion chain audit
 
@@ -90,28 +116,28 @@ Back, Forward, direct URLs, native scroll, filter-query history, rapid navigatio
 
 ## D12 — Final Gate M4 pre-assessment (does not close Gate M4)
 
-Reassessed against the complete M4.1–M4.10 scope. Gate M4 stays **Open**.
+Reassessed against the complete M4.1–M4.10 scope, now including the passed M4-C integrated human re-review recorded above. **16/16 motion-system criteria are supported — Gate M4 closure is nonetheless deferred, for a reason unrelated to the motion system itself.** See the note below the table.
 
-| # | Criterion | Status after M4-C |
+| # | Criterion | Status after M4-C re-review |
 |---|---|---|
-| 1 | Static interface remains complete with motion disabled | Mechanically PASS |
-| 2 | Reduced motion preserves function/meaning | Mechanically PASS — now spans Focus, Overlay, Home Threshold, and (following the M4.8 reconciliation) Record Passage |
-| 3 | Focus works by keyboard | Mechanically PASS |
-| 4 | Modal focus is contained | Mechanically PASS |
-| 5 | Focus returns appropriately | Mechanically PASS |
-| 6 | Scroll/Index position restores | Mechanically PASS — M4.8 gives this a real, non-fixture consumer on one representative route for the first time |
-| 7 | Active filters/lenses restore where relevant | Mechanically PASS |
-| 8 | Back/Forward behave predictably | Mechanically PASS + Human Browser Confirmation Required — real browser-chrome Back/Forward button behavior still cannot be exercised in jsdom |
-| 9 | Direct links do not fabricate history | Mechanically PASS |
-| 10 | Obsolete motion cancels under rapid navigation | Mechanically PASS — now spans local feedback, Return, and Home Threshold |
-| 11 | User input interrupts nonessential animation | Mechanically PASS |
-| 12 | Home threshold preserves orientation | **Mechanically PASS (new)** — M4.9 is the first package to genuinely address this criterion |
-| 13 | Repeated entry is more efficient | **Mechanically PASS (new)** — M4.9, reduced-assembly, mechanically proven |
-| 14 | Comparison stabilizes reference points | **Mechanically PASS (new)** — M4.10, structural table + rapid-change stability test |
-| 15 | Trace corresponds to semantic relationships | **Mechanically PASS (new)** — M4.10, fully data-driven, negative case proven |
-| 16 | Native scrolling remains intact | Mechanically PASS |
+| 1 | Static interface remains complete with motion disabled | PASS — mechanical + human-review-confirmed |
+| 2 | Reduced motion preserves function/meaning | PASS — mechanical + human-review-confirmed; spans Focus, Overlay, Home Threshold, and Record Passage |
+| 3 | Focus works by keyboard | PASS — mechanical + human-review-confirmed |
+| 4 | Modal focus is contained | PASS — mechanical + human-review-confirmed |
+| 5 | Focus returns appropriately | PASS — mechanical + human-review-confirmed |
+| 6 | Scroll/Index position restores | PASS — mechanical + human-review-confirmed; M4.8's real, non-fixture consumer |
+| 7 | Active filters/lenses restore where relevant | PASS — mechanical + human-review-confirmed |
+| 8 | Back/Forward behave predictably | PASS — mechanical + human-review-confirmed. The real-browser-chrome Back/Forward behavior jsdom could never exercise (the one named gap through M4-B/M4-C's own mechanical assessment) is now covered by D18's real-Back procedure and the accepted M4.8/M4.9 findings above — this criterion's human-confirmation gap is closed. |
+| 9 | Direct links do not fabricate history | PASS — mechanical + human-review-confirmed |
+| 10 | Obsolete motion cancels under rapid navigation | PASS — mechanical + human-review-confirmed; spans local feedback, Return, and Home Threshold |
+| 11 | User input interrupts nonessential animation | PASS — mechanical + human-review-confirmed |
+| 12 | Home threshold preserves orientation | PASS — mechanical + human-review-confirmed, including the corrected `WorldTrace` scope (genuine crossings only) |
+| 13 | Repeated entry is more efficient | PASS — mechanical + human-review-confirmed; both duration and travel-distance differences, not merely textual |
+| 14 | Comparison stabilizes reference points | PASS — mechanical + human-review-confirmed |
+| 15 | Trace corresponds to semantic relationships | PASS — mechanical + human-review-confirmed |
+| 16 | Native scrolling remains intact | PASS — mechanical + human-review-confirmed |
 
-Fifteen of sixteen criteria now carry mechanical evidence; only criterion 8 retains an explicit, named "Human Browser Confirmation Required" gap (the same genuine jsdom limit M4.7 already identified and never claimed to close). Criteria 12–15 — entirely unaddressed through M4-A and M4-B — are now all supported. **This is real, substantive strengthening, not a restatement; Gate M4 still cannot close without the human review this document requests, and this document does not attempt to close it.**
+**This 16/16 result is a motion-system-scope statement only — it is not the same thing as "Gate M4 closed."** A separate, unrelated finding from the same pre-review integrity audit (see M4.9's own "WorldTrace Scope" section and `docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md`) established that a clean checkout of this repository's committed HEAD does not build: `GlobalNav.tsx` and a number of other load-bearing files were never committed to Git. That is a repository-reproducibility defect, not a motion-implementation defect — none of the sixteen criteria above concern it, and none of the evidence behind them is invalidated by it (every mechanical test and the human review itself ran against this live, working directory, which does contain those files). But Gate M4's own governing law requires a verified, reproducible repository, not merely a verified working directory, so Gate M4 stays **Open** pending a separate, dedicated Repository Tracking Integrity Reconciliation task. This document does not attempt to close Gate M4.
 
 ## D13 — Human review harness
 
@@ -146,7 +172,7 @@ Across all of the above: navigate rapidly (click Enter Work, then immediately cl
 
 ## D19 — Project state
 
-Recorded in `PROJECT_STATE.md`: M4.8/M4.10 remain Implemented / Mechanically Verified — awaiting M4-C integrated human review (unchanged, not reopened); M4.9 is Implemented / Mechanically Verified — awaiting M4-C integrated human **re-review** (recalibrated this pass); M4-C moves to Ready for Integrated Human Re-review; Milestone 4 stays In Progress; Gate M4 stays Open; Milestone 5 stays Not Started.
+Recorded in `PROJECT_STATE.md`, across this document's own history: first, M4.8/M4.10 Implemented / Mechanically Verified — awaiting M4-C integrated human review (unchanged, not reopened); M4.9 Implemented / Mechanically Verified — awaiting M4-C integrated human **re-review** (recalibrated); M4-C Ready for Integrated Human Re-review; Milestone 4 In Progress; Gate M4 Open; Milestone 5 Not Started. Following this closure: M4.8 — Complete / Verified; M4.9 — Complete / Verified; M4.10 — Complete / Verified; M4-C — **Approved / Closed**; Milestone 4 stays **In Progress** (not yet Complete / Verified — the motion system itself is fully approved, but Gate M4 requires a reproducible repository, and the separately-tracked repository-tracking gap has not yet been remediated); Gate M4 stays **Open**, with the exact blocker recorded as `Repository Tracking Integrity — Reconciliation Required`; Milestone 5 stays Not Started.
 
 ## Full validation
 
@@ -188,4 +214,4 @@ The M4.9 calibration described above (`WorldTrace.tsx`, `WorldTrace.test.tsx`, `
 
 ## Acceptance result
 
-Pending. This document's status is **Ready for Integrated Human Re-review** — the next action is one externally supplied human review, primarily targeting the corrected Home ↔ Work threshold (M4.9), with M4.8 and M4.10 needing only a regression smoke-check since neither was reopened or modified by this calibration. This document does not itself constitute approval and does not close M4.8, M4.9, M4.10, M4-C, or Gate M4.
+**Approved.** The externally supplied M4-C integrated human re-review (Claude did not independently observe or pixel-inspect the rendered interface) passed — see **Integrated Human Re-review Result**, above, for the full chronology and accepted findings. M4.8, M4.9, and M4.10 are each **Complete / Verified**. **M4-C — Representative Motion Prototypes: Approved / Closed.** This closure does not itself close Gate M4 or Milestone 4 — see **D12**, above, and `PROJECT_STATE.md` for the separately-tracked repository-reproducibility blocker that must be resolved first.
