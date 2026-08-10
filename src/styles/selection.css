@@ -118,6 +118,7 @@
 
 .segmented-view-options {
   display: inline-flex;
+  flex-wrap: wrap;
   border: var(--line-hairline) solid var(--color-mist-300);
   border-radius: var(--radius-control);
   overflow: hidden;

@@ -69,6 +69,15 @@ describe("Selection/filter controls contract (IMPLEMENTATION_PLAN.md §7, M2.6)"
     expect(selectionCss.toLowerCase()).not.toMatch(/\.signal\b|--signal|--color-signal/);
   });
 
+  it("[M2.12 responsive correction] segmented-view options wrap rather than clip at narrow widths", () => {
+    // .segmented-view-options uses overflow:hidden for its rounded-corner
+    // clipping; without flex-wrap, options with enough combined width
+    // (many segments, or long labels) would be cut off rather than
+    // recomposed at compact viewports. Regression test for the fix
+    // documented in docs/implementation/M2.12_RESPONSIVE_PRIMITIVE_VERIFICATION.md.
+    expect(ruleBody(selectionCss, ".segmented-view-options")).toMatch(/flex-wrap:\s*wrap/);
+  });
+
   it("does not make pill/capsule geometry the dominant control language", () => {
     // --radius-circle is permitted only for the genuine circular radio-dot
     // marker (the dot and its filled inner ::after) — not for any
