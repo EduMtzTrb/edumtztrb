@@ -2,9 +2,7 @@
 
 ## Status
 
-**Ready for Integrated Human Review.**
-
-This is a batch reconciliation document, not an approval record. M4.1, M4.2, and M4.3 remain individually **Implemented / Mechanically Verified — awaiting M4-A integrated human review**; none is Complete / Verified yet, and this document does not change that. Its purpose is to confirm the three packages form one coherent, non-duplicated motion foundation before a human reviewer looks at it, and to hand that reviewer an exact, reproducible procedure.
+**Approved / Closed.** The M4-A integrated human browser review (externally supplied by the user) has PASSED — see **Integrated Human Review Result** below. M4.1, M4.2, and M4.3 are each now individually **Complete / Verified** (each report's own "Integrated Human Review" section records the accepted findings).
 
 ## Authority
 
@@ -14,9 +12,28 @@ This is a batch reconciliation document, not an approval record. M4.1, M4.2, and
 
 | Package | Report | Status |
 |---|---|---|
-| M4.1 — Motion Tokens | `docs/implementation/M4.1_MOTION_TOKENS.md` | Implemented / Mechanically Verified |
-| M4.2 — Reduced Motion and Capability Handling | `docs/implementation/M4.2_REDUCED_MOTION_CAPABILITY.md` | Implemented / Mechanically Verified |
-| M4.3 — Local Interaction States | `docs/implementation/M4.3_LOCAL_INTERACTION_STATES.md` | Implemented / Mechanically Verified |
+| M4.1 — Motion Tokens | `docs/implementation/M4.1_MOTION_TOKENS.md` | Complete / Verified |
+| M4.2 — Reduced Motion and Capability Handling | `docs/implementation/M4.2_REDUCED_MOTION_CAPABILITY.md` | Complete / Verified |
+| M4.3 — Local Interaction States | `docs/implementation/M4.3_LOCAL_INTERACTION_STATES.md` | Complete / Verified |
+
+## Integrated Human Review Result
+
+`PASSED — externally supplied human browser review.`
+
+This approval was supplied externally by the user after reviewing the running application in a real browser. Claude did not independently observe, render, or pixel-inspect the browser interface at any point — this section records the user's own reported findings, not an automated or Claude-originated visual judgment.
+
+The user reviewed the integrated M4-A motion foundation — using the fixture and procedure recorded in this document's own D11/D12 (below) — across normal desktop motion, reduced-motion behavior, keyboard focus-visible behavior, local interaction states, rapid interruption/latest-intent behavior, 390px responsive behavior, and success/error/loading/disabled/selected state legibility, and reported:
+
+> All reviewed M4-A behavior passes. No additional M4-A calibration is required.
+
+Summarized accepted results, per package (full detail recorded in each package's own updated implementation report, "Integrated Human Review" section):
+
+- **M4.1 — Motion Tokens**: normal-desktop motion timing (duration/easing hierarchy as felt through M4.3's real consumers) passed; reduced-motion parity passed.
+- **M4.2 — Reduced Motion and Capability Handling**: reduced-motion behavior honored end-to-end through the fixture; rapid interruption/latest-intent behavior (the cancellation primitive's real-consumer proof) passed.
+- **M4.3 — Local Interaction States**: normal-desktop motion across all eight local states passed; reduced-motion parity for the same eight states passed; keyboard focus-visible behavior confirmed still instant; rapid interruption/latest-intent behavior passed; 390px responsive behavior passed; selected/loading/success/error/disabled states remained understandable.
+- **Integrated M4-A behavior**: the token → capability → consumer chain reads coherently to a human reviewer, not just mechanically; reduced motion preserves meaning across every reviewed state; keyboard operability is unaffected by the added transitions; rapid intent never leaves a stale local-feedback message on screen; no M4-A visual or interaction blocker remains.
+
+No further M4-A calibration is required. `M4-A — Motion Foundations: Approved / Closed`.
 
 ## D2 — Token → capability → consumer chain audit
 
@@ -146,8 +163,7 @@ Confirmed via `git status`/`git diff` scoped to this task's own changes: only `t
 
 ## Known limitations
 
-- Human visual/interaction review has not yet occurred — this document prepares for it, it does not substitute for it.
-- No performance/frame-timing measurement was taken (out of scope for a token/capability/local-state foundation; relevant once M4.4+ introduces heavier transitions).
+- The human review confirmed behavior at the desktop/reduced-motion/keyboard/390px/rapid-intent views listed in D12; it did not include a dedicated performance/frame-timing pass (out of scope for a token/capability/local-state foundation; relevant once M4.4+ introduces heavier transitions).
 - The fixture (`/contact?motion-fixture=m4a`) is dev-only by design and is not itself real public content — it exists solely to give the reviewer something concrete to interact with.
 
 ## Deferred M4 responsibilities
@@ -156,4 +172,4 @@ Everything not covered by M4.1–M4.3 remains explicitly deferred, unimplemented
 
 ## Acceptance result
 
-Pending. This document's status is **Ready for Integrated Human Review** — the next action is the one externally supplied human review covering all three M4-A packages together, per D11/D12 above. This document does not itself constitute approval and does not close M4.1, M4.2, M4.3, M4-A, or Gate M4.
+The M4-A integrated human browser review has PASSED across all three M4.1–M4.3 packages with no further calibration required (see **Integrated Human Review Result** above). M4.1, M4.2, and M4.3 are each now individually Complete / Verified (their own implementation reports each carry a new "Integrated Human Review" section recording the accepted findings). **M4-A — Motion Foundations: Approved / Closed.** Gate M4 remains open and unassessed for closure — this document does not close Gate M4; see the Gate M4 pre-assessment (D10) above, which still stands unchanged by this closure. M4.4 has not been started.
