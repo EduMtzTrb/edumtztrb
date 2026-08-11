@@ -137,7 +137,22 @@ Reassessed against the complete M4.1–M4.10 scope, now including the passed M4-
 | 15 | Trace corresponds to semantic relationships | PASS — mechanical + human-review-confirmed |
 | 16 | Native scrolling remains intact | PASS — mechanical + human-review-confirmed |
 
-**This 16/16 result is a motion-system-scope statement only — it is not the same thing as "Gate M4 closed."** A separate, unrelated finding from the same pre-review integrity audit (see M4.9's own "WorldTrace Scope" section and `docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md`) established that a clean checkout of this repository's committed HEAD does not build: `GlobalNav.tsx` and a number of other load-bearing files were never committed to Git. That is a repository-reproducibility defect, not a motion-implementation defect — none of the sixteen criteria above concern it, and none of the evidence behind them is invalidated by it (every mechanical test and the human review itself ran against this live, working directory, which does contain those files). But Gate M4's own governing law requires a verified, reproducible repository, not merely a verified working directory, so Gate M4 stays **Open** pending a separate, dedicated Repository Tracking Integrity Reconciliation task. This document does not attempt to close Gate M4.
+**This 16/16 result was, at the time this section was first written, a motion-system-scope statement only — not the same thing as "Gate M4 closed."** A separate, unrelated finding from the same pre-review integrity audit (see M4.9's own "WorldTrace Scope" section and `docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md`) established that a clean checkout of this repository's committed HEAD did not build: `GlobalNav.tsx` and a number of other load-bearing files had never been committed to Git. That was a repository-reproducibility defect, not a motion-implementation defect — none of the sixteen criteria above concerned it, and none of the evidence behind them was invalidated by it (every mechanical test and the human review itself ran against the live working directory, which did contain those files). Gate M4's own governing law requires a verified, reproducible repository, not merely a verified working directory, so at that point Gate M4 stayed **Open** pending a separate, dedicated Repository Tracking Integrity Reconciliation task. **That reconciliation has since run and passed** — see **Gate M4 Closure**, below, for the outcome. This document's own status remains Approved / Closed regardless, as it always was independent of the repository-tracking question.
+
+## Gate M4 Closure
+
+`Gate M4 — Motion Infrastructure Verified`
+
+The Repository Tracking Integrity Reconciliation referenced immediately above (four forward-only commits: `3899016`, `58a4954`, `5b8ad60`, `eb24f28`, plus one documentation-only follow-up, `588a04b`) has since run and passed — full detail in `docs/implementation/M4C_REPOSITORY_TRACKING_INTEGRITY_AUDIT.md`'s own "Reconciliation Result." An isolated clean checkout of the current committed HEAD (verified via `git worktree`, never touching the real working tree) now installs (`npm ci`), format-checks, lints, builds, typechecks, and passes the full test suite — **1322/1322 tests, 148/148 files, 0 lint errors, 54 route-table entries (53 application routes + 1 framework-generated `/_not-found`), 35 static / 19 dynamic** — identical to the working-directory baseline the sixteen-criterion table above was assessed against.
+
+This closure re-confirms rather than re-derives that table: no new browser evidence was gathered, no visual review was re-run, and no criterion's underlying evidence changed. The table above already showed 16/16 PASS with mechanical evidence plus the externally supplied M4-C human re-review's confirmation (Claude did not independently observe that review; recorded truthfully throughout this document). The only thing that changed is that the repository blocking Gate M4's closure — a reproducibility defect entirely orthogonal to the sixteen criteria — is now resolved. With that resolved:
+
+- All sixteen Gate M4 criteria remain supported (mechanical + human-review-confirmed), unchanged from the table above.
+- The repository is now reproducible from Git alone.
+- **Gate M4 — Motion Infrastructure Verified.**
+- **Milestone 4 — Motion Infrastructure: Complete / Verified.**
+
+See `PROJECT_STATE.md` for the formal record of this closure and Milestone 5's own boundary.
 
 ## D13 — Human review harness
 
@@ -214,4 +229,4 @@ The M4.9 calibration described above (`WorldTrace.tsx`, `WorldTrace.test.tsx`, `
 
 ## Acceptance result
 
-**Approved.** The externally supplied M4-C integrated human re-review (Claude did not independently observe or pixel-inspect the rendered interface) passed — see **Integrated Human Re-review Result**, above, for the full chronology and accepted findings. M4.8, M4.9, and M4.10 are each **Complete / Verified**. **M4-C — Representative Motion Prototypes: Approved / Closed.** This closure does not itself close Gate M4 or Milestone 4 — see **D12**, above, and `PROJECT_STATE.md` for the separately-tracked repository-reproducibility blocker that must be resolved first.
+**Approved.** The externally supplied M4-C integrated human re-review (Claude did not independently observe or pixel-inspect the rendered interface) passed — see **Integrated Human Re-review Result**, above, for the full chronology and accepted findings. M4.8, M4.9, and M4.10 are each **Complete / Verified**. **M4-C — Representative Motion Prototypes: Approved / Closed.** This closure did not, on its own, close Gate M4 or Milestone 4 — the separately-tracked repository-reproducibility blocker had to be resolved first. It has since been resolved (see **Gate M4 Closure**, above) — **Gate M4 — Motion Infrastructure Verified**, **Milestone 4 — Complete / Verified**. See `PROJECT_STATE.md` for the formal record.

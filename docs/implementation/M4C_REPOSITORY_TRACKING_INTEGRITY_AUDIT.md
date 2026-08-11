@@ -177,6 +177,10 @@ Every number matches the pre-reconciliation working-directory baseline exactly �
 
 None. Re-auditing `git status` after all four commits shows a fully clean working tree — every path that existed before this reconciliation is now either committed (if it was load-bearing/governing) or was already absent. No genuinely unrelated user/local work was found at any point in this reconciliation (Category G/8 in both audits independently found nothing).
 
+## Gate M4 Closure Recheck
+
+During Gate M4's own formal closure task, this repository's reproducibility was rechecked once more (a lightweight confirmation, not a repeat of the full historical audit above): a fresh, isolated `git worktree` at the then-current HEAD (`588a04b`) ran `npm ci` → `format:check` → `lint` → `build` → `tsc --noEmit` → `test:run`, all passing with the same totals recorded in **Clean-checkout verification**, above (1322/1322 tests, 148/148 files, 0 lint errors, 54 route-table entries, 35 static / 19 dynamic). Reproducibility held. This blocker is now formally cleared for Gate M4 — see `docs/implementation/M4C_REPRESENTATIVE_MOTION_PROTOTYPES_RECONCILIATION.md`'s own "Gate M4 Closure" and `PROJECT_STATE.md` for the formal closure record.
+
 ## Status
 
 **Repository Tracking Integrity — Reconciled / Verified.**
