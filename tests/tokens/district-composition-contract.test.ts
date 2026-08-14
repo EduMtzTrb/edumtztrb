@@ -64,8 +64,66 @@ describe("District composition contract (DESIGN_SYSTEM.md v1.1 §11)", () => {
     expect(compositionCss).not.toMatch(/transition|animation|transform/);
   });
 
-  it("contains no color or Signal declaration — density is expressed structurally, not chromatically", () => {
-    expect(compositionCss).not.toMatch(/color|background|--signal/i);
+  it("reuses only pre-approved, WCAG-verified color tokens for peripheral latency — no new color, palette, or Signal declaration", () => {
+    // No hardcoded color literal anywhere — every color value must be an
+    // existing custom property, never a hex/rgb/hsl value invented here.
+    expect(compositionCss).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
+    expect(compositionCss).not.toMatch(/\brgb\(|\brgba\(|\bhsl\(/);
+    expect(compositionCss.toLowerCase()).not.toMatch(/--signal/);
+    expect(compositionCss).not.toMatch(/--color-district-/);
+    // The only two color-bearing declarations in the file reuse the exact
+    // pairing already WCAG-verified for the Metadata Rail's own Latent tier
+    // (src/styles/tokens/opacity.css) — never a value invented for this file.
+    expect(compositionCss).toContain("color: var(--color-mist-300);");
+    expect(compositionCss).toContain("opacity: var(--opacity-latent);");
+  });
+
+  it("peripheral latency (color + opacity) is a property of the role itself, not gated behind any [data-density=...] selector", () => {
+    expect(compositionCss).toMatch(
+      /\.district-field-peripheral\s*\{\s*color:\s*var\(--color-mist-300\);\s*opacity:\s*var\(--opacity-latent\);\s*\}/,
+    );
+  });
+
+  it("the field opens with a hairline threshold reusing the existing hairline/graphite tokens — bounding the void above it, not merely shrinking it", () => {
+    expect(compositionCss).toContain(
+      "border-block-start: var(--line-hairline) solid var(--color-graphite-700);",
+    );
+  });
+
+  it("concentrated's primary zone is itself offset off the left edge at both medium and wide — genuine asymmetry, not merely less content flush at column 1", () => {
+    const concentratedPrimaryOffsets = [
+      ...compositionCss.matchAll(
+        /\[data-density="concentrated"\]\s*\.district-field-primary\s*\{\s*grid-column:\s*(\d+)\s*\/\s*span\s*\d+;/g,
+      ),
+    ].map((m) => m[1]);
+    expect(concentratedPrimaryOffsets).toHaveLength(2); // medium + wide
+    for (const start of concentratedPrimaryOffsets) {
+      expect(start).not.toBe("1");
+    }
+  });
+
+  it("moderate stays a flush split at both medium and wide, in contrast with concentrated's offset — two genuinely distinct spatial signatures", () => {
+    const moderatePrimaryOffsets = [
+      ...compositionCss.matchAll(
+        /\[data-density="moderate"\]\s*\.district-field-primary\s*\{\s*grid-column:\s*(\d+)\s*\/\s*span\s*\d+;/g,
+      ),
+    ].map((m) => m[1]);
+    expect(moderatePrimaryOffsets).toHaveLength(2);
+    for (const start of moderatePrimaryOffsets) {
+      expect(start).toBe("1");
+    }
+  });
+
+  it("dense preserves a one-column selective-offset gap between primary and peripheral at both medium and wide", () => {
+    const denseRule =
+      /\[data-density="dense"\]\s*\.district-field-primary\s*\{\s*grid-column:\s*1\s*\/\s*span\s*(\d+);\s*\}\s*\.district-field\[data-density="dense"\]\s*\.district-field-peripheral\s*\{\s*grid-column:\s*(\d+)\s*\/\s*span\s*\d+;/g;
+    const matches = [...compositionCss.matchAll(denseRule)];
+    expect(matches).toHaveLength(2); // medium + wide
+    for (const [, primarySpan, peripheralStart] of matches) {
+      // peripheral starts exactly one column after primary's span ends
+      // (primary occupies columns 1..span, so span+2 is the one-gap start).
+      expect(Number(peripheralStart)).toBe(Number(primarySpan) + 2);
+    }
   });
 
   it("district-nav.css now shares the same responsive margin tokens as .composition — navigation and content share one edge", () => {

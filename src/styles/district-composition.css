@@ -1,16 +1,19 @@
 /**
- * Shared district composition — M5.0 Part B.
+ * Shared district composition — M5.0 Part B, calibrated after first human
+ * review (see docs/implementation/M5.0_SHARED_DISTRICT_SHELL.md "Human
+ * Review — Calibration Required").
  *
  * Authority: DESIGN_SYSTEM.md v1.1 §11 (Governing compositional grammar —
  * controlled asymmetry, concentrated void, shared axes, selective offset,
- * peripheral latency, deliberate density gradients), §11.3 ("Shared
- * architectural axes establish order and trust. They are the primary
- * structural reference across districts."), §11.4 (selective offset is
- * "an ordinary part of the visual grammar", not automatically a Controlled
- * Exception), §11.7 (density gradients), §11.8 ("No fixed dominant/
- * peripheral ratio is approved"), §47/§48/§50 (responsive recomposition:
- * lateral relationships may become vertical, peripheral latency may become
- * sequential latency, on the same 4/8/12 grid).
+ * peripheral latency, deliberate density gradients), §11.1 (Controlled
+ * asymmetry), §11.2 (Concentrated void), §11.3 (Shared axes), §11.4
+ * (Selective offset), §11.6 (Peripheral latency), §11.7 (Density
+ * gradients), §11.8 ("No fixed dominant/peripheral ratio is approved"),
+ * §22.3/§97 (Latent metadata tier — the opacity precedent reused below),
+ * §47/§48/§50 (responsive recomposition: lateral relationships may become
+ * vertical, peripheral latency may become sequential latency, responsive
+ * asymmetry may survive through unequal intervals/selective edge
+ * occupation, on the same 4/8/12 grid).
  *
  * `.district-field` is a nested grid using the exact same column-count and
  * gutter tokens as `.composition` (src/styles/layout.css) at the same three
@@ -20,24 +23,37 @@
  * rather than invent a second, unrelated ratio system. No new breakpoint,
  * margin, gutter, or column-count token is introduced anywhere in this file.
  *
- * Below 1024px, primary and peripheral both span the full row and stack in
- * DOM order (§47 "lateral relationships may become vertical"; §50
- * "peripheral information may become... later in sequence") — an ordinary
- * consequence of `grid-column: 1 / -1` on both roles, not a special case.
- *
- * `data-density` expresses §11.7's own density-gradient vocabulary
- * (concentrated void / moderate / dense evidence) as one shared,
- * district-agnostic state — never a district name, never a per-district
- * fork. The exact dominant/peripheral ratio and void deliberately differ
- * per density value, because §11.8 states no fixed ratio is approved; only
- * the mechanism (shared grid, shared tokens) is fixed.
+ * CALIBRATION SUMMARY (first review found the mechanism correct but the
+ * expression too implicit):
+ * - The field now opens with a hairline threshold (`border-block-start`,
+ *   the exact weight/color `.global-header`/`.district-nav-list` already
+ *   use for their own structural dividers) — the void above it (normally a
+ *   page heading's own `.field-interval`) now has a legible edge instead of
+ *   trailing into unmarked space (§11.2/§11.3).
+ * - `.district-field-peripheral` now permanently carries §11.6's peripheral
+ *   latency, expressed through the exact color+opacity pairing already
+ *   WCAG-verified for the Metadata Rail's own Latent tier
+ *   (`--color-mist-300` + `--opacity-latent`, src/styles/tokens/opacity.css)
+ *   — never a new color, never a border/panel/background.
+ * - Each density value now gets a genuinely distinct spatial signature, not
+ *   only a different ratio: `moderate` stays a flush split (the balanced
+ *   default); `dense` opens its peripheral zone with a one-column selective
+ *   offset (§11.4); `concentrated` offsets its primary zone itself, leaving
+ *   void on both sides, so it reads as a deliberately placed field rather
+ *   than "less content" flush against the left edge.
+ * - Below 768px, peripheral gains its own inset + leading hairline — a
+ *   compact-scale trace of the same shared-axis/offset grammar — which is
+ *   replaced by real column position once peripheral becomes a column at
+ *   768px and above.
  */
 
 .district-field {
   display: grid;
   grid-template-columns: repeat(var(--grid-compact-4), 1fr);
   column-gap: var(--gutter-compact);
-  row-gap: var(--space-6);
+  row-gap: var(--space-5);
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+  padding-block-start: var(--space-7);
 }
 
 .district-field-primary,
@@ -46,10 +62,83 @@
   min-width: 0;
 }
 
+/* Peripheral latency (§11.6) is a permanent property of the role, not a
+   viewport-specific state — reuses the exact color+opacity combination
+   already WCAG-verified for the Metadata Rail's Latent tier rather than
+   inventing a new one (see file header). */
+.district-field-peripheral {
+  color: var(--color-mist-300);
+  opacity: var(--opacity-latent);
+}
+
+/* Compact (base, mobile-first): both roles stack full-width in DOM order.
+   Peripheral gets a modest inline offset and its own leading hairline — a
+   legible, compact-scale trace of selective offset and primary/peripheral
+   sequencing that survives stacking, without recreating desktop columns
+   (§48 "Responsive asymmetry... may survive through unequal vertical
+   intervals... selective edge occupation"). Replaced by real column
+   position at 768px and above. */
+.district-field-peripheral {
+  margin-inline-start: var(--space-4);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+}
+
 @media (min-width: 768px) {
   .district-field {
     grid-template-columns: repeat(var(--grid-medium-8), 1fr);
     column-gap: var(--gutter-medium);
+  }
+
+  .district-field-peripheral {
+    margin-inline-start: 0;
+    padding-block-start: 0;
+    border-block-start: none;
+    margin-block-start: var(--space-5);
+  }
+
+  /* Concentrated — sparse/focus-forward (§11.1 controlled asymmetry, §11.2
+     concentrated void): primary is itself offset off the left edge, not
+     merely flush with less content — void surrounds it on both sides.
+     Peripheral becomes a narrow, deliberately latent edge condition. */
+  .district-field[data-density="concentrated"] {
+    row-gap: var(--space-9);
+  }
+  .district-field[data-density="concentrated"] .district-field-primary {
+    grid-column: 2 / span 5;
+  }
+  .district-field[data-density="concentrated"] .district-field-peripheral {
+    grid-column: 8 / span 1;
+  }
+
+  /* Moderate — the balanced, flush default split (§11.8: "No fixed
+     dominant/peripheral ratio is approved" — this is one approved point on
+     that scale, not the only one). Fluid row-gap (an inline clamp, the same
+     established pattern `.field-interval` already uses for compositional-
+     scale void, not a new token) gives it an "editorial breathing" quality
+     dense's fixed, tighter interval deliberately does not have. */
+  .district-field[data-density="moderate"] {
+    row-gap: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+  }
+  .district-field[data-density="moderate"] .district-field-primary {
+    grid-column: 1 / span 6;
+  }
+  .district-field[data-density="moderate"] .district-field-peripheral {
+    grid-column: 7 / span 2;
+  }
+
+  /* Dense — evidence-forward (§11.7 dense evidence): tight, fixed void, and
+     the peripheral zone opens one column early — a selective offset
+     (§11.4), ordinary grammar, not a Controlled Exception — keeping the two
+     zones from reading as one merged block even at this density. */
+  .district-field[data-density="dense"] {
+    row-gap: var(--space-3);
+  }
+  .district-field[data-density="dense"] .district-field-primary {
+    grid-column: 1 / span 4;
+  }
+  .district-field[data-density="dense"] .district-field-peripheral {
+    grid-column: 6 / span 3;
   }
 }
 
@@ -59,24 +148,13 @@
     column-gap: var(--gutter-wide);
   }
 
-  /* Concentrated — sparse/focus-forward (§11.2 concentrated void, §11.6
-     peripheral latency): primary claims nearly the full field; the
-     compositional void between rows widens; peripheral, when present,
-     becomes a narrow, deliberately latent edge condition. */
-  .district-field[data-density="concentrated"] {
-    row-gap: var(--space-8);
-  }
   .district-field[data-density="concentrated"] .district-field-primary {
-    grid-column: 1 / span 9;
+    grid-column: 2 / span 8;
   }
   .district-field[data-density="concentrated"] .district-field-peripheral {
     grid-column: 11 / span 2;
   }
 
-  /* Moderate — the default, balanced dominant/peripheral split (§11.8). */
-  .district-field[data-density="moderate"] {
-    row-gap: var(--space-6);
-  }
   .district-field[data-density="moderate"] .district-field-primary {
     grid-column: 1 / span 8;
   }
@@ -84,14 +162,6 @@
     grid-column: 9 / span 4;
   }
 
-  /* Dense — evidence-forward (§11.7 dense evidence): tighter void, and the
-     peripheral zone opens one column early — a selective offset (§11.4),
-     ordinary grammar, not a Controlled Exception — creating a one-column
-     reserved interval that keeps the two zones from reading as a single
-     merged block even at this density. */
-  .district-field[data-density="dense"] {
-    row-gap: var(--space-4);
-  }
   .district-field[data-density="dense"] .district-field-primary {
     grid-column: 1 / span 7;
   }
