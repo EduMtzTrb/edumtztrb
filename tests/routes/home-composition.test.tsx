@@ -162,19 +162,49 @@ describe("Home composition (M5.1)", () => {
     expect(homeCss).not.toMatch(/\btransition\s*:|\banimation\s*:|\btransform\s*:/);
   });
 
-  it("home.css reuses the exact same shared grid/gutter/spacing tokens as .composition and district-composition.css — no parallel layout system", () => {
-    expect(homeCss).toContain("var(--grid-compact-4)");
-    expect(homeCss).toContain("var(--grid-medium-8)");
-    expect(homeCss).toContain("var(--grid-wide-12)");
-    expect(homeCss).toContain("var(--gutter-compact)");
-    expect(homeCss).toContain("var(--gutter-medium)");
-    expect(homeCss).toContain("var(--gutter-wide)");
+  it("home.css never redefines .district-field's own grid — it composes with DistrictField's peripheral role rather than reinventing a parallel grid", () => {
+    expect(homeCss).not.toMatch(/grid-template-columns/);
     expect(homeCss).not.toMatch(/:root\s*\{/);
+    // Every scoped override targets the existing .district-field/
+    // .district-field-peripheral selectors DistrictField itself renders,
+    // never a new top-level grid class of its own.
+    expect(homeCss).toMatch(/\[data-district="home"\]\s*\.district-field/);
+  });
+
+  it("home.css reuses only existing spacing/line tokens for its own rules — no new token anywhere", () => {
+    expect(homeCss).toMatch(/var\(--space-\d+\)/);
+    expect(homeCss).toContain("var(--line-hairline)");
+    expect(homeCss).toContain("var(--color-graphite-700)");
+  });
+
+  it("the district field's peripheral column is the one DistrictField already defines — Home only widens it at medium width, never redefines it at wide/compact", () => {
+    const wideOrCompactOverride =
+      /(?:1024px|max-width:\s*767px)[\s\S]{0,300}\.district-field-peripheral\s*\{[\s\S]*?grid-column/;
+    expect(homeCss).not.toMatch(wideOrCompactOverride);
   });
 
   it("introduces no decorative relationship/network geometry — no svg or canvas element", () => {
     const { container } = render(<HomePage />);
     expect(container.querySelector("svg")).toBeNull();
     expect(container.querySelector("canvas")).toBeNull();
+  });
+
+  it("districts are DistrictField's own peripheral content — not a separate sibling section", () => {
+    const { container } = render(<HomePage />);
+    const peripheral = container.querySelector(".district-field-peripheral");
+    expect(peripheral).not.toBeNull();
+    expect(peripheral!.querySelector(".home-districts")).not.toBeNull();
+    // No standalone "Districts" section exists outside DistrictField.
+    const field = container.querySelector(".district-field");
+    expect(field!.querySelector('[aria-label="Districts"]')).not.toBeNull();
+  });
+
+  it("all six thresholds remain semantic peers — no district-specific class or attribute distinguishes one from another beyond real Work threshold wiring", () => {
+    render(<HomePage />);
+    const districts = within(screen.getByRole("region", { name: "Districts" }));
+    for (const { label } of APPROVED_DISTRICT_THRESHOLDS) {
+      const link = districts.getByRole("link", { name: label });
+      expect(link.className).not.toMatch(/district-[a-z]+-(primary|dominant)/);
+    }
   });
 });

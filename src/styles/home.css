@@ -1,37 +1,73 @@
 /**
- * Home — M5.1. The one Home-specific stylesheet permitted by M5.0's own
- * boundary ("Home-specific additions are allowed"; "compose the same grid
- * logic through a Home-specific wrapper" rather than force six peer
- * district thresholds into `DistrictField`'s primary/peripheral shape,
- * which the six thresholds do not structurally fit).
+ * Home — M5.1, calibrated after first human review (see
+ * docs/implementation/M5.1_HOME.md "Human Review — Calibration Required" /
+ * "Calibration Implementation"). The one Home-specific stylesheet
+ * permitted by M5.0's own boundary ("Home-specific additions are
+ * allowed"). Never modifies `district-composition.css` or `DistrictField`
+ * itself — every rule below either styles Home-only content
+ * (`.home-districts`) or scopes a more specific selector to
+ * `[data-district="home"]`, layering on top of M5.0's unchanged base.
  *
- * Authority: DESIGN_SYSTEM.md v1.1 §70 (Home register — "strongest
- * concentrated void," "low default evidence density"), §11.3 (shared
- * axes), HOME_UNIVERSE_v1.1.md §7 ("Emergence"/"Orientation"/"Selection" —
- * districts become perceptible before the underlying order clarifies),
- * §20 Law 6 ("Districts differ through transformation of the shared
- * field, not through independent identity at Home").
+ * Authority: DESIGN_SYSTEM.md v1.1 §11.1 (controlled asymmetry), §11.3
+ * (shared axes), §11.4 (selective offset — "alternating latent/resolved
+ * placement" is exactly this), §11.6 (peripheral latency), HOME_UNIVERSE_v1.1.md
+ * §10/§20 ("no single threshold may dominate"; "controlled differences in
+ * distance from common ground").
  *
- * `.home-districts` reuses the exact same column-count/gutter tokens as
- * `.composition` and `district-composition.css`, at the same three
- * breakpoints — the same "shared axes" discipline, not a fourth, unrelated
- * grid. No new breakpoint, margin, gutter, column-count, or color token is
- * introduced. Six peer entries (not a primary/peripheral pair) is why this
- * is its own rule rather than a `DistrictField` instance — forcing six
- * equal thresholds through a two-role primitive would misrepresent them as
- * unequal.
+ * CALIBRATION — the six district thresholds are now `DistrictField`'s own
+ * `peripheral` content (see src/app/page.tsx), not a separate section
+ * below it, so they already inherit the peripheral-latency color/opacity
+ * and compact-width inset/hairline M5.0 established. What remains
+ * Home-specific is: (1) a real connecting axis line down the list — a
+ * genuine structural trace, not decoration, marking that all six
+ * thresholds share one line of reference; (2) an alternating inline
+ * offset (§11.4's own "alternating latent/resolved placement") so the six
+ * peer thresholds occupy visibly different positions without encoding a
+ * false permanent ranking; (3) a tightened, Home-only void between the
+ * heading and the field, so the signature and the field read as one
+ * continuous composition rather than a hero stacked above a separate
+ * block; (4) a wider peripheral column at medium width specifically for
+ * Home, since six real navigational entries need more room than the
+ * abstract M5.0 fixture ever demonstrated.
  */
 
+/* (3) Tighten the heading → field connection for Home only — every other
+   consumer of `.district-field` keeps M5.0's own `--space-7`. */
+[data-district="home"] .district-field {
+  padding-block-start: var(--space-5);
+}
+
+/* (4) Six real entries need more room than the fixture's narrow
+   concentrated-density peripheral column at medium width. Wide keeps
+   M5.0's own span 2 of 12 unchanged; compact is already full-width. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  [data-district="home"] .district-field[data-density="concentrated"] .district-field-peripheral {
+    grid-column: 6 / span 3;
+  }
+}
+
 .home-districts {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-compact-4), 1fr);
-  column-gap: var(--gutter-compact);
-  row-gap: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
   margin: 0;
+  padding: 0;
+  /* (1) The shared axis every threshold is measured against — a real
+     structural trace (DESIGN_SYSTEM.md §11.3), not a decorative rule. */
+  border-inline-start: var(--line-hairline) solid var(--color-graphite-700);
 }
 
 .home-districts > div {
-  grid-column: 1 / -1;
+  padding-inline-start: var(--space-4);
+}
+
+/* (2) Alternating placement — a restrained, intentional rhythm, not a
+   ranking: every other threshold recedes slightly further from the
+   shared axis. Order remains Work-first (the one district with real
+   reciprocal M4.9 wiring), but position never implies the other five are
+   lesser — only that the field has depth. */
+.home-districts > div:nth-child(even) {
+  margin-inline-start: var(--space-4);
 }
 
 .home-districts dt {
@@ -40,26 +76,4 @@
 
 .home-districts dd {
   margin: 0;
-}
-
-@media (min-width: 768px) {
-  .home-districts {
-    grid-template-columns: repeat(var(--grid-medium-8), 1fr);
-    column-gap: var(--gutter-medium);
-  }
-
-  .home-districts > div {
-    grid-column: span 4;
-  }
-}
-
-@media (min-width: 1024px) {
-  .home-districts {
-    grid-template-columns: repeat(var(--grid-wide-12), 1fr);
-    column-gap: var(--gutter-wide);
-  }
-
-  .home-districts > div {
-    grid-column: span 4;
-  }
 }

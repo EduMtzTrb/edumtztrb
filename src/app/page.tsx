@@ -6,10 +6,11 @@ import { ThresholdIndicator } from "@/components/threshold/ThresholdIndicator";
 import { HOME_TO_WORK_ARRIVAL_KEY, WORK_TO_HOME_ARRIVAL_KEY } from "@/lib/threshold/thresholdKeys";
 
 /**
- * Home — M5.1. The entrance to the platform ("the Threshold Field",
- * HOME_UNIVERSE_v1.1.md §4), not a district page and not a conventional
- * homepage. See docs/implementation/M5.1_HOME.md for the full audit,
- * authority citations, and the reasoning behind every decision below.
+ * Home — M5.1, calibrated after first human review (see
+ * docs/implementation/M5.1_HOME.md "Human Review — Calibration Required" /
+ * "Calibration Implementation"). The entrance to the platform ("the
+ * Threshold Field", HOME_UNIVERSE_v1.1.md §4), not a district page and not
+ * a conventional homepage.
  *
  * CONTENT BOUNDARY — every visible sentence below is an exact, already-
  * approved quote (cited inline), never invented copy: the heading and
@@ -22,15 +23,18 @@ import { HOME_TO_WORK_ARRIVAL_KEY, WORK_TO_HOME_ARRIVAL_KEY } from "@/lib/thresh
  * supplies; that integration is deferred (see the implementation doc's
  * "Deferred" section), not fabricated here.
  *
- * STRUCTURE — one `DistrictField` instance (§9 "Field"/"Orientation";
- * DESIGN_SYSTEM.md §70 Home register: "strongest concentrated void, low
- * default evidence density") carries the orientation statement; the six
- * district thresholds are their own `.home-districts` list (six peer
- * entries do not fit a primary/peripheral pair) using the exact same
- * shared grid tokens. Only Work keeps the real M4.9 `ThresholdLink`/
- * `ThresholdIndicator` wiring — the only district with reciprocal arrival-
- * side treatment; the other five are honest, plain canonical-route links,
- * never a fabricated passage (M5.1's own "no fabricated Home passage").
+ * CALIBRATION — the six district thresholds are now the `peripheral` role
+ * of the SAME `DistrictField` instance that carries the orientation
+ * statement, not a separate block stacked below it. This is what turns
+ * "hero, then a nav-like list underneath" into one field with a resolved
+ * zone and a latent zone: the districts inherit `DistrictField`'s existing
+ * peripheral-latency treatment (color/opacity, M5.0's own calibrated,
+ * WCAG-verified pairing) and its compact-width inset/hairline rhythm for
+ * free, and share the field's one grid rather than a second, disconnected
+ * layout. `density="concentrated"` (unchanged) keeps the orientation
+ * statement itself asymmetrically offset (§11.1 controlled asymmetry) —
+ * the "hero" now has a real, structural relationship to the district
+ * field beside it, rather than being an isolated block above one.
  */
 
 const DISTRICT_THRESHOLDS = [
@@ -63,33 +67,30 @@ export default function Home() {
           </p>
         }
         peripheral={
-          <p className="type-annotation">
-            Major categories function as districts within the same world.
-          </p>
+          <section aria-label="Districts">
+            <dl className="home-districts">
+              {DISTRICT_THRESHOLDS.map((district) => (
+                <div key={district.href}>
+                  <dt className="type-h3">
+                    {district.href === "/work" ? (
+                      <ThresholdLink
+                        href="/work"
+                        arrivalKey={HOME_TO_WORK_ARRIVAL_KEY}
+                        className="link type-label"
+                      >
+                        {district.label}
+                      </ThresholdLink>
+                    ) : (
+                      <ActionLink href={district.href}>{district.label}</ActionLink>
+                    )}
+                  </dt>
+                  <dd className="type-annotation">{district.framing}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
         }
       />
-      <section aria-label="Districts">
-        <dl className="home-districts">
-          {DISTRICT_THRESHOLDS.map((district) => (
-            <div key={district.href}>
-              <dt className="type-h3">
-                {district.href === "/work" ? (
-                  <ThresholdLink
-                    href="/work"
-                    arrivalKey={HOME_TO_WORK_ARRIVAL_KEY}
-                    className="link type-label"
-                  >
-                    {district.label}
-                  </ThresholdLink>
-                ) : (
-                  <ActionLink href={district.href}>{district.label}</ActionLink>
-                )}
-              </dt>
-              <dd className="type-annotation">{district.framing}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
     </WorldThresholdShell>
   );
 }
