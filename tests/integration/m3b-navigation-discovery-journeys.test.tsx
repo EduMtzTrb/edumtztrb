@@ -88,7 +88,7 @@ describe("Journey 3 — Search query → matching canonical record", () => {
 describe("Journey 4 — Direct deep link → orientation → district overview", () => {
   it("a canonical-record deep link, opened cold, orients to its district and offers a real Overview link", async () => {
     const element = await WorkEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-work-outcome" }),
       searchParams: Promise.resolve({}),
     });
     render(element);

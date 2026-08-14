@@ -73,13 +73,25 @@ describe("Representative route → page-shell wiring (real page.tsx files)", () 
   // time, then hands the resulting element to Testing Library like any other.
   it("/work/[entry] resolves params and renders the Canonical Record shell (dynamic route)", async () => {
     const element = await WorkEntryPage({
+      params: Promise.resolve({ entry: "fixture-work-outcome" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    expect(screen.getByRole("main")).toHaveAttribute("data-page-type", "canonical-record");
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Fixture work outcome" }),
+    ).toBeInTheDocument();
+  });
+
+  it("/work/[entry] with an unknown slug renders the Canonical Record shell honestly unavailable, never a fabricated record", async () => {
+    const element = await WorkEntryPage({
       params: Promise.resolve({ entry: "test-entry" }),
       searchParams: Promise.resolve({}),
     });
     render(element);
     expect(screen.getByRole("main")).toHaveAttribute("data-page-type", "canonical-record");
     expect(
-      screen.getByRole("heading", { level: 1, name: "Work — test-entry" }),
+      screen.getByRole("heading", { level: 1, name: "Record unavailable" }),
     ).toBeInTheDocument();
   });
 });

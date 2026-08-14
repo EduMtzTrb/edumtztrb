@@ -33,7 +33,7 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
     // own tests; this test renders the page component in isolation, the
     // same pattern route-shell-wiring.test.tsx already established.
     const element = await WorkEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-work-outcome" }),
       searchParams: Promise.resolve({}),
     });
     render(element);

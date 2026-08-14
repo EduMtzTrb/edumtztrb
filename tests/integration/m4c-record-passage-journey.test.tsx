@@ -63,9 +63,7 @@ describe("Real journey — Index (Work lens) → canonical Work record → Retur
     // Reconciliation: a genuine passage arrival also receives the restrained
     // Record-Passage treatment — the shared-origin anchor is real, visible content.
     await waitFor(() => {
-      expect(
-        screen.getByText(/Arrived from Index — Work — fixture-work-outcome/),
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Arrived from Index — Fixture work outcome/)).toBeInTheDocument();
     });
   });
 
