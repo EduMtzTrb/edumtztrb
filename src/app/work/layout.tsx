@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
 
-import { DistrictNav } from "@/components/shell/DistrictNav";
+import { DistrictShell } from "@/components/shell/DistrictShell";
 
 export const metadata: Metadata = {
   title: "Work",
 };
 
 export default function WorkLayout({ children }: LayoutProps<"/work">) {
-  return (
-    <div data-district="work">
-      <DistrictNav district="work" />
-      {children}
-    </div>
-  );
+  return <DistrictShell district="work">{children}</DistrictShell>;
 }

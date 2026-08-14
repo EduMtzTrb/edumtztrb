@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
 
-import { DistrictNav } from "@/components/shell/DistrictNav";
+import { DistrictShell } from "@/components/shell/DistrictShell";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
 export default function AboutLayout({ children }: LayoutProps<"/about">) {
-  return (
-    <div data-district="about">
-      <DistrictNav district="about" />
-      {children}
-    </div>
-  );
+  return <DistrictShell district="about">{children}</DistrictShell>;
 }

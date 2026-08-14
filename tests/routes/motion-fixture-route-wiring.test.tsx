@@ -64,4 +64,45 @@ describe("Motion fixture route wiring (M4.3)", () => {
     expect(screen.getByRole("columnheader", { name: "Attempt A" })).toBeInTheDocument();
     expect(screen.getByText("Tested in")).toBeInTheDocument();
   });
+
+  it("/contact?composition-fixture=m5 renders the labeled M5.0 District Composition fixture, independent of the motion-fixture flag", async () => {
+    const element = await ContactPage({
+      params: Promise.resolve({}),
+      searchParams: Promise.resolve({ "composition-fixture": "m5" }),
+    });
+    const { container } = render(element);
+    expect(
+      screen.getByText("M5.0 District Composition Fixture — not real public content"),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/M4-A Motion Foundation Fixture/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: /Dense \/ evidence-forward/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: /Editorial \/ reading-forward/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: /Sparse \/ focus-forward/ }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("complementary", { name: "Related" })).toHaveLength(3);
+    // One shared composition system, not three layouts: all three sections
+    // render the same `.district-field` primitive, distinguished only by
+    // `data-density`, never by a per-district or per-state class fork.
+    const fields = container.querySelectorAll(".district-field");
+    expect(fields).toHaveLength(3);
+    expect([...fields].map((field) => field.getAttribute("data-density")).sort()).toEqual([
+      "concentrated",
+      "dense",
+      "moderate",
+    ]);
+  });
+
+  it("an unrecognized composition-fixture value does not activate the M5.0 fixture", async () => {
+    const element = await ContactPage({
+      params: Promise.resolve({}),
+      searchParams: Promise.resolve({ "composition-fixture": "wrong" }),
+    });
+    render(element);
+    expect(screen.queryByText(/M5\.0 District Composition Fixture/i)).not.toBeInTheDocument();
+  });
 });

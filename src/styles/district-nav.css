@@ -1,5 +1,6 @@
 /**
- * District (secondary) navigation — M3.8.
+ * District (secondary) navigation — M3.8, edge-aligned to district content
+ * by M5.0 Part B.
  * Deliberately visually distinct from the shared global navigation
  * (shell.css): no separate colored border-box, no shared class name with
  * `.global-nav-list`/`.global-utilities-list` — a sighted visitor and a
@@ -7,6 +8,16 @@
  * encounter global and district navigation as unambiguous, non-competing
  * roles (this task's own §B3). Uses only existing Color/Spacing/Geometry
  * tokens — no new token, no motion, no hover-only content.
+ *
+ * M5.0 Part B: horizontal padding now reuses the exact same responsive
+ * margin tokens as `.composition` (src/styles/layout.css) at the same
+ * breakpoints, so the navigation's left/right edges align with the
+ * district content grid immediately below it — DESIGN_SYSTEM.md v1.1
+ * §11.3 ("Shared architectural axes establish order and trust... the
+ * primary structural reference across districts"). Before this change the
+ * navigation used a fixed `--space-4` inline padding, unrelated to the
+ * content grid's fluid margin — a genuine shared-axis gap the Part A audit
+ * had left unaddressed.
  */
 
 .district-nav-list {
@@ -14,8 +25,21 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   list-style: none;
-  padding: var(--space-2) var(--space-4);
+  padding-block: var(--space-2);
+  padding-inline: var(--margin-compact);
   border-bottom: var(--line-hairline) solid var(--color-graphite-700);
+}
+
+@media (min-width: 768px) {
+  .district-nav-list {
+    padding-inline: var(--margin-medium);
+  }
+}
+
+@media (min-width: 1024px) {
+  .district-nav-list {
+    padding-inline: var(--margin-wide);
+  }
 }
 
 .district-nav-list a {

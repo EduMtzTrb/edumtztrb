@@ -1,0 +1,101 @@
+/**
+ * Shared district composition — M5.0 Part B.
+ *
+ * Authority: DESIGN_SYSTEM.md v1.1 §11 (Governing compositional grammar —
+ * controlled asymmetry, concentrated void, shared axes, selective offset,
+ * peripheral latency, deliberate density gradients), §11.3 ("Shared
+ * architectural axes establish order and trust. They are the primary
+ * structural reference across districts."), §11.4 (selective offset is
+ * "an ordinary part of the visual grammar", not automatically a Controlled
+ * Exception), §11.7 (density gradients), §11.8 ("No fixed dominant/
+ * peripheral ratio is approved"), §47/§48/§50 (responsive recomposition:
+ * lateral relationships may become vertical, peripheral latency may become
+ * sequential latency, on the same 4/8/12 grid).
+ *
+ * `.district-field` is a nested grid using the exact same column-count and
+ * gutter tokens as `.composition` (src/styles/layout.css) at the same three
+ * breakpoints (`--grid-compact-4`/`--grid-medium-8`/`--grid-wide-12`,
+ * `--gutter-compact`/`--gutter-medium`/`--gutter-wide`) — this is what makes
+ * the primary/peripheral split share the platform's one architectural axis
+ * rather than invent a second, unrelated ratio system. No new breakpoint,
+ * margin, gutter, or column-count token is introduced anywhere in this file.
+ *
+ * Below 1024px, primary and peripheral both span the full row and stack in
+ * DOM order (§47 "lateral relationships may become vertical"; §50
+ * "peripheral information may become... later in sequence") — an ordinary
+ * consequence of `grid-column: 1 / -1` on both roles, not a special case.
+ *
+ * `data-density` expresses §11.7's own density-gradient vocabulary
+ * (concentrated void / moderate / dense evidence) as one shared,
+ * district-agnostic state — never a district name, never a per-district
+ * fork. The exact dominant/peripheral ratio and void deliberately differ
+ * per density value, because §11.8 states no fixed ratio is approved; only
+ * the mechanism (shared grid, shared tokens) is fixed.
+ */
+
+.district-field {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-compact-4), 1fr);
+  column-gap: var(--gutter-compact);
+  row-gap: var(--space-6);
+}
+
+.district-field-primary,
+.district-field-peripheral {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .district-field {
+    grid-template-columns: repeat(var(--grid-medium-8), 1fr);
+    column-gap: var(--gutter-medium);
+  }
+}
+
+@media (min-width: 1024px) {
+  .district-field {
+    grid-template-columns: repeat(var(--grid-wide-12), 1fr);
+    column-gap: var(--gutter-wide);
+  }
+
+  /* Concentrated — sparse/focus-forward (§11.2 concentrated void, §11.6
+     peripheral latency): primary claims nearly the full field; the
+     compositional void between rows widens; peripheral, when present,
+     becomes a narrow, deliberately latent edge condition. */
+  .district-field[data-density="concentrated"] {
+    row-gap: var(--space-8);
+  }
+  .district-field[data-density="concentrated"] .district-field-primary {
+    grid-column: 1 / span 9;
+  }
+  .district-field[data-density="concentrated"] .district-field-peripheral {
+    grid-column: 11 / span 2;
+  }
+
+  /* Moderate — the default, balanced dominant/peripheral split (§11.8). */
+  .district-field[data-density="moderate"] {
+    row-gap: var(--space-6);
+  }
+  .district-field[data-density="moderate"] .district-field-primary {
+    grid-column: 1 / span 8;
+  }
+  .district-field[data-density="moderate"] .district-field-peripheral {
+    grid-column: 9 / span 4;
+  }
+
+  /* Dense — evidence-forward (§11.7 dense evidence): tighter void, and the
+     peripheral zone opens one column early — a selective offset (§11.4),
+     ordinary grammar, not a Controlled Exception — creating a one-column
+     reserved interval that keeps the two zones from reading as a single
+     merged block even at this density. */
+  .district-field[data-density="dense"] {
+    row-gap: var(--space-4);
+  }
+  .district-field[data-density="dense"] .district-field-primary {
+    grid-column: 1 / span 7;
+  }
+  .district-field[data-density="dense"] .district-field-peripheral {
+    grid-column: 9 / span 4;
+  }
+}
