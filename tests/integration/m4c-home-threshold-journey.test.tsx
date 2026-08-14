@@ -19,7 +19,7 @@ afterEach(() => {
 describe("Real journey — Home → Work (first entry) → Home → Work (repeated entry)", () => {
   it("first Home → Work passage shows the richer first-entry indicator", async () => {
     render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
 
     render(<WorkPage />);
     const status = await screen.findByRole("status");
@@ -29,7 +29,7 @@ describe("Real journey — Home → Work (first entry) → Home → Work (repeat
 
   it("Work → Home restores common orientation, then a second Home → Work passage is classified as repeated entry", async () => {
     const first = render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     first.unmount();
 
     const toWork = render(<WorkPage />);
@@ -41,7 +41,7 @@ describe("Real journey — Home → Work (first entry) → Home → Work (repeat
     const homeStatus = await screen.findByRole("status");
     expect(homeStatus).toHaveTextContent(/Common ground restored/);
     await waitFor(() => expect(hasTraversedThreshold(HOME_WORK_THRESHOLD_KEY)).toBe(true));
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     toHome.unmount();
 
     render(<WorkPage />);
@@ -64,7 +64,7 @@ describe("Direct access — no fabricated Home passage", () => {
 describe("Rapid navigation — latest intent, no stale threshold state", () => {
   it("marking departure twice in a row before the destination mounts still resolves cleanly to one indicator", async () => {
     render(<HomePage />);
-    const enterWork = screen.getByRole("link", { name: "Enter Work" });
+    const enterWork = screen.getByRole("link", { name: "Work" });
     fireEvent.click(enterWork);
     fireEvent.click(enterWork);
 

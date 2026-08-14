@@ -22,7 +22,12 @@ describe("Representative route → page-shell wiring (real page.tsx files)", () 
     const main = screen.getByRole("main");
     expect(main).toHaveAttribute("data-page-type", "world-threshold");
     expect(main).toHaveAttribute("data-district", "home");
-    expect(screen.getByRole("heading", { level: 1, name: "Home" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "Architectural intelligence across disciplines",
+      }),
+    ).toBeInTheDocument();
   });
 
   it("/work renders the District Overview shell", () => {

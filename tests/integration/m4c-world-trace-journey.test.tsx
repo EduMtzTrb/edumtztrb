@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { usePathname } from "next/navigation";
 
 import { AppShell } from "@/components/shell/AppShell";
@@ -108,14 +108,17 @@ describe("WorldTrace persists across a real Home <-> Work navigation (AppShell-l
 });
 
 describe("WorldTrace scope — real genuine crossing vs. real fabricated crossing (pre-review integrity audit)", () => {
-  it('a real click on "Enter Work" from Home activates the trace at Work', () => {
+  it('a real click on "Work" from Home activates the trace at Work', () => {
     vi.mocked(usePathname).mockReturnValue("/");
     const { rerender } = render(
       <AppShell>
         <HomePage />
       </AppShell>,
     );
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    // AppShell also renders GlobalNav's own "Work" link — scope to Home's
+    // own district-threshold list, the one with real M4.9 arrival-key wiring.
+    const districts = within(screen.getByRole("region", { name: "Districts" }));
+    fireEvent.click(districts.getByRole("link", { name: "Work" }));
 
     vi.mocked(usePathname).mockReturnValue("/work");
     rerender(

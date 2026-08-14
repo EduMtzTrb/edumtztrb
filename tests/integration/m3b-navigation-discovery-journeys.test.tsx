@@ -31,7 +31,12 @@ import type { CanonicalRecordBase } from "@/domain/records/CanonicalRecord";
 describe("Journey 1 — Direct Home → Work → Work secondary navigation → comprehensive access", () => {
   it("Home renders, Work district root exposes secondary navigation, and comprehensive access (/work/all) is reachable with correct orientation", () => {
     render(<HomePage />);
-    expect(screen.getByRole("heading", { level: 1, name: "Home" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "Architectural intelligence across disciplines",
+      }),
+    ).toBeInTheDocument();
 
     render(<WorkPage />);
     expect(screen.getByRole("heading", { level: 1, name: "Work" })).toBeInTheDocument();

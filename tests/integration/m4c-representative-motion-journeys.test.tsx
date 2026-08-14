@@ -137,7 +137,7 @@ describe("Journey 3 — Index → record → browser Back remains valid independ
 describe("Journey 4 — Home → Work first entry", () => {
   it("shows the richer first-entry threshold message", async () => {
     const home = render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     home.unmount();
 
     render(<WorkPage />);
@@ -149,7 +149,7 @@ describe("Journey 4 — Home → Work first entry", () => {
 describe("Journey 5 — Work → Home restores common orientation", () => {
   it("shows the Home return message after a real Work → Home departure", async () => {
     const home = render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     home.unmount();
 
     const work = render(<WorkPage />);
@@ -166,7 +166,7 @@ describe("Journey 5 — Work → Home restores common orientation", () => {
 describe("Journey 6 — Home → Work repeated entry is more efficient", () => {
   it("a second passage this session shows the shorter, reduced-assembly message", async () => {
     const home1 = render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     home1.unmount();
     const work1 = render(<WorkPage />);
     await screen.findByRole("status");
@@ -176,7 +176,7 @@ describe("Journey 6 — Home → Work repeated entry is more efficient", () => {
     const home2 = render(<HomePage />);
     await screen.findByRole("status");
     await waitFor(() => expect(hasTraversedThreshold(HOME_WORK_THRESHOLD_KEY)).toBe(true));
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     home2.unmount();
 
     render(<WorkPage />);
@@ -196,7 +196,7 @@ describe("Journey 7 — rapid interruption during district passage: latest inten
 
   it("marking Home→Work departure twice in a row before Work mounts still resolves to exactly one indicator", async () => {
     render(<HomePage />);
-    const enterWork = screen.getByRole("link", { name: "Enter Work" });
+    const enterWork = screen.getByRole("link", { name: "Work" });
     fireEvent.click(enterWork);
     fireEvent.click(enterWork);
 
@@ -210,7 +210,7 @@ describe("Journey 8 — reduced-motion threshold: identical structure and meanin
   it("first-entry classification and message are unaffected by prefers-reduced-motion", async () => {
     mockReducedMotion(true);
     const home = render(<HomePage />);
-    fireEvent.click(screen.getByRole("link", { name: "Enter Work" }));
+    fireEvent.click(screen.getByRole("link", { name: "Work" }));
     home.unmount();
 
     render(<WorkPage />);

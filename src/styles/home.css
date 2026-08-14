@@ -1,0 +1,65 @@
+/**
+ * Home — M5.1. The one Home-specific stylesheet permitted by M5.0's own
+ * boundary ("Home-specific additions are allowed"; "compose the same grid
+ * logic through a Home-specific wrapper" rather than force six peer
+ * district thresholds into `DistrictField`'s primary/peripheral shape,
+ * which the six thresholds do not structurally fit).
+ *
+ * Authority: DESIGN_SYSTEM.md v1.1 §70 (Home register — "strongest
+ * concentrated void," "low default evidence density"), §11.3 (shared
+ * axes), HOME_UNIVERSE_v1.1.md §7 ("Emergence"/"Orientation"/"Selection" —
+ * districts become perceptible before the underlying order clarifies),
+ * §20 Law 6 ("Districts differ through transformation of the shared
+ * field, not through independent identity at Home").
+ *
+ * `.home-districts` reuses the exact same column-count/gutter tokens as
+ * `.composition` and `district-composition.css`, at the same three
+ * breakpoints — the same "shared axes" discipline, not a fourth, unrelated
+ * grid. No new breakpoint, margin, gutter, column-count, or color token is
+ * introduced. Six peer entries (not a primary/peripheral pair) is why this
+ * is its own rule rather than a `DistrictField` instance — forcing six
+ * equal thresholds through a two-role primitive would misrepresent them as
+ * unequal.
+ */
+
+.home-districts {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-compact-4), 1fr);
+  column-gap: var(--gutter-compact);
+  row-gap: var(--space-6);
+  margin: 0;
+}
+
+.home-districts > div {
+  grid-column: 1 / -1;
+}
+
+.home-districts dt {
+  font-weight: inherit;
+}
+
+.home-districts dd {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .home-districts {
+    grid-template-columns: repeat(var(--grid-medium-8), 1fr);
+    column-gap: var(--gutter-medium);
+  }
+
+  .home-districts > div {
+    grid-column: span 4;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-districts {
+    grid-template-columns: repeat(var(--grid-wide-12), 1fr);
+    column-gap: var(--gutter-wide);
+  }
+
+  .home-districts > div {
+    grid-column: span 4;
+  }
+}
