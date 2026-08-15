@@ -100,8 +100,12 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
   });
 
   it("Art: district correct, truthful next actions, no fabricated history", async () => {
+    // M5.5 gave this route a real M3.1 registry lookup (previously a
+    // string-interpolated placeholder that "succeeded" for any slug) — the
+    // same fix M5.2/M5.3/M5.4 already applied: use a real fixture slug,
+    // and cover the genuinely different unknown-slug outcome separately.
     const element = await ArtEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-artwork" }),
       searchParams: Promise.resolve({}),
     });
     render(element);
@@ -110,9 +114,21 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
     expectNoFabricatedHistory();
   });
 
+  it("Art: an unknown slug resolves honestly unavailable, never a fabricated orientation", async () => {
+    const element = await ArtEntryPage({
+      params: Promise.resolve({ entry: "some-deep-entry" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Record unavailable" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Breadcrumb" })).not.toBeInTheDocument();
+  });
+
   it("Products: district correct, truthful next actions, no fabricated history", async () => {
     const element = await ProductsEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-product-offer" }),
       searchParams: Promise.resolve({}),
     });
     render(element);
@@ -125,6 +141,18 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
       "/products/archive",
     );
     expectNoFabricatedHistory();
+  });
+
+  it("Products: an unknown slug resolves honestly unavailable, never a fabricated orientation", async () => {
+    const element = await ProductsEntryPage({
+      params: Promise.resolve({ entry: "some-deep-entry" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Record unavailable" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Breadcrumb" })).not.toBeInTheDocument();
   });
 });
 
