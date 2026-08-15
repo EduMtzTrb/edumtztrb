@@ -44,8 +44,12 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
   });
 
   it("Research: district correct, truthful next actions, no fabricated history", async () => {
+    // M5.3 gave this route a real M3.1 registry lookup (previously a
+    // string-interpolated placeholder that "succeeded" for any slug) — the
+    // same fix M5.2 already applied to Work: use a real fixture slug here,
+    // and cover the genuinely different unknown-slug outcome separately.
     const element = await ResearchEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-research-inquiry" }),
       searchParams: Promise.resolve({}),
     });
     render(element);
@@ -60,15 +64,39 @@ describe("Direct-entry orientation — canonical records (M3.13)", () => {
     expectNoFabricatedHistory();
   });
 
+  it("Research: an unknown slug resolves honestly unavailable, never a fabricated orientation", async () => {
+    const element = await ResearchEntryPage({
+      params: Promise.resolve({ entry: "some-deep-entry" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Record unavailable" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Breadcrumb" })).not.toBeInTheDocument();
+  });
+
   it("Lab: district correct, truthful next actions, no fabricated history", async () => {
     const element = await LabEntryPage({
-      params: Promise.resolve({ entry: "some-deep-entry" }),
+      params: Promise.resolve({ entry: "fixture-lab-experiment" }),
       searchParams: Promise.resolve({}),
     });
     render(element);
     expect(screen.getByRole("link", { name: "Lab Overview" })).toHaveAttribute("href", "/lab");
     expect(screen.getByRole("link", { name: "Archive" })).toHaveAttribute("href", "/lab/archive");
     expectNoFabricatedHistory();
+  });
+
+  it("Lab: an unknown slug resolves honestly unavailable, never a fabricated orientation", async () => {
+    const element = await LabEntryPage({
+      params: Promise.resolve({ entry: "some-deep-entry" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Record unavailable" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Breadcrumb" })).not.toBeInTheDocument();
   });
 
   it("Art: district correct, truthful next actions, no fabricated history", async () => {
