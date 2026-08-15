@@ -30,6 +30,16 @@ import type { WorkRecord } from "@/domain/records/DistrictExtensions";
  * when the record actually supplies that data (M1.5's own optional-region
  * contract — no invented placeholder text fills an empty region).
  *
+ * EVIDENCE HIERARCHY (M5.2 calibration — see docs/implementation/
+ * M5.2_WORK.md "Canonical-Record Evidence Hierarchy" / "Outcome
+ * Authority"): the `evidence` region's real content is split into two
+ * reusable groups (`.evidence-primary`/`.evidence-supporting`,
+ * canonical-record.css) rather than one uniform list — Summary and Outcome
+ * (the resolved result) keep full color authority; Process/Context/
+ * Contribution sit one visual step back, behind their own hairline, using
+ * the exact Secondary metadata tier MetadataRail already establishes. No
+ * evidence text was invented or reworded — only grouped and weighted.
+ *
  * Consumes M4.8 Record Passage (`RecordPassageArrival`/`RecordReturnControl`,
  * unchanged) exactly as M4.8 built it — genuine passage detection via the
  * one fixed `WORK_RECORD_PASSAGE_RETURN_KEY`, real only when arrival came
@@ -89,16 +99,16 @@ export default async function WorkEntryPage({ params }: PageProps<"/work/[entry]
   }
 
   const extension = isWorkRecord(record) ? record.extension : undefined;
-  const evidenceParts: { label: string; text: string }[] = [
+  const primaryEvidence: { label: string; text: string }[] = [
     { label: "Summary", text: record.summary },
   ];
-  if (extension) {
-    if (extension.outcome) evidenceParts.push({ label: "Outcome", text: extension.outcome });
-    if (extension.process) evidenceParts.push({ label: "Process", text: extension.process });
-    if (extension.context) evidenceParts.push({ label: "Context", text: extension.context });
-    if (extension.contribution) {
-      evidenceParts.push({ label: "Contribution", text: extension.contribution });
-    }
+  if (extension?.outcome) primaryEvidence.push({ label: "Outcome", text: extension.outcome });
+
+  const supportingEvidence: { label: string; text: string }[] = [];
+  if (extension?.process) supportingEvidence.push({ label: "Process", text: extension.process });
+  if (extension?.context) supportingEvidence.push({ label: "Context", text: extension.context });
+  if (extension?.contribution) {
+    supportingEvidence.push({ label: "Contribution", text: extension.contribution });
   }
 
   const registry = createRecordRegistry(allFixtureRecords);
@@ -112,13 +122,30 @@ export default async function WorkEntryPage({ params }: PageProps<"/work/[entry]
         authorship={record.authorship.primary.name}
         context={<DirectEntryOrientation context={orientation} />}
         evidence={
-          <div className="measure">
-            {evidenceParts.map((part) => (
-              <p key={part.label} className="type-body">
-                <strong className="type-label">{part.label}. </strong>
-                {part.text}
-              </p>
-            ))}
+          <div>
+            <div className="evidence-primary">
+              {primaryEvidence.map((part) => (
+                <p
+                  key={part.label}
+                  className={
+                    part.label === "Outcome" ? "measure type-body-large" : "measure type-body"
+                  }
+                >
+                  <strong className="type-label">{part.label}. </strong>
+                  {part.text}
+                </p>
+              ))}
+            </div>
+            {supportingEvidence.length > 0 && (
+              <div className="evidence-supporting">
+                {supportingEvidence.map((part) => (
+                  <p key={part.label} className="measure type-body">
+                    <strong className="type-label">{part.label}. </strong>
+                    {part.text}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         }
         metadata={<MetadataRail label="Record metadata" items={metadataItems} />}

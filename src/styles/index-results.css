@@ -1,10 +1,19 @@
 /**
- * Index results presentation — M3.10. Minimal: the systematic, precise,
- * scannable feel required by this task's own §D5 comes from reusing
- * `IndexRecord` (M2.7) and its existing `records.css` unchanged — this
- * file only styles the two small pieces of Index-specific chrome (the
- * result count and the development-fixture notice), using existing
- * tokens only.
+ * Index results presentation — M3.10, calibrated by M5.2 (see
+ * docs/implementation/M5.2_WORK.md "Comprehensive View Calibration"). The
+ * systematic, precise, scannable feel required by this task's own §D5
+ * comes from reusing `IndexRecord` (M2.7) and its existing `records.css`
+ * unchanged — this file only styles the small pieces of Index-specific
+ * chrome (the result count, the development-fixture notice, and the
+ * leading edge of the result list itself), using existing tokens only.
+ *
+ * `.index-result-list`'s leading hairline (M5.2) is a semantic separator
+ * marking where the scannable catalogue itself begins — the same hairline
+ * idiom already used everywhere else a resolved section starts
+ * (district-composition.css, canonical-record.css, records.css's own
+ * inter-row divider) — legible even with exactly one row, and identical
+ * across every Index/Search/comprehensive/grouping consumer, not scoped to
+ * Work.
  */
 
 .index-result-count {
@@ -21,4 +30,7 @@
 .index-result-list {
   display: flex;
   flex-direction: column;
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+  margin-block-start: var(--space-2);
+  padding-block-start: var(--space-2);
 }

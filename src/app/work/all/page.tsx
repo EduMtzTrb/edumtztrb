@@ -15,6 +15,14 @@ import { allFixtureRecords } from "@/domain/records/fixtures";
  * comprehensive-view implementation — no district owns a duplicate archive
  * mechanism. `usingFixtures` is honestly `true`: no real Work content
  * exists before Milestone 7.
+ *
+ * SCAN-STRUCTURE NOTE (M5.2 calibration — see docs/implementation/
+ * M5.2_WORK.md "Comprehensive View Calibration"): a real, honest sentence
+ * describing the catalogue's actual scan axes (content type, date — the
+ * exact fields `IndexRecord` renders, never fabricated) is rendered ahead
+ * of `IndexResults`, so the comprehensive-access architecture reads as
+ * established even with the one current fixture row; every additional real
+ * record populates the identical structure without further change.
  */
 const orientation = orientationForSection({
   district: "work",
@@ -28,6 +36,10 @@ export default function WorkAllPage() {
   return (
     <ComprehensiveViewShell heading="Work — All">
       <DirectEntryOrientation context={orientation} />
+      <p className="type-annotation">
+        Comprehensive access — every publicly discoverable Work record, scannable by content type
+        and date.
+      </p>
       <IndexResults result={result} usingFixtures />
     </ComprehensiveViewShell>
   );

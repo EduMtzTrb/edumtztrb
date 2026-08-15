@@ -1,0 +1,104 @@
+/**
+ * Evidence authority primitives — M5.2 calibration (see
+ * docs/implementation/M5.2_WORK.md "Human Review — Calibration Required" /
+ * "Calibration Implementation").
+ *
+ * Authority: DESIGN_SYSTEM.md v1.1 §22 (Metadata hierarchy — Primary/
+ * Secondary/Latent; the Primary/Secondary contrast below reuses this exact
+ * vocabulary for evidence rather than inventing a second hierarchy), §11.3
+ * (shared axes — the wide-viewport evidence/rail split below reuses the
+ * exact primary/peripheral column-share technique district-composition.css
+ * already established for `DistrictField`, not a new grammar), §16.7
+ * (shared dividers over repeated boxes — every separator below is a
+ * hairline, never a box/shadow/panel), §13.3 (compositional spacing).
+ *
+ * WHY THIS FILE EXISTS: `CanonicalRecordShell`
+ * (src/components/page-shells/CanonicalRecordShell.tsx) has carried zero
+ * CSS of its own since M1.5 — every region stacked full-width with no
+ * separation and no lateral room, which is exactly the M5.2 human review's
+ * finding ("large void → narrow textual sequence... regions currently lack
+ * enough spatial differentiation"). These rules attach to the shell's own
+ * `data-page-type`/`data-region` attributes, unchanged since M1.5 — no
+ * region or prop was added to `CanonicalRecordShell` itself (see that file,
+ * byte-for-byte unchanged). Because the selectors below key off shared
+ * shell attributes, not a district attribute, every canonical-record
+ * consumer (Research/Lab/Art/Products/About, once their own content
+ * milestones begin) receives the identical treatment — this is shell-level
+ * calibration, not a Work-specific stylesheet.
+ *
+ * `.evidence-primary`/`.evidence-supporting` and `.curated-highlight` are a
+ * second, optional, reusable layer a route MAY compose inside the shell's
+ * `evidence` slot (or inside a `DistrictField` `primary` zone, for a
+ * curated overview highlight) once it has enough real content to warrant
+ * the distinction — M5.2's Work routes are the first consumers. Never
+ * applied automatically by any shell; never invented content, only a
+ * grouping/weight treatment over text a route already has.
+ */
+
+[data-page-type="canonical-record"] > [data-region] {
+  padding-block-start: var(--space-6);
+}
+
+[data-page-type="canonical-record"] > [data-region] + [data-region] {
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+  margin-block-start: var(--space-2);
+}
+
+@media (min-width: 1024px) {
+  /* Evidence keeps the wide majority of the shared axis so a future M7
+     media element has real room beside/above running text instead of a
+     forced narrow prose column (see M5.2_WORK.md "Media-Ready Authority").
+     Metadata/Relationships/Credits form a lateral rail on the remaining
+     columns — an ordinary consequence of the shared 12-column axis, the
+     same technique already verified for DistrictField's primary/peripheral
+     split, reused rather than reinvented. */
+  [data-page-type="canonical-record"] > [data-region="evidence"] {
+    grid-column: 1 / span 8;
+  }
+  [data-page-type="canonical-record"] > [data-region="metadata"],
+  [data-page-type="canonical-record"] > [data-region="relationships"],
+  [data-page-type="canonical-record"] > [data-region="credits"] {
+    grid-column: 9 / span 4;
+  }
+}
+
+/* Primary evidence (summary + outcome, where present): full color
+   authority — the shell's own default text color, no override needed
+   beyond internal rhythm. */
+.evidence-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Supporting evidence (process / context / contribution, where present):
+   one visual step back — the exact Secondary metadata tier
+   (--color-mist-300) MetadataRail already uses, never a new color — kept
+   behind its own hairline so Outcome and Context never read as
+   equivalent (M5.2 human review, "Outcome Authority"). */
+.evidence-supporting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-start: var(--space-5);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+  color: var(--color-mist-300);
+}
+
+/* Curated highlight — an overview's preview of one real/fixture canonical
+   record. Deliberately placed by its caller inside DistrictField's
+   `primary` zone, never `peripheral`: the M5.2 human review's own
+   root-cause finding was that `.district-field-peripheral`
+   (district-composition.css) permanently carries peripheral latency
+   (dimmed color/opacity) — correct for genuine annotation, wrong for
+   curated professional foreground, which must keep full resolved
+   authority. This class only adds internal rhythm; it never sets color. */
+.curated-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-5);
+  border-block-start: var(--line-hairline) solid var(--color-graphite-700);
+}
