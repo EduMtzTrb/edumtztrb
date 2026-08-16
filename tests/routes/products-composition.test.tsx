@@ -151,6 +151,23 @@ describe("Products composition (M5.6)", () => {
     expect(entrySource).not.toMatch(/action-primary/);
   });
 
+  it("commitment truth is real and wired through M6.5's transaction boundary, not a blanket string", async () => {
+    const element = await ProductsEntryPage({
+      params: Promise.resolve({ entry: "fixture-product-offer" }),
+      searchParams: Promise.resolve({}),
+    });
+    render(element);
+    // The fixture's real commercialState ("available") state-permits
+    // commitment; the real reason execution is still blocked names the
+    // actual M6.6 configuration gap, not a generic placeholder.
+    expect(
+      screen.getByText(/Milestone 6\.6 requires verified commercial and legal configuration/i),
+    ).toBeInTheDocument();
+    expect(entrySource).toMatch(
+      /import\s*\{\s*deriveCommitmentAvailability\s*\}\s*from\s*"@\/domain\/commerce\/transactionBoundary"/,
+    );
+  });
+
   it("the real origin cross-link back to Art renders via listIncomingRelationships on the record Art actually points to", async () => {
     const element = await ProductsEntryPage({
       params: Promise.resolve({ entry: "fixture-product-edition" }),

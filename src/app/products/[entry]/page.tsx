@@ -12,6 +12,7 @@ import { allFixtureDistrictRecords } from "@/domain/records/district-fixtures";
 import { createRecordRegistry, isDirectlyAccessible } from "@/domain/records/registry";
 import { listIncomingRelationships } from "@/domain/records/RelationshipModel";
 import { resolveCanonicalRoute } from "@/domain/records/RouteResolver";
+import { deriveCommitmentAvailability } from "@/domain/commerce/transactionBoundary";
 import type { CanonicalRecordBase } from "@/domain/records/CanonicalRecord";
 import type { ProductsRecord } from "@/domain/records/DistrictExtensions";
 
@@ -30,13 +31,23 @@ import type { ProductsRecord } from "@/domain/records/DistrictExtensions";
  * requirements, support) is real detail, genuinely secondary to the
  * commit-or-not decision, but never hidden behind interaction.
  *
- * NO TRANSACTION INFRASTRUCTURE (§N of this batch's own scope) —
- * `commitmentLabel` ("Purchase") is rendered as plain descriptive text in
- * Metadata, never as a clickable control — there is no checkout, cart, or
- * payment behavior to attach to a button, and a non-functional button would
- * be exactly the "fake Buy button" this package is explicitly forbidden
- * from creating. Transactional execution — deferred to a future milestone
- * this repository's own IMPLEMENTATION_PLAN.md does not yet assign.
+ * NO TRANSACTION INFRASTRUCTURE — `commitmentLabel` ("Purchase") is
+ * rendered as plain descriptive text in Metadata, never as a clickable
+ * control — there is no checkout, cart, or payment behavior to attach to a
+ * button, and a non-functional button would be exactly the "fake Buy
+ * button" this package is explicitly forbidden from creating.
+ *
+ * COMMITMENT TRUTH (M6.5, `src/domain/commerce/transactionBoundary.ts`,
+ * see docs/implementation/M6.5_PRODUCTS_TRANSACTION_BOUNDARY.md) —
+ * whether the commitment label is even shown, and why not when it isn't,
+ * is now derived from the record's own real `commercialState` plus the
+ * real, repository-verified absence of M6.6 transaction configuration —
+ * never a blanket "not implemented yet" string. An unavailable/archived/
+ * sold-out (etc.) record shows no commitment label at all, with the real
+ * state named as the reason; a genuinely offerable record still shows no
+ * functional control, with the real M6.6 configuration gap named as the
+ * reason instead. Transactional execution itself remains
+ * `IMPLEMENTATION_PLAN.md`'s own Milestone 6.6 scope.
  *
  * ORIGIN CROSS-LINK (PRODUCTS_UNIVERSE_v1.1.md §9: "product records
  * reciprocally show origin district and a deliberate route back") — uses
@@ -117,12 +128,20 @@ export default async function ProductsEntryPage({ params }: PageProps<"/products
   if (extension?.productFamily) {
     metadataItems.push({ label: "Family", value: extension.productFamily, tier: "secondary" });
   }
-  if (extension?.commitmentLabel) {
+  const commitment = extension ? deriveCommitmentAvailability(extension) : undefined;
+  if (commitment?.label) {
     metadataItems.push({
       label: "Commitment",
-      value: extension.commitmentLabel,
+      value: commitment.label,
       tier: "secondary",
-      clarification: "no transaction infrastructure is implemented yet",
+      clarification: commitment.reason,
+    });
+  } else if (commitment) {
+    metadataItems.push({
+      label: "Commitment",
+      value: "Not currently available",
+      tier: "latent",
+      clarification: commitment.reason,
     });
   }
 
