@@ -1,4 +1,5 @@
 import { UtilityPageShell } from "@/components/page-shells/PageShell";
+import { ContactForm } from "@/components/contact/ContactForm";
 import { MotionFixture } from "@/components/motion/MotionFixture";
 import { OverlayFixture } from "@/components/overlay/OverlayFixture";
 import { ReturnMemoryFixture } from "@/components/return/ReturnMemoryFixture";
@@ -20,6 +21,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
 
   return (
     <UtilityPageShell heading="Contact">
+      <ContactForm />
       {showMotionFixture && (
         <>
           <p role="status">M4-A Motion Foundation Fixture — not real public content</p>

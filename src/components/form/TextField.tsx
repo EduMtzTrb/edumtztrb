@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { forwardRef, useId } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 /**
@@ -10,6 +10,11 @@ import type { InputHTMLAttributes, ReactNode } from "react";
  * through to the native `<input>` (via `inputProps`) as ordinary example/
  * hint text, but `label` is always rendered as a real, persistent
  * `<label>` — nothing here ever hides or replaces it.
+ *
+ * `forwardRef` (M6.1) — additive; every existing call site that doesn't
+ * pass `ref` is unaffected. Added for Contact (`ContactForm.tsx`), the
+ * first real consumer needing to move focus to the actual invalid native
+ * `<input>` after a failed validation attempt.
  */
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "id"> {
   label: string;
@@ -18,15 +23,10 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   id?: string;
 }
 
-export function TextField({
-  label,
-  guidance,
-  error,
-  required,
-  id,
-  className,
-  ...inputProps
-}: TextFieldProps) {
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+  { label, guidance, error, required, id, className, ...inputProps },
+  ref,
+) {
   const generatedId = useId();
   const fieldId = id ?? generatedId;
   const guidanceId = guidance !== undefined ? `${fieldId}-guidance` : undefined;
@@ -48,6 +48,7 @@ export function TextField({
         </p>
       )}
       <input
+        ref={ref}
         id={fieldId}
         className={classes.join(" ")}
         required={required}
@@ -62,4 +63,4 @@ export function TextField({
       )}
     </div>
   );
-}
+});
